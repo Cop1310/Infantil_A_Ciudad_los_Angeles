@@ -1,0 +1,17 @@
+{
+  "name": "Partidos Infantil A - CD Ciudad de los Ángeles",
+  "short_name": "Infantil A CDCA",
+  "description": "Partidos, resultados, clasificación y plantilla del Infantil A (Preferente Infantil Grupo 5) del C.D. Ciudad de los Ángeles",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efefec",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

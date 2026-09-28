@@ -1,0 +1,1439 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Partidos del Infantil A (Preferente Infantil Grupo 5) del C.D. Ciudad de los
+Ángeles, listos para WhatsApp. Versión de un solo equipo, derivada del script
+general del club, con dos añadidos propios de esta prueba piloto:
+
+- Plantilla del equipo (dorsal, nombre y fecha de nacimiento si la web la da),
+  fusionada con "plantilla_manual.json" para los datos que la web no publica.
+- Goleadores, minuto y tarjetas de cada partido ya jugado, leídos del acta.
+
+Lee elbalondemadrid.es (datos públicos de la RFFM). AVISO: la lectura de
+goleadores/tarjetas del acta y de la plantilla del equipo son código nuevo,
+sin verificar contra el HTML real (se ha construido a partir de lo que se ve
+en la web, no del código fuente) — es razonable que necesite un ajuste tras
+la primera ejecución real.
+
+Uso:
+    pip install requests beautifulsoup4
+    python partidos_whatsapp.py                    # próximo fin de semana
+    python partidos_whatsapp.py --sabado 2026-10-10  # un fin de semana concreto
+    python partidos_whatsapp.py --abrir            # además abre WhatsApp con el texto
+
+Resultado: se imprime por pantalla y se guarda en partidos_whatsapp.txt
+(con --json también se guarda en JSON para la página web de GitHub Pages)
+"""
+import argparse
+import json
+import re
+import sys
+import time
+import unicodedata
+import urllib.parse
+import webbrowser
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
+
+import requests
+from bs4 import BeautifulSoup, Comment, NavigableString
+
+BASE = "https://www.elbalondemadrid.es"
+# Este script solo sigue a un equipo (no todo el club): el Infantil A.
+EQUIPO_ID = "13538235"  # C.D. Ciudad Los Angeles 'A', Preferente Infantil Grupo 5
+EQUIPO_URL = f"{BASE}/equipo/{EQUIPO_ID}"
+HEADERS = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"),
+    "Accept": "text/html,application/xhtml+xml",
+    "Accept-Language": "es-ES,es;q=0.9",
+}
+PAUSA = 0.8  # segundos entre peticiones (cortesía con la web)
+
+# Único grupo que sigue esta app (comprobado en la web, temporada 2026/27).
+CONOCIDOS = {
+    "competicion/26737819/grupo/26737824": ("Preferente Infantil Grupo 5", {EQUIPO_ID}),
+}
+
+TZ = ZoneInfo("Europe/Madrid")
+AVISO = "Información sacada de la web El Balón de Madrid"
+# WhatsApp no permite poner el escudo real dentro del texto; se usa un emoji.
+# Cámbialo por el que prefieras, p. ej. "⚪⚫" o "🦓" (o "" para quitarlo).
+ESCUDO = ""
+LINEA = "━" * 16
+DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+
+# ---------------------------------------------------------------------------
+# Ajustes de nombres. Edita estos diccionarios para dejar los nombres como
+# quieras que salgan en el mensaje. Clave = nombre en MAYÚSCULAS, sin comillas
+# ni la letra del equipo (A/B/C) y sin prefijos tipo C.D., C.F., S.A.D., A.D.
+# ---------------------------------------------------------------------------
+NOMBRES_EQUIPO = {
+    "CIUDAD LOS ANGELES": "Ciudad de los Ángeles",
+    "RACING VILLAVERDE": "Racing de Villaverde",
+    "UNION 2000": "Unión 2000",
+    "UNION CARRASCAL": "Unión Carrascal",
+    "SANTIAGO APOSTOL VILLAVERDE": "Santiago Apóstol Villaverde",
+    "TORREJON": "Torrejón",
+}
+NOMBRES_CAMPO = {
+    # "IDB DAVID DIEZ DE LA CRUZ": "IDB David Diez de la Cruz",
+}
+QUITAR_PREFIJOS = {
+    "C.D.", "C.F.", "S.A.D.", "A.D.", "C.D.E.", "CDE", "CDB", "C.D.B.", "ESC.MUN.FUT.",
+    "U.D.", "A.D.C.", "A.J.D.C.",
+}
+SIGLAS = {"IDB", "CC", "II", "III", "IV", "PVO"}
+MINUSCULAS = {"de", "del", "la", "las", "los", "el", "y"}
+ACENTOS_TITULO = {"Alevin": "Alevín", "Benjamin": "Benjamín", "GRUPO": "Grupo"}
+
+
+# ---------------------------------------------------------------------------
+# Utilidades de texto
+# ---------------------------------------------------------------------------
+def _palabra(m):
+    p = m.group(0)
+    if p.upper() in SIGLAS:
+        return p.upper()
+    if p.lower() in MINUSCULAS:
+        return p.lower()
+    return p.capitalize()
+
+
+def capitalizar(texto):
+    t = re.sub(r"[^\W\d_]+", _palabra, texto.lower())
+    return t[:1].upper() + t[1:]
+
+
+def limpiar_equipo(nombre):
+    n = nombre.replace("’", "'").strip()
+    m = re.search(r"'([A-Za-z])'\s*$", n)
+    letra = m.group(1).upper() if m else ""
+    n = re.sub(r"\s*'[A-Za-z]'\s*$", "", n)
+    tokens = [t for t in n.split() if t.upper() not in QUITAR_PREFIJOS]
+    base = " ".join(tokens).upper()
+    base = NOMBRES_EQUIPO.get(base) or capitalizar(base)
+    # espacio irrompible: que la letra final (A/B/C) no salte de línea suelta
+    return f"{base} {letra}" if letra else base
+
+
+def limpiar_campo(campo):
+    c = re.sub(r"\s*\([^)]*\)", "", campo or "").strip()
+    if not c:
+        return ""
+    if c.upper() in NOMBRES_CAMPO:
+        return NOMBRES_CAMPO[c.upper()]
+    return capitalizar(_separar_via(c))
+
+
+def limpiar_titulo(t):
+    for k, v in ACENTOS_TITULO.items():
+        t = t.replace(k, v)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+# ---------------------------------------------------------------------------
+# Nombre del campo: separación entre el nombre corto y la vía/ubicación
+#
+# El nombre que da la web a veces trae el nombre corto del campo y la vía
+# pegados sin ningún separador claro (p. ej. "STA ANAAVDA DE LOS ROSALES"),
+# lo que al capitalizar queda ilegible ("Santa Anaavenida..."). Como no hace
+# falta la dirección postal exacta, basta con detectar dónde empieza la vía
+# (por palabras típicas: Avda, Calle, Plaza...) e insertar ". " delante,
+# aunque en el original no hubiera ni un espacio.
+# ---------------------------------------------------------------------------
+_RE_VIA = re.compile(
+    r"(AV(?:D)?A?\.?|AVENIDA|CALLE|C/|CTRA\.?|CARRETERA|PASEO|PSEO|PZA\.?|PLAZA|"
+    r"POL(?:IGONO|ÍGONO)?\.?|GTA\.?|GLORIETA|CAMINO|CMNO\.?|RONDA|TRAVES[IÍ]A|"
+    r"PASAJE|URB(?:ANIZACION|ANIZACIÓN)?\.?)(?=\s)",
+    re.IGNORECASE)
+
+
+def _separar_via(c):
+    """Inserta ". " entre el nombre del campo y la vía cuando ambos vienen
+    pegados o solo separados por un guión."""
+    m = _RE_VIA.search(c)
+    if not m or m.start() == 0:
+        return c
+    antes = c[:m.start()].rstrip(" -,")
+    despues = c[m.start():]
+    return f"{antes}. {despues}" if antes else c
+
+
+# ---------------------------------------------------------------------------
+# Descarga y análisis
+# ---------------------------------------------------------------------------
+def get(url, intentos=4):
+    """Descarga una página; reintenta si la web devuelve un error temporal (5xx)."""
+    ultimo = None
+    for i in range(intentos):
+        time.sleep(PAUSA if i == 0 else 4 * i)
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            if r.status_code < 500:
+                r.raise_for_status()
+                return BeautifulSoup(r.content, "html.parser")
+            ultimo = requests.HTTPError(f"error {r.status_code} en {url}")
+        except (requests.ConnectionError, requests.Timeout) as e:
+            ultimo = e
+    raise ultimo
+
+
+def grupos_a_consultar(errores):
+    """App de un solo equipo: no hace falta escanear todo el club, el único
+    grupo a consultar ya está fijado en CONOCIDOS."""
+    grupos = {}
+    for ruta, (nombre, ids) in CONOCIDOS.items():
+        grupos[f"{BASE}/{ruta}/jornadas"] = (nombre, set(ids))
+    return grupos, {}
+
+
+FECHA = re.compile(r"^\d{2}/\d{2}/\d{4}$")
+HORA = re.compile(r"^(\d{2}:\d{2}|--:--)$")
+RESULTADO = re.compile(r"^(\d{1,2})\s*[·–\-]\s*(\d{1,2})$")
+JORNADA = re.compile(r"^Jornada\s*(\d{1,2})\s*(?:Actual)?\s*\|?\s*(\d{2}-\d{2}-\d{4})$")
+
+
+def ahora():
+    return datetime.now(TZ)
+
+
+def normalizar(soup):
+    """La web (React) puede partir '4·1' en trozos y comentarios: los unimos."""
+    for c in soup.find_all(string=lambda t: isinstance(t, Comment)):
+        c.extract()
+    for tag in soup.find_all(["span", "b", "strong", "i", "em", "small", "time"]):
+        tag.unwrap()
+    if hasattr(soup, "smooth"):
+        soup.smooth()
+    return soup
+
+
+def parsear_jornada(soup):
+    """Recorre la página en orden y reconstruye los partidos:
+    fecha -> local -> hora (o marcador) -> visitante -> campo -> 'Ver acta' (fin)."""
+    normalizar(soup)
+    partidos, fecha, actual = [], None, None
+    jornada, esperando_numero = None, False
+
+    def nuevo():
+        return {"fecha": fecha, "jornada": jornada, "hora": None, "resultado": None,
+                "equipos": [], "campo": "", "acta": None}
+
+    for nodo in soup.descendants:
+        if isinstance(nodo, NavigableString):
+            if nodo.parent is not None and nodo.parent.name in ("script", "style"):
+                continue
+            t = str(nodo).strip()
+            mj = JORNADA.match(t)
+            if mj:  # cabecera de la jornada mostrada, p. ej. "Jornada3 27-09-2026"
+                jornada = int(mj.group(1))
+            elif t == "Jornada":
+                esperando_numero = True
+            elif esperando_numero and t.isdigit():
+                jornada, esperando_numero = int(t), False
+            elif FECHA.match(t):
+                fecha = datetime.strptime(t, "%d/%m/%Y").date()
+            elif HORA.match(t):
+                actual = actual or nuevo()
+                actual["hora"] = None if t == "--:--" else t
+            else:
+                m = RESULTADO.match(t)
+                if m and actual is not None and len(actual["equipos"]) == 1:
+                    actual["resultado"] = (int(m.group(1)), int(m.group(2)))
+        elif getattr(nodo, "name", None) == "a" and nodo.get("href"):
+            h = nodo["href"]
+            texto = nodo.get_text(" ", strip=True)
+            m = re.search(r"/equipo/(-?\d+)", h)
+            if m:
+                if actual is not None and len(actual["equipos"]) >= 2:
+                    partidos.append(actual)  # el partido anterior no tenía enlace al acta
+                    actual = None
+                actual = actual or nuevo()
+                actual["equipos"].append((m.group(1), texto))
+            elif "/campo/" in h and "google" not in h:
+                if actual is not None:
+                    actual["campo"] = texto
+            elif "/acta/" in h:
+                if actual is not None and len(actual["equipos"]) >= 2:
+                    actual["acta"] = urllib.parse.urljoin(BASE, h)
+                    partidos.append(actual)
+                actual = None
+    if actual is not None and len(actual["equipos"]) >= 2:
+        partidos.append(actual)
+    return partidos
+
+
+def datos_de_acta(soup):
+    """(marcador, hora) de un acta. El marcador solo se da si el acta ya tiene alineaciones."""
+    normalizar(soup)
+    textos = [t.strip() for t in soup.find_all(string=True)
+              if t.parent is not None and t.parent.name not in ("script", "style")]
+    marcador = None
+    if "Titulares" in textos:
+        for t in textos:
+            m = RESULTADO.match(t)
+            if m:
+                marcador = (int(m.group(1)), int(m.group(2)))
+                break
+    hora = None
+    m = re.search(r"\d{2}-\d{2}-\d{4}\s*(\d{2}:\d{2})", " ".join(textos))
+    if m:
+        hora = m.group(1)
+    return marcador, hora
+
+
+def resultado_de_acta(soup):
+    return datos_de_acta(soup)[0]
+
+
+# ---------------------------------------------------------------------------
+# Goleadores y tarjetas del acta.
+#
+# AVISO: esto es código nuevo, escrito a partir de lo que se ve en la web
+# (no del HTML real, que no se ha podido inspeccionar desde aquí). Busca
+# patrones de texto ("N' Nombre del jugador" cerca de un rótulo de gol o
+# tarjeta) en vez de posiciones fijas, igual que el resto del script, pero
+# es razonable que la primera ejecución real necesite un ajuste. Por eso,
+# si no encuentra nada reconocible, devuelve listas vacías en vez de
+# arriesgarse a publicar un dato equivocado.
+# ---------------------------------------------------------------------------
+_RE_MINUTO_SOLO = re.compile(r"^(\d{1,3})['’]$")
+_RE_MINUTO_CON_NOMBRE = re.compile(r"^(\d{1,3})['’]\s*(.+)$")
+_RE_PENALTI = re.compile(r"penalt", re.IGNORECASE)
+_RE_TARJETA_ROJA = re.compile(r"\broja\b", re.IGNORECASE)
+
+
+def goles_y_tarjetas_de_acta(soup, marcador=None):
+    """(goles, tarjetas) de un acta ya jugada. Cada gol: {minuto, jugador, equipo,
+    penalti}; cada tarjeta: {minuto, jugador, equipo, tipo}. `equipo` es el nombre
+    de equipo tal como aparece en el acta (sin limpiar todavía)."""
+    normalizar(soup)
+    nombres_equipo, vistos = [], set()
+    for a in soup.find_all("a", href=re.compile(r"/equipo/\d+")):
+        nombre = a.get_text(" ", strip=True)
+        if nombre and nombre not in vistos:
+            vistos.add(nombre)
+            nombres_equipo.append(nombre)
+    if len(nombres_equipo) < 2:
+        return [], []
+    nombres_equipo = nombres_equipo[:2]
+    # los nombres más largos primero, para no confundir un nombre corto que sea
+    # subcadena de otro más largo
+    por_longitud = sorted(nombres_equipo, key=len, reverse=True)
+
+    textos = [t.strip() for t in soup.find_all(string=True)
+              if t.parent is not None and t.parent.name not in ("script", "style") and t.strip()]
+
+    goles, tarjetas = [], []
+    equipo_actual, seccion = None, None
+    for i, t in enumerate(textos):
+        if t in por_longitud:
+            equipo_actual = t
+            continue
+        tl = t.lower()
+        if len(t) < 30 and re.search(r"\bgole?s?\b", tl):
+            seccion = "goles"
+            continue
+        if len(t) < 30 and re.search(r"tarjeta|amonesta", tl):
+            seccion = "tarjetas"
+            continue
+        if equipo_actual is None or seccion is None:
+            continue
+        m = _RE_MINUTO_CON_NOMBRE.match(t)
+        jugador = None
+        if m and m.group(2).strip():
+            minuto, jugador = int(m.group(1)), m.group(2).strip()
+        elif _RE_MINUTO_SOLO.match(t):
+            minuto = int(_RE_MINUTO_SOLO.match(t).group(1))
+            siguiente = textos[i + 1].strip() if i + 1 < len(textos) else ""
+            if siguiente and not _RE_MINUTO_SOLO.match(siguiente) and siguiente not in por_longitud:
+                jugador = siguiente
+        else:
+            continue
+        if not jugador:
+            continue
+        jugador = re.sub(r"\s*\([^)]*\)\s*", "", jugador).strip(" .")
+        # a veces el rótulo de penalti/tarjeta viene pegado al final del mismo texto
+        # ("Nombre penalti", "Nombre amarilla"): se recorta antes de guardar el nombre.
+        jugador = re.sub(r"\s*[-–(]?\s*(penalt[ií]?\w*|amonestaci[oó]n|tarjetas?|amarillas?|"
+                         r"rojas?|segunda\s+amarilla)\)?\s*$", "", jugador, flags=re.IGNORECASE).strip(" .")
+        if not jugador or len(jugador) > 60:
+            continue
+        if seccion == "goles":
+            goles.append({"minuto": minuto, "jugador": jugador, "equipo": equipo_actual,
+                          "penalti": bool(_RE_PENALTI.search(t))})
+        else:
+            tipo = "roja" if _RE_TARJETA_ROJA.search(tl) else "amarilla"
+            tarjetas.append({"minuto": minuto, "jugador": jugador, "equipo": equipo_actual, "tipo": tipo})
+
+    if marcador is not None:
+        esperados = sum(marcador)
+        if esperados and len(goles) != esperados:
+            print(f"Aviso: acta con marcador {marcador[0]}-{marcador[1]} pero se han "
+                  f"reconocido {len(goles)} goles en el texto — revisar el patrón de lectura.",
+                  file=sys.stderr)
+    return goles, tarjetas
+
+
+def _lado(nombre_acta, e):
+    """'local' o 'visitante' según a qué equipo del partido corresponde `nombre_acta` (tal
+    como viene escrito en el acta), comparando cuántas palabras tiene en común con el nombre
+    de cada equipo guardado en el estado (los nombres pueden venir escritos de forma algo
+    distinta entre el acta y el calendario)."""
+    def puntos(nombre_partido):
+        a, b = set(_sin_acentos(nombre_acta).split()), set(_sin_acentos(nombre_partido).split())
+        return len(a & b)
+    return "local" if puntos(e["local"][1]) >= puntos(e["visitante"][1]) else "visitante"
+
+
+def _con_lado(eventos, e):
+    return [{**ev, "lado": _lado(ev["equipo"], e)} for ev in eventos]
+
+
+def temporada_finalizada(soup):
+    """La web avisa cuando se está viendo una temporada antigua ('ya finalizada')."""
+    return any("ya finalizada" in str(t) for t in soup.find_all(string=True))
+
+
+def _entero(texto):
+    try:
+        return int(texto.replace("+", "").replace("\u2212", "-").strip())
+    except ValueError:
+        return 0
+
+
+NUMERO = re.compile(r"^[+\-\u2212]?\d+$")
+
+
+def _fila_generica(enlace):
+    """Lee una fila aunque no sea una <tr>: sube desde el enlace del equipo hasta el
+    contenedor más grande que solo tenga ese equipo y lee sus textos en orden."""
+    patron = re.compile(r"/equipo/\d+")
+    fila, nodo = None, enlace
+    for _ in range(7):
+        nodo = nodo.parent
+        if nodo is None or len(nodo.find_all("a", href=patron)) != 1:
+            break
+        fila = nodo
+    if fila is None:
+        return None
+    textos = [t.strip() for t in fila.stripped_strings if t.strip()]
+    nombre = enlace.get_text(" ", strip=True)
+    try:
+        i = next(k for k, t in enumerate(textos) if t and t in nombre)
+    except StopIteration:
+        return None
+    if not i or not textos[0].isdigit():
+        return None
+    nums = [t for t in textos[i + 1:] if NUMERO.match(t)]
+    if len(nums) < 8:
+        return None
+    ident = re.search(r"/equipo/(\d+)", enlace["href"]).group(1)
+    v = [_entero(x) for x in nums[:8]]
+    return {"pos": int(textos[0]), "id": ident, "nombre": limpiar_equipo(nombre),
+            "nuestro": _es_nuestro((ident, nombre)),
+            "pj": v[0], "g": v[1], "e": v[2], "p": v[3], "gf": v[4], "gc": v[5], "dg": v[6], "pts": v[7]}
+
+
+def tabla_de(soup):
+    """Tabla de clasificación: (jornada, [filas]). Cada fila lleva posición, equipo,
+    PJ, G, E, P, GF, GC, DG y puntos."""
+    original = BeautifulSoup(str(soup), "html.parser")  # sin unir textos, para el plan B
+    normalizar(soup)
+    jornada = cabecera_jornada(soup)
+    filas = []
+    for tr in soup.find_all("tr"):
+        enlace = tr.find("a", href=re.compile(r"/equipo/\d+"))
+        if not enlace:
+            continue
+        celdas = tr.find_all(["td", "th"])
+        textos = [c.get_text(" ", strip=True) for c in celdas]
+        idx = next((i for i, c in enumerate(celdas)
+                    if c.find("a", href=re.compile(r"/equipo/\d+"))), None)
+        if idx is None or not textos or not textos[0].isdigit() or idx + 7 >= len(textos):
+            continue
+        ident = re.search(r"/equipo/(\d+)", enlace["href"]).group(1)
+        bruto = enlace.get_text(" ", strip=True)
+        filas.append({
+            "pos": int(textos[0]), "id": ident,
+            "nombre": limpiar_equipo(bruto), "nuestro": _es_nuestro((ident, bruto)),
+            "pj": _entero(textos[idx + 1]), "g": _entero(textos[idx + 2]),
+            "e": _entero(textos[idx + 3]), "p": _entero(textos[idx + 4]),
+            "gf": _entero(textos[idx + 5]), "gc": _entero(textos[idx + 6]),
+            "dg": _entero(textos[idx + 7]), "pts": _entero(textos[-1]),
+        })
+    if not filas:  # plan B: la tabla no es una <table> normal
+        vistos = set()
+        for enlace in original.find_all("a", href=re.compile(r"/equipo/\d+")):
+            f = _fila_generica(enlace)
+            if f and f["id"] not in vistos:
+                vistos.add(f["id"])
+                filas.append(f)
+    return jornada, filas
+
+
+def cabecera(soup):
+    """(número, fecha) de la jornada que muestra la página; la fecha puede faltar."""
+    normalizar(soup)
+    esperando = False
+    for t in soup.find_all(string=True):
+        if t.parent is not None and t.parent.name in ("script", "style"):
+            continue
+        txt = str(t).strip()
+        mj = JORNADA.match(txt)
+        if mj:
+            return int(mj.group(1)), datetime.strptime(mj.group(2), "%d-%m-%Y").date()
+        if txt == "Jornada":
+            esperando = True
+        elif esperando and txt.isdigit():
+            return int(txt), None
+    return None, None
+
+
+def cabecera_jornada(soup):
+    return cabecera(soup)[0]
+
+
+def _con_fecha(p, fecha_jornada):
+    """Los partidos sin día asignado se colocan provisionalmente en la fecha de su jornada."""
+    if p["fecha"] is None and fecha_jornada is not None:
+        p = dict(p, fecha=fecha_jornada)
+    return p
+
+
+def inicio_temporada():
+    """1 de julio de la temporada en curso: todo lo anterior es de la temporada pasada."""
+    hoy = ahora().date()
+    return date(hoy.year if hoy.month >= 7 else hoy.year - 1, 7, 1)
+
+
+def titulo_grupo(soup):
+    h1 = soup.find("h1")
+    if h1 and h1.get_text(strip=True):
+        return limpiar_titulo(h1.get_text(" ", strip=True))
+    t = soup.title.get_text() if soup.title else ""
+    m = re.search(r"resultados (.+?) \d{4}/\d{2}", t)
+    return limpiar_titulo(m.group(1)) if m else "Partido"
+
+
+# ---------------------------------------------------------------------------
+# Plantilla del equipo (dorsal, nombre, fecha de nacimiento)
+#
+# AVISO: igual que goles_y_tarjetas_de_acta, esta función es código nuevo sin verificar
+# contra el HTML real de la ficha del equipo. Se ha comprobado que la web NO publica la
+# fecha de nacimiento en ninguna parte de esa página (solo dorsal y nombre); el campo se
+# deja preparado por si la web lo añadiera más adelante, o para rellenarlo a mano.
+# ---------------------------------------------------------------------------
+_RE_DORSAL = re.compile(r"^\d{1,2}$")
+_RE_FECHA_NAC = re.compile(r"^\d{2}[-/]\d{2}[-/]\d{4}$")
+
+
+def obtener_plantilla(soup):
+    """Lista de jugadores del equipo: {dorsal (o None si la web no lo da todavía), nombre,
+    fecha_nacimiento (o None, casi siempre None: la web no suele publicarla)}. Devuelve []
+    si no se reconoce ninguna estructura de plantilla en la página."""
+    normalizar(soup)
+    jugadores = []
+    for tr in soup.find_all("tr"):
+        celdas = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
+        celdas = [c for c in celdas if c]
+        if not celdas or celdas[0].strip().lower() in ("dorsal", "nº", "n", "#", "n."):
+            continue
+        dorsal = int(celdas[0]) if _RE_DORSAL.match(celdas[0]) else None
+        resto = celdas[1:] if dorsal is not None else celdas
+        if not resto or _RE_DORSAL.match(resto[0]) or len(resto[0]) < 3:
+            continue
+        fecha_nac = next((t for t in resto[1:] if _RE_FECHA_NAC.match(t)), None)
+        jugadores.append({"dorsal": dorsal, "nombre": resto[0], "fecha_nacimiento": fecha_nac})
+    if not jugadores:
+        # Plan B: la plantilla no viene en una <table> normal; se buscan en el texto de la
+        # página tramos "dorsal, nombre[, fecha]" seguidos.
+        textos = [t.strip() for t in soup.find_all(string=True)
+                  if t.parent is not None and t.parent.name not in ("script", "style") and t.strip()]
+        i = 0
+        while i < len(textos) - 1:
+            t = textos[i]
+            if _RE_DORSAL.match(t) and 1 <= int(t) <= 99:
+                siguiente = textos[i + 1]
+                if siguiente and len(siguiente) > 2 and not _RE_DORSAL.match(siguiente) \
+                        and not _RE_FECHA_NAC.match(siguiente):
+                    hay_fecha = i + 2 < len(textos) and _RE_FECHA_NAC.match(textos[i + 2])
+                    jugadores.append({"dorsal": int(t), "nombre": siguiente,
+                                      "fecha_nacimiento": textos[i + 2] if hay_fecha else None})
+                    i += 3 if hay_fecha else 2
+                    continue
+            i += 1
+    vistos, unicos = set(), []
+    for j in jugadores:
+        if j["nombre"] not in vistos:
+            vistos.add(j["nombre"])
+            unicos.append(j)
+    return unicos
+
+
+def aplicar_plantilla_manual(jugadores, ruta):
+    """Aplica sobre la plantilla leída de la web los datos metidos a mano desde el panel de
+    administrador (dorsal y fecha de nacimiento de los niños que faltan). Lo escrito a mano
+    tiene SIEMPRE prioridad sobre lo leído de la web, así no se pierde nunca aunque la web
+    cambie o deje de publicar algún dato. Un jugador que solo exista en el fichero manual
+    (por si el nombre cambiara en la web) también se añade. Al final, la lista queda
+    ordenada por dorsal (los que aún no tienen, al final, por nombre)."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            manuales = json.load(f)
+    except (OSError, ValueError):
+        manuales = []
+    por_nombre = {j["nombre"]: j for j in jugadores}
+    for m in manuales:
+        nombre = (m.get("nombre") or "").strip()
+        if not nombre:
+            continue
+        j = por_nombre.get(nombre)
+        if j is None:
+            j = {"dorsal": None, "nombre": nombre, "fecha_nacimiento": None}
+            jugadores.append(j)
+            por_nombre[nombre] = j
+        if m.get("dorsal") is not None:
+            j["dorsal"] = m["dorsal"]
+        if m.get("fecha_nacimiento"):
+            j["fecha_nacimiento"] = m["fecha_nacimiento"]
+    jugadores.sort(key=lambda j: (j["dorsal"] is None, j["dorsal"] if j["dorsal"] is not None else 0,
+                                  j["nombre"]))
+    return jugadores
+
+
+# ---------------------------------------------------------------------------
+# Estado: partidos vistos (para poder dar el resultado aunque la web ya haya
+# pasado a la jornada siguiente)
+# ---------------------------------------------------------------------------
+def cargar_estado(ruta):
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            datos = json.load(f)
+    except (OSError, ValueError):
+        datos = {}
+    meta = datos.get("meta", {})
+    meta.setdefault("hechas", {})
+    return datos.get("partidos", {}), datos.get("clasificaciones", {}), meta
+
+
+def guardar_estado(ruta, partidos, clasificaciones, meta):
+    with open(ruta, "w", encoding="utf-8") as f:
+        json.dump({"partidos": partidos, "clasificaciones": clasificaciones, "meta": meta},
+                  f, ensure_ascii=False, indent=1, sort_keys=True)
+
+
+def clave(p):
+    m = re.search(r"/acta/(\d+)", p["acta"] or "")
+    return m.group(1) if m else f"{p['fecha']}|{p['equipos'][0][0]}|{p['equipos'][1][0]}"
+
+
+def actualizar_estado(estado, p, titulo, url, posiciones=None):
+    k = clave(p)
+    anterior = estado.get(k, {})
+    resultado = list(p["resultado"]) if p["resultado"] else anterior.get("resultado")
+
+    # Posiciones en la tabla ANTES de la jornada: se actualizan hasta que empieza
+    # el fin de semana del partido y después se congelan.
+    pos = anterior.get("pos")
+    inicio = p["fecha"] - timedelta(days=1) if p["fecha"].weekday() == 6 else p["fecha"]
+    congelado = bool(resultado) or (pos and ahora().date() >= inicio)
+    if posiciones and not congelado:
+        nuevo = [posiciones.get(p["equipos"][0][0]), posiciones.get(p["equipos"][1][0])]
+        if any(nuevo):
+            pos = nuevo
+
+    estado[k] = {
+        "fecha": p["fecha"].isoformat(),
+        "jornada": p.get("jornada") or anterior.get("jornada"),
+        "hora": p["hora"] or anterior.get("hora"),
+        "grupo": titulo,
+        "url_grupo": url,
+        "campo": p["campo"] or anterior.get("campo", ""),
+        "local": list(p["equipos"][0]),
+        "visitante": list(p["equipos"][1]),
+        "resultado": resultado,
+        "pos": pos,
+        "acta": p["acta"] or anterior.get("acta"),
+    }
+
+
+def _ya_toca_mirar_acta(e, t):
+    f = date.fromisoformat(e["fecha"])
+    if f < t.date():
+        return True
+    if f > t.date():
+        return False
+    if e.get("hora"):
+        h, m = map(int, e["hora"].split(":"))
+        return t >= datetime(f.year, f.month, f.day, h, m, tzinfo=TZ) + timedelta(hours=2)
+    return t.hour >= 21
+
+
+def completar_con_actas(estado, errores):
+    """Lee las actas para completar el marcador (partidos ya jugados), la hora (partidos de
+    los que solo se conoce el marcador) y, cuando ya hay marcador, los goleadores y tarjetas."""
+    t = ahora()
+    pendientes = []
+    for e in estado.values():
+        if not e.get("acta"):
+            continue
+        dias = (t.date() - date.fromisoformat(e["fecha"])).days
+        sin_marcador = not e.get("resultado") and dias <= 10 and _ya_toca_mirar_acta(e, t)
+        sin_hora = bool(e.get("resultado")) and not e.get("hora") and dias >= 0
+        sin_goles = bool(e.get("resultado")) and "goles" not in e and dias <= 10 and _ya_toca_mirar_acta(e, t)
+        if sin_marcador or sin_hora or sin_goles:
+            pendientes.append(e)
+    for e in pendientes[:25]:
+        try:
+            soup = get(e["acta"])
+            marcador, hora = datos_de_acta(soup)
+        except Exception as ex:
+            print(f"Aviso: no se pudo leer un acta: {ex}", file=sys.stderr)
+            continue
+        if marcador and not e.get("resultado"):
+            e["resultado"] = list(marcador)
+        if hora and not e.get("hora"):
+            e["hora"] = hora
+        if e.get("resultado") and "goles" not in e:
+            try:
+                goles, tarjetas = goles_y_tarjetas_de_acta(soup, tuple(e["resultado"]))
+                # se guarda aunque salga vacío, para no reintentar en cada ejecución un acta
+                # cuya estructura no se ha sabido leer
+                e["goles"] = _con_lado(goles, e)
+                e["tarjetas"] = _con_lado(tarjetas, e)
+            except Exception as ex:
+                print(f"Aviso: no se pudieron leer goleadores/tarjetas de un acta: {ex}", file=sys.stderr)
+
+
+# ---------------------------------------------------------------------------
+# Jornadas anteriores (histórico)
+#
+# La web no cambia de dirección al elegir otra jornada, así que no se puede pedir
+# directamente. Lo que sí tiene cada partido es su acta, y las actas de un grupo suelen
+# tener números correlativos. Se leen hacia atrás las actas anteriores a la jornada actual
+# y solo se guardan las que confirman ser de una jornada anterior y de equipos del grupo.
+# ---------------------------------------------------------------------------
+MAX_RELLENO = 100  # actas (pasadas y futuras) que se leen por ejecución
+MAX_SEGUIDOS = 12  # actas seguidas que pueden fallar antes de dar por terminado un recorrido
+VERSION_HISTORICO = 3  # al subirla, se reintentan los recorridos que acabaron sin encontrar nada
+
+
+def _sin_acentos(texto):
+    return unicodedata.normalize("NFD", texto).encode("ascii", "ignore").decode().upper()
+
+
+def leer_acta(soup, url_acta):
+    """Datos de un acta o None si no se reconoce su estructura."""
+    normalizar(soup)
+    textos = [t.strip() for t in soup.find_all(string=True)
+              if t.parent is not None and t.parent.name not in ("script", "style") and t.strip()]
+    plano = " ".join(textos)
+    cab = re.search(r"([A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9][A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 \-\.]*?)\s*·\s*Grupo\s+(\d+)\s*·\s*Jornada\s+(\d+)",
+                    plano, re.I)
+    fecha_hora = re.search(r"(\d{2}-\d{2}-\d{4})\s*(\d{2}:\d{2})?", plano)
+    equipos = []
+    for a in soup.find_all("a", href=re.compile(r"/equipo/\d+")):
+        ident = re.search(r"/equipo/(\d+)", a["href"]).group(1)
+        if ident not in [e[0] for e in equipos]:
+            equipos.append((ident, a.get_text(" ", strip=True)))
+    if not cab or not fecha_hora or len(equipos) < 2:
+        return None
+    marcador, _ = datos_de_acta(soup)
+    campo = soup.find("a", href=re.compile(r"/campo/\d+"))
+    return {
+        "categoria": cab.group(1).strip(), "grupo_n": int(cab.group(2)), "jornada": int(cab.group(3)),
+        "fecha": datetime.strptime(fecha_hora.group(1), "%d-%m-%Y").date(),
+        "hora": None if fecha_hora.group(2) in (None, "00:00") else fecha_hora.group(2),
+        "equipos": equipos[:2], "resultado": marcador,
+        "campo": campo.get_text(" ", strip=True) if campo else "", "acta": url_acta,
+    }
+
+
+def _bloque_correlativo(numeros):
+    """(primero, cuántos) del tramo de números consecutivos más largo."""
+    mejor, actual = (0, 0), None
+    for n in sorted(set(numeros)):
+        if actual and n == actual[0] + actual[1]:
+            actual = (actual[0], actual[1] + 1)
+        else:
+            actual = (n, 1)
+        if actual[1] > mejor[1]:
+            mejor = actual
+    return mejor
+
+
+def _leer(numero, comp, grupo):
+    """(info, motivo, no_existe) de un acta."""
+    url_acta = f"{BASE}/acta/{numero}?temporada=22&competicion={comp}&grupo={grupo}"
+    try:
+        info = leer_acta(get(url_acta), url_acta)
+    except Exception as e:
+        if "404" not in str(e):
+            return None, f"no se pudo descargar ({e})", False
+        # algunas actas solo se encuentran sin indicar competición y grupo: se reintenta así
+        url_acta = f"{BASE}/acta/{numero}?temporada=22"
+        try:
+            info = leer_acta(get(url_acta), url_acta)
+        except Exception as e2:
+            return None, f"no se pudo descargar ({e2})", "404" in str(e2)
+    return info, ("" if info else "estructura no reconocida"), False
+
+
+def rellenar_jornadas(url, ids, titulo, actual, actas_actuales, equipos_grupo, estado, meta, cupo):
+    """Recorre hacia atrás las actas anteriores a las de la jornada actual y guarda los
+    partidos de nuestros equipos. Cada acta se acepta solo si es de una jornada anterior y
+    sus dos equipos pertenecen al grupo. Hay actas que no existen (404): se saltan. Recuerda
+    por dónde iba para continuar en la siguiente ejecución. Devuelve cuántas actas ha leído."""
+    terminado = meta.setdefault("terminado", {})
+    cursor = meta.setdefault("cursor", {})
+    base, n = _bloque_correlativo(actas_actuales)
+    m = re.search(r"/competicion/(\d+)/grupo/(\d+)", url)
+    if terminado.get(url) or actual <= 1 or n < 2 or not m or cupo <= 0:
+        return 0
+    comp, grupo = m.groups()
+    numero = cursor.get(url, base - 1)
+    piso = base - (actual + 1) * n  # no se busca más allá de una jornada de margen
+    print(f"Histórico de {titulo}: jornada actual {actual}, actas {base}-{base + n - 1}; "
+          f"se sigue desde el acta {numero}.", file=sys.stderr)
+    encontrados, gastadas, seguidos_mal, inexistentes, avisos = {}, 0, 0, 0, 0
+    while numero > max(piso, 0) and gastadas < cupo:
+        gastadas += 1
+        info, motivo, no_existe = _leer(numero, comp, grupo)
+        if info:
+            if info["jornada"] >= actual:
+                motivo = f"es de la jornada {info['jornada']}"
+            elif not all(e[0] in equipos_grupo for e in info["equipos"]):
+                motivo = "sus equipos no son de este grupo"
+        if motivo:
+            seguidos_mal += 1
+            if no_existe:
+                inexistentes += 1
+            elif avisos < 5:
+                avisos += 1
+                print(f"Aviso: histórico de {titulo}: acta {numero}: {motivo}.", file=sys.stderr)
+            if seguidos_mal >= MAX_SEGUIDOS:
+                terminado[url] = True  # ya no hay actas que encajen: no se sigue
+                break
+        else:
+            seguidos_mal = 0
+            encontrados.setdefault(info["jornada"], []).append(info)
+            if info["jornada"] == 1 and len(encontrados[1]) >= n:
+                numero -= 1
+                terminado[url] = True  # ya se ha llegado al principio de la temporada
+                break
+        numero -= 1
+    cursor[url] = numero
+    if numero <= max(piso, 0):
+        terminado[url] = True
+    for infos in encontrados.values():
+        for info in infos:
+            if any(e[0] in ids for e in info["equipos"]):
+                actualizar_estado(estado, {
+                    "fecha": info["fecha"], "jornada": info["jornada"], "hora": info["hora"],
+                    "resultado": info["resultado"], "equipos": info["equipos"],
+                    "campo": info["campo"], "acta": info["acta"]}, titulo, url, None)
+    if gastadas:
+        print(f"Histórico de {titulo}: leídas {gastadas} actas ({inexistentes} no existen), "
+              f"jornadas encontradas: {sorted(encontrados)}.", file=sys.stderr)
+    return gastadas
+
+
+VENTANA = 4  # cuántas jornadas por delante de la actual se miran
+
+
+def explorar_proximas(url, ids, titulo, actual, actas_actuales, equipos_grupo, estado, meta, cupo):
+    """Lee las actas de las jornadas siguientes a la actual para conocer cuándo juega cada
+    equipo, aunque el día y la hora aún no estén confirmados. Se repite cada 6 días para
+    recoger cambios. Devuelve cuántas actas ha leído."""
+    seguimiento = meta.setdefault("proximas", {})
+    est = seguimiento.get(url)
+    hoy = ahora().date()
+    base, n = _bloque_correlativo(actas_actuales)
+    m = re.search(r"/competicion/(\d+)/grupo/(\d+)", url)
+    if n < 2 or not m or cupo <= 0:
+        return 0
+    if est and est["actual"] == actual and est.get("cursor") is None \
+            and (hoy - date.fromisoformat(est["fecha"])).days < 6:
+        return 0  # ya explorado hace poco
+    if est and est["actual"] == actual and est.get("cursor"):
+        numero = est["cursor"]  # continuar donde se dejó
+    else:
+        numero = base + n       # empezar justo después de la jornada actual
+    comp, grupo = m.groups()
+    tope = base + n * (VENTANA + 1) + 3
+    gastadas, seguidos_mal, jornadas, terminado, inexistentes, avisos = 0, 0, set(), False, 0, 0
+    while numero < tope and gastadas < cupo:
+        gastadas += 1
+        info, motivo, no_existe = _leer(numero, comp, grupo)
+        if info:
+            if info["jornada"] <= actual:
+                motivo = f"es de la jornada {info['jornada']}"
+            elif not all(e[0] in equipos_grupo for e in info["equipos"]):
+                motivo = "sus equipos no son de este grupo"
+            elif info["jornada"] > actual + VENTANA:
+                terminado = True
+                break
+        if motivo:
+            seguidos_mal += 1
+            if no_existe:
+                inexistentes += 1
+            elif avisos < 5:
+                avisos += 1
+                print(f"Aviso: próximas jornadas de {titulo}: acta {numero}: {motivo}.", file=sys.stderr)
+            if seguidos_mal >= MAX_SEGUIDOS:
+                terminado = True
+                break
+        else:
+            seguidos_mal = 0
+            jornadas.add(info["jornada"])
+            if any(e[0] in ids for e in info["equipos"]):
+                actualizar_estado(estado, {
+                    "fecha": info["fecha"], "jornada": info["jornada"], "hora": info["hora"],
+                    "resultado": None, "equipos": info["equipos"],
+                    "campo": info["campo"], "acta": info["acta"]}, titulo, url, None)
+        numero += 1
+    if numero >= tope:
+        terminado = True
+    seguimiento[url] = {"actual": actual, "fecha": hoy.isoformat(),
+                        "cursor": None if terminado else numero}
+    if gastadas:
+        print(f"Próximas jornadas de {titulo}: leídas {gastadas} actas ({inexistentes} no existen), "
+              f"jornadas vistas: {sorted(jornadas)}.", file=sys.stderr)
+    return gastadas
+
+
+# ---------------------------------------------------------------------------
+# Recorrido con navegador (Playwright)
+#
+# La web carga las demás jornadas con JavaScript al pulsar sus números, sin cambiar la
+# dirección. Un navegador automático puede pulsarlos como una persona, y así se leen todas
+# las jornadas de cada categoría: las pasadas con su marcador y las futuras con lo que haya
+# (aunque el día o la hora aún no estén confirmados).
+# ---------------------------------------------------------------------------
+JS_SELECTOR = """
+(n) => {
+  const esNum = e => e.children.length === 0 && /^\\d{1,2}$/.test(e.textContent.trim());
+  const hojas = [...document.querySelectorAll('body *')].filter(esNum);
+  const vistos = new Set();
+  for (const h of hojas) {
+    let a = h.parentElement;
+    for (let i = 0; i < 5 && a; i++, a = a.parentElement) {
+      if (vistos.has(a)) continue;
+      vistos.add(a);
+      const lista = [...a.querySelectorAll('*')].filter(esNum);
+      const nums = lista.map(e => parseInt(e.textContent.trim(), 10));
+      if (nums.length >= 5 && nums.every((x, k) => x === k + 1)) {
+        if (n > 0) { const el = lista[n - 1]; if (el) { el.click(); return nums.length; } return -1; }
+        return nums.length;
+      }
+    }
+  }
+  return 0;
+}
+"""
+
+
+class NavegadorPlaywright:
+    """Envoltorio mínimo sobre Playwright (así se puede probar con uno falso)."""
+
+    def __init__(self):
+        from playwright.sync_api import sync_playwright  # solo se necesita con --navegador
+        self._pw = sync_playwright().start()
+        self._nav = self._pw.chromium.launch()
+        self._pag = self._nav.new_page(locale="es-ES")
+        self._pag.set_default_timeout(45000)
+
+    def abrir(self, url):
+        self._pag.goto(url, wait_until="domcontentloaded")
+
+    def html(self):
+        return self._pag.content()
+
+    def total_jornadas(self):
+        return int(self._pag.evaluate(JS_SELECTOR, 0))
+
+    def ir_a(self, jornada):
+        return int(self._pag.evaluate(JS_SELECTOR, jornada)) > 0
+
+    def pausa(self, segundos):
+        self._pag.wait_for_timeout(int(segundos * 1000))
+
+    def cerrar(self):
+        self._nav.close()
+        self._pw.stop()
+
+
+def _firma(soup):
+    """Huella de los partidos que muestra la página (para saber si ya han cambiado)."""
+    return tuple((tuple(e[0] for e in p["equipos"]), p["hora"], p["resultado"])
+                 for p in parsear_jornada(BeautifulSoup(str(soup), "html.parser")))
+
+
+def _esperar_jornada(nav, jornada, firma_previa=None, intentos=60):
+    """Espera a que la página muestre la jornada pedida CON sus partidos ya cargados: la
+    cabecera cambia antes que la lista, así que se espera a que la lista sea distinta de la
+    jornada anterior y deje de cambiar. Devuelve el HTML, o None si no llega a mostrarse."""
+    ultima, estables, soup = None, 0, None
+    for _ in range(intentos):
+        soup = BeautifulSoup(nav.html(), "html.parser")
+        if cabecera(soup)[0] == jornada:
+            firma = _firma(soup)
+            estables = estables + 1 if (firma and firma == ultima) else 0
+            ultima = firma
+            if estables >= 2 and firma != firma_previa:
+                return soup
+        nav.pausa(0.5)
+    # se acabó el tiempo: se acepta lo último visto si al menos la cabecera es la pedida
+    if soup is not None and cabecera(soup)[0] == jornada and ultima:
+        return soup
+    return None
+
+
+def escanear_con_navegador(nav, grupos, finalizadas, estado, errores):
+    """Recorre todas las jornadas de cada grupo con el navegador y guarda los partidos de
+    nuestros equipos."""
+    for url, (nombre, ids) in grupos.items():
+        if url in finalizadas:
+            continue
+        try:
+            nav.abrir(url)
+            inicial = None
+            for _ in range(60):  # esperar a que la página muestre alguna jornada
+                inicial = BeautifulSoup(nav.html(), "html.parser")
+                if cabecera(inicial)[0]:
+                    break
+                nav.pausa(0.5)
+            if not cabecera(inicial)[0]:
+                print(f"Aviso: navegador: {nombre or url}: la página no llegó a mostrar ninguna jornada.",
+                      file=sys.stderr)
+                continue
+            soup = _esperar_jornada(nav, cabecera(inicial)[0])
+        except Exception as e:
+            errores.append(nombre or url)
+            print(f"Aviso: navegador: no se pudo abrir {nombre or url}: {e}", file=sys.stderr)
+            continue
+        if soup is None or temporada_finalizada(soup):
+            continue
+        titulo = titulo_grupo(soup)
+        total = nav.total_jornadas()
+        if total < 2:
+            print(f"Aviso: navegador: no encuentro el selector de jornadas de {titulo}.", file=sys.stderr)
+            continue
+        guardados, vistas, sin_nuestro, por_jornada = 0, [], [], {}
+        firma_previa = _firma(soup)
+        for j in range(1, total + 1):
+            try:
+                if not nav.ir_a(j):
+                    continue
+                pagina_j = _esperar_jornada(nav, j, firma_previa)
+            except Exception as e:
+                print(f"Aviso: navegador: {titulo}, jornada {j}: {e}", file=sys.stderr)
+                continue
+            if pagina_j is None:
+                print(f"Aviso: navegador: {titulo}: no se pudo mostrar la jornada {j}.", file=sys.stderr)
+                continue
+            firma_previa = _firma(pagina_j)
+            _, fecha_j = cabecera(pagina_j)
+            vistas.append(j)
+            partidos_j = parsear_jornada(pagina_j)
+            por_jornada[j] = len(partidos_j)
+            hubo_nuestro = False
+            for q in partidos_j:
+                p = _con_fecha(q, fecha_j)
+                if not p["fecha"] or p["fecha"] < inicio_temporada():
+                    continue
+                if any(e[0] in ids for e in p["equipos"]):
+                    p["jornada"] = j
+                    actualizar_estado(estado, p, titulo, url, None)
+                    guardados += 1
+                    hubo_nuestro = True
+            if not hubo_nuestro:
+                sin_nuestro.append(j)
+        cuentas = sorted(set(por_jornada.values()))
+        print(f"Navegador: {titulo}: jornadas leídas {len(vistas)} de {total}; "
+              f"partidos por jornada {cuentas[0] if cuentas else 0}-{cuentas[-1] if cuentas else 0}; "
+              f"partidos nuestros guardados: {guardados}; jornadas sin partido nuestro: {sin_nuestro}.",
+              file=sys.stderr)
+
+
+# ---------------------------------------------------------------------------
+# Partidos escritos a mano
+#
+# Si algún partido no se consigue leer de la web, se puede añadir a mano en el fichero
+# partidos_manuales.json. Se usa solo mientras la web no lo tenga: en cuanto el script lo
+# encuentre por sí mismo, el manual se descarta.
+# ---------------------------------------------------------------------------
+def aplicar_manuales(estado, ruta, grupos_vistos):
+    """grupos_vistos: {título del grupo: (url, ids de nuestros equipos)}. Devuelve cuántos
+    partidos manuales se han aplicado."""
+    for k in [k for k in estado if k.startswith("manual|")]:
+        del estado[k]  # se recalculan en cada ejecución
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            datos = json.load(f)
+    except (OSError, ValueError):
+        return 0
+    aplicados = 0
+    for m in datos:
+        titulo, jornada = m.get("grupo"), m.get("jornada")
+        if titulo not in grupos_vistos:
+            print(f"Aviso: partido manual de '{titulo}': no coincide con ninguna categoría "
+                  f"({sorted(grupos_vistos)}).", file=sys.stderr)
+            continue
+        url, ids = grupos_vistos[titulo]
+        existente = next((e for e in estado.values()
+                          if e["url_grupo"] == url and e.get("jornada") == jornada), None)
+        if existente is not None:
+            # la web ya tiene el partido, pero puede faltarle algún dato (p. ej. la hora,
+            # que a veces no publica aunque el partido ya se haya jugado): se completa sin
+            # pisar lo que la web sí tiene.
+            cambiado = False
+            for campo_dato in ("hora", "campo"):
+                if m.get(campo_dato) and not existente.get(campo_dato):
+                    existente[campo_dato] = m[campo_dato]
+                    cambiado = True
+            if m.get("resultado") and not existente.get("resultado"):
+                existente["resultado"] = m["resultado"]
+                cambiado = True
+            if cambiado:
+                aplicados += 1
+                print(f"Partido manual de '{titulo}' (jornada {jornada}): completados datos "
+                      f"que faltaban en la web.", file=sys.stderr)
+            continue
+        propio = sorted(ids)[0]
+        equipos = []
+        for nombre in (m["local"], m["visitante"]):
+            equipos.append([propio if _es_nuestro(("", nombre)) else f"manual-{nombre}", nombre])
+        estado[f"manual|{url}|{jornada}"] = {
+            "fecha": m["fecha"], "jornada": jornada, "hora": m.get("hora"),
+            "grupo": titulo, "url_grupo": url, "campo": m.get("campo", ""),
+            "local": equipos[0], "visitante": equipos[1],
+            "resultado": m.get("resultado"), "pos": None, "acta": None,
+        }
+        aplicados += 1
+    if aplicados:
+        print(f"Partidos manuales aplicados: {aplicados}.", file=sys.stderr)
+    return aplicados
+
+
+# ---------------------------------------------------------------------------
+# Mensajes
+# ---------------------------------------------------------------------------
+def sabado_proximo(sabado_arg=None):
+    if sabado_arg:
+        return datetime.strptime(sabado_arg, "%Y-%m-%d").date()
+    hoy = ahora().date()
+    wd = hoy.weekday()  # lunes=0 ... domingo=6
+    return hoy - timedelta(days=1) if wd == 6 else hoy + timedelta(days=5 - wd)
+
+
+def sabado_resultados(sabado_arg=None):
+    """Sábado del fin de semana más reciente ya empezado."""
+    if sabado_arg:
+        return datetime.strptime(sabado_arg, "%Y-%m-%d").date()
+    hoy = ahora().date()
+    wd = hoy.weekday()
+    if wd == 5:
+        return hoy
+    if wd == 6:
+        return hoy - timedelta(days=1)
+    return hoy - timedelta(days=wd + 2)
+
+
+def _es_nuestro(par):
+    return "CIUDAD LOS ANGELES" in par[1].upper()
+
+
+def _equipo(par, pos=None):
+    limpio = limpiar_equipo(par[1])
+    if _es_nuestro(par):
+        limpio = f"*_{limpio}_*"  # nuestro equipo: negrita y cursiva
+        if ESCUDO:
+            limpio = f"{ESCUDO} {limpio}"
+    return f"*({pos}º)* {limpio}" if pos else limpio  # posición en negrita
+
+
+def _emoji_resultado(e):
+    """🟢 victoria, 🟡 empate, 🔴 derrota de nuestro equipo."""
+    gl, gv = e["resultado"]
+    local, visitante = _es_nuestro(e["local"]), _es_nuestro(e["visitante"])
+    if local == visitante:
+        return "⚽"
+    propios, ajenos = (gl, gv) if local else (gv, gl)
+    return "🟢" if propios > ajenos else ("🟡" if propios == ajenos else "🔴")
+
+
+def bloque(e, con_resultado=False):
+    """Un partido: hora y categoría, jornada, campo y enfrentamiento."""
+    hora = e.get("hora")
+    if hora:
+        cabecera = f"⏰ *{hora}h* - {e['grupo']}"
+    else:
+        cabecera = f"🏆 {e['grupo']}"
+    campo = limpiar_campo(e.get("campo")) or "por confirmar"
+    pos = e.get("pos") or [None, None]
+    local, visitante = _equipo(e["local"], pos[0]), _equipo(e["visitante"], pos[1])
+    if con_resultado and e.get("resultado"):
+        gl, gv = e["resultado"]
+        linea = f"{_emoji_resultado(e)} {local} {gl} - {gv} {visitante}"
+    else:
+        linea = f"⚽ {local} - {visitante}"
+    lineas = [cabecera]
+    if e.get("jornada"):
+        lineas.append(f"📌 _Jornada {e['jornada']}_")
+    lineas += [f"📍 Campo: {campo}", linea]
+    return "\n".join(lineas)
+
+
+def sabado_de(d):
+    """Sábado de la semana (lunes a domingo) a la que pertenece la fecha d."""
+    return d - timedelta(days=1) if d.weekday() == 6 else d + timedelta(days=5 - d.weekday())
+
+
+def seleccion(estado, sabado, con_resultado):
+    """Partidos de la semana cuyo sábado es `sabado` (incluye los de entre semana)."""
+    lunes, domingo = sabado - timedelta(days=5), sabado + timedelta(days=1)
+    hoy = ahora().date()
+    lista = []
+    for e in estado.values():
+        f = date.fromisoformat(e["fecha"])
+        if not lunes <= f <= domingo:
+            continue
+        if con_resultado and not e.get("resultado"):
+            continue
+        # en la semana en curso, los partidos de entre semana ya jugados no van en "Partidos"
+        if not con_resultado and domingo >= hoy and f.weekday() < 5 and f < hoy:
+            continue
+        lista.append(e)
+    lista.sort(key=lambda e: (e["fecha"], e.get("hora") or "99:99", e["grupo"]))
+    return lista
+
+
+def _pendiente(e):
+    """Partido sin hora confirmada y sin jugar: no se sabe ni el día ni la hora."""
+    return not e.get("hora") and not e.get("resultado")
+
+
+def componer(estado, sabado, con_resultado):
+    lista = seleccion(estado, sabado, con_resultado)
+    if not lista:
+        return ""
+    partes = [] if con_resultado else [AVISO]  # la coletilla no va en los resultados
+    dia_actual = None
+    for e in [e for e in lista if not _pendiente(e)]:
+        if e["fecha"] != dia_actual:  # el día aparece una sola vez, como titular
+            dia_actual = e["fecha"]
+            f = date.fromisoformat(dia_actual)
+            titular = f"📅 *{DIAS[f.weekday()].upper()} {f:%d/%m/%Y}*"
+            partes.append(f"{LINEA}\n{titular}\n{LINEA}")
+        partes.append(bloque(e, con_resultado))
+    pendientes = [e for e in lista if _pendiente(e)]
+    if pendientes:  # sin sábado ni domingo: aún no hay día y hora asignados
+        orden = {f"{BASE}/{ruta}/jornadas": i for i, ruta in enumerate(CONOCIDOS)}
+        pendientes.sort(key=lambda e: (orden.get(e["url_grupo"], 99), e.get("jornada") or 0))
+        partes.append(f"{LINEA}\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n{LINEA}")
+        partes.extend(bloque(e, con_resultado) for e in pendientes)
+    return "\n\n".join(partes)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--sabado", help="fecha del sábado (AAAA-MM-DD); por defecto, el próximo")
+    ap.add_argument("--abrir", action="store_true", help="abrir WhatsApp con el texto ya escrito")
+    ap.add_argument("--salida", default="partidos_whatsapp.txt", help="fichero de salida")
+    ap.add_argument("--json", help="además, guarda el resultado en este fichero JSON (para la página web)")
+    ap.add_argument("--estado", default="estado.json", help="fichero donde se recuerdan los partidos vistos")
+    ap.add_argument("--manuales", default="partidos_manuales.json",
+                    help="fichero con partidos escritos a mano (opcional)")
+    ap.add_argument("--plantilla-manual", default="plantilla_manual.json",
+                    help="fichero con dorsales/fechas de nacimiento metidos a mano desde el panel de administrador")
+    ap.add_argument("--navegador", action="store_true",
+                    help="recorrer todas las jornadas con un navegador automático (necesita Playwright)")
+    args = ap.parse_args()
+
+    sab_prox = sabado_proximo(args.sabado)
+    sab_res = sabado_resultados(args.sabado)
+    print(f"Partidos del {sab_prox:%d/%m/%Y} al {sab_prox + timedelta(days=1):%d/%m/%Y}; "
+          f"resultados del {sab_res:%d/%m/%Y} al {sab_res + timedelta(days=1):%d/%m/%Y}...",
+          file=sys.stderr)
+
+    estado, clasif, meta = cargar_estado(args.estado)
+    cupo = MAX_RELLENO
+    errores, consultados, vistos, finalizadas, trabajos = [], 0, [], set(), []
+    grupos, equipos_club = grupos_a_consultar(errores)
+    for url, (nombre, ids) in grupos.items():
+        try:
+            soup = get(url)
+        except Exception as e:
+            errores.append(nombre or url)
+            print(f"Aviso: no se pudo consultar {nombre or url}: {e}", file=sys.stderr)
+            continue
+        actual, fecha_cab = cabecera(soup)
+        if temporada_finalizada(soup) or (fecha_cab and fecha_cab < inicio_temporada()):
+            finalizadas.add(url)  # calendario de una temporada antigua: se ignora
+            continue
+        consultados += 1
+        titulo = titulo_grupo(soup)
+        vistos.append((url, titulo))
+        todos = [p for p in (_con_fecha(q, fecha_cab) for q in parsear_jornada(soup))
+                 if p["fecha"] and p["fecha"] >= inicio_temporada()]
+        propios = [p for p in todos if any(e[0] in ids for e in p["equipos"])]
+
+        filas = []
+        try:
+            soup_c = get(url.replace("/jornadas", "/clasificacion"))
+            jornada_tabla, filas = tabla_de(soup_c)
+            if filas:
+                clasif[url] = {"titulo": titulo, "jornada": jornada_tabla, "filas": filas}
+            else:
+                print(f"Aviso: sin filas en la clasificación de {titulo} "
+                      f"(tablas: {len(soup_c.find_all('table'))}, "
+                      f"enlaces a equipos: {len(soup_c.find_all('a', href=re.compile(r'/equipo/')))})",
+                      file=sys.stderr)
+        except Exception as e:
+            print(f"Aviso: no se pudo leer la clasificación de {titulo}: {e}", file=sys.stderr)
+        # con todos los equipos a 0 partidos la tabla no significa nada
+        posiciones = {f["id"]: f["pos"] for f in filas} if any(f["pj"] for f in filas) else {}
+        for p in propios:
+            actualizar_estado(estado, p, titulo, url, posiciones)
+        actas = [int(a.group(1)) for a in (re.search(r"/acta/(\d+)", p["acta"] or "") for p in todos) if a]
+        equipos_grupo = {e[0] for p in todos for e in p["equipos"]} | {f["id"] for f in filas}
+        trabajos.append((url, ids, titulo, actual, actas, equipos_grupo))
+
+    if consultados == 0:
+        sys.exit("No se ha podido consultar ningún calendario; se mantiene el resultado anterior.")
+
+    if args.navegador:
+        nav = None
+        try:
+            nav = NavegadorPlaywright()
+            escanear_con_navegador(nav, grupos, finalizadas, estado, errores)
+        except Exception as e:
+            print(f"Aviso: no se ha podido usar el navegador: {e}", file=sys.stderr)
+        finally:
+            if nav is not None:
+                nav.cerrar()
+
+    # Al cambiar la versión del histórico se reintentan los recorridos que acabaron sin resultados
+    if meta.get("version_historico") != VERSION_HISTORICO:
+        hoy_iso = ahora().date().isoformat()
+        for url, ids, titulo, actual, actas, equipos_grupo in trabajos:
+            hay_pasados = any(e["url_grupo"] == url and e["fecha"] < hoy_iso for e in estado.values())
+            if not hay_pasados:
+                meta.setdefault("terminado", {}).pop(url, None)
+                meta.setdefault("cursor", {}).pop(url, None)
+        for url, ids, titulo, actual, actas, equipos_grupo in trabajos:
+            hay_futuros = any(e["url_grupo"] == url and e["fecha"] > hoy_iso for e in estado.values())
+            if not hay_futuros:
+                meta.setdefault("proximas", {}).pop(url, None)
+        meta["version_historico"] = VERSION_HISTORICO
+
+    # Histórico: primero las jornadas pasadas de TODAS las categorías (los resultados son lo
+    # más importante) y con lo que sobre, las próximas jornadas.
+    for url, ids, titulo, actual, actas, equipos_grupo in trabajos:
+        if actual and actual > 1:
+            cupo -= rellenar_jornadas(url, ids, titulo, actual, actas, equipos_grupo, estado, meta, cupo)
+    for url, ids, titulo, actual, actas, equipos_grupo in trabajos:
+        if actual:
+            cupo -= explorar_proximas(url, ids, titulo, actual, actas, equipos_grupo, estado, meta, cupo)
+
+    aplicar_manuales(estado, args.manuales,
+                     {t: (u, grupos[u][1]) for u, t in vistos if u in grupos})
+    completar_con_actas(estado, errores)
+
+    # se guarda el histórico de la temporada en curso (lo de temporadas anteriores se descarta)
+    limite = inicio_temporada().isoformat()
+    estado = {k: v for k, v in estado.items() if v["fecha"] >= limite}
+    guardar_estado(args.estado, estado, clasif, meta)
+
+    urls_con_partido = {e["url_grupo"] for e in seleccion(estado, sab_prox, False)}
+    sin_partido = sorted({t for u, t in vistos if u not in urls_con_partido})
+    texto = componer(estado, sab_prox, con_resultado=False)
+    resultados = componer(estado, sab_res, con_resultado=True)
+
+    if sin_partido:
+        print("Sin partido en el calendario mostrado para: " + "; ".join(sin_partido), file=sys.stderr)
+
+    # App de un solo equipo (ver grupos_a_consultar): no hay más equipos del club que
+    # comprobar. Si el calendario de este único grupo no se hubiera podido consultar, ya se
+    # habría salido antes con "No se ha podido consultar ningún calendario".
+    pendientes = []
+
+    # Plantilla: dorsal, nombre y fecha de nacimiento (si la web la diera), fusionada con lo
+    # metido a mano desde el panel de administrador.
+    plantilla = []
+    try:
+        plantilla = obtener_plantilla(get(EQUIPO_URL))
+        if not plantilla:
+            print("Aviso: no se ha reconocido la estructura de la plantilla en la ficha del "
+                  "equipo; se usará solo lo metido a mano (si lo hay).", file=sys.stderr)
+    except Exception as e:
+        errores.append("Plantilla")
+        print(f"Aviso: no se pudo leer la plantilla del equipo: {e}", file=sys.stderr)
+    plantilla = aplicar_plantilla_manual(plantilla, args.plantilla_manual)
+
+    if args.json:
+        with open(args.json, "w", encoding="utf-8") as f:
+            json.dump({
+                "generado": ahora().strftime("%Y-%m-%d %H:%M"),
+                "desde": sab_prox.isoformat(),
+                "hasta": (sab_prox + timedelta(days=1)).isoformat(),
+                "texto": texto,
+                "resultados_desde": sab_res.isoformat(),
+                "resultados_hasta": (sab_res + timedelta(days=1)).isoformat(),
+                "resultados": resultados,
+                "sin_partido": sin_partido,
+                "sin_calendario": [f"{c['titulo']} ({c['equipo'].split()[-1]})"
+                                   if re.search(r"\s[A-Z]$", c["equipo"]) else c["titulo"]
+                                   for c in pendientes],
+                "errores": errores,
+                "plantilla": plantilla,
+                "semanas": [
+                    {"sabado": sab.isoformat(),
+                     "partidos": componer(estado, sab, False),
+                     "resultados": componer(estado, sab, True)}
+                    for sab in sorted({sabado_de(date.fromisoformat(e["fecha"])) for e in estado.values()})
+                ],
+                # Goleadores y tarjetas de cada partido ya jugado, en el mismo orden que el
+                # texto de "resultados" de cada semana (así la web puede emparejar cada
+                # partido del texto con sus goles/tarjetas por posición).
+                "detalle_resultados": [
+                    {"sabado": sab.isoformat(),
+                     "partidos": [
+                         {"fecha": e["fecha"], "grupo": e["grupo"], "jornada": e.get("jornada"),
+                          "local": limpiar_equipo(e["local"][1]), "visitante": limpiar_equipo(e["visitante"][1]),
+                          "resultado": e.get("resultado"),
+                          "goles": e.get("goles") or [], "tarjetas": e.get("tarjetas") or []}
+                         for e in seleccion(estado, sab, True)
+                     ]}
+                    for sab in sorted({sabado_de(date.fromisoformat(e["fecha"])) for e in estado.values()})
+                ],
+                "clasificaciones": [
+                    {**clasif[u], "equipo": next((f["nombre"] for f in clasif[u]["filas"] if f["nuestro"]), "")}
+                    for u in grupos if u in clasif and u not in finalizadas
+                ] + pendientes,
+            }, f, ensure_ascii=False, indent=2)
+        print(f"Guardado en {args.json}", file=sys.stderr)
+
+    if not texto and not resultados:
+        if args.json:
+            print("No hay partidos ni resultados para esos fines de semana.", file=sys.stderr)
+            return
+        sys.exit("No hay partidos ni resultados para esos fines de semana.")
+
+    if texto:
+        print("\n" + texto + "\n")
+        with open(args.salida, "w", encoding="utf-8") as f:
+            f.write(texto + "\n")
+        print(f"Guardado en {args.salida}", file=sys.stderr)
+    if resultados:
+        print("\n----- RESULTADOS -----\n\n" + resultados + "\n")
+
+    if args.abrir and texto:
+        webbrowser.open("https://wa.me/?text=" + urllib.parse.quote(texto))
+
+
+if __name__ == "__main__":
+    main()
