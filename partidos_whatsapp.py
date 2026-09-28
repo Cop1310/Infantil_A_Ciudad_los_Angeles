@@ -775,8 +775,24 @@ def completar_pendientes_con_navegador(estado, errores):
                     p = _con_fecha(p, fecha_j)
                     if not p.get("resultado"):
                         continue
-                    p["jornada"] = j
-                    actualizar_estado(estado, p, titulo, url, None)
+                    # Se busca la entrada pendiente que YA existía (por grupo + jornada +
+                    # equipos) y se actualiza esa misma, en vez de dejar que actualizar_estado()
+                    # calcule su propia clave: si esta vez la página trae un dato que la primera
+                    # vez no tenía (p. ej. el enlace al acta), la clave saldría distinta y se
+                    # crearía un duplicado en lugar de completar el partido pendiente.
+                    ids_partido = {p["equipos"][0][0], p["equipos"][1][0]}
+                    objetivo = next((e for e in estado.values()
+                                     if e.get("url_grupo") == url and e.get("jornada") == j
+                                     and {e["local"][0], e["visitante"][0]} == ids_partido), None)
+                    if objetivo is None:
+                        continue
+                    objetivo["resultado"] = list(p["resultado"])
+                    if p.get("hora") and not objetivo.get("hora"):
+                        objetivo["hora"] = p["hora"]
+                    if p.get("campo") and not objetivo.get("campo"):
+                        objetivo["campo"] = p["campo"]
+                    if p.get("acta") and not objetivo.get("acta"):
+                        objetivo["acta"] = p["acta"]
                     encontrados += 1
             if encontrados:
                 print(f"Navegador (pendientes): {titulo}: {encontrados} resultado(s) recogidos "
