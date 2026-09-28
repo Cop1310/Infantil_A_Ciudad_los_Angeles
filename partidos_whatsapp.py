@@ -574,6 +574,37 @@ def obtener_plantilla(soup):
     return unicos
 
 
+def obtener_plantilla_con_navegador(url):
+    """Como obtener_plantilla(), pero abriendo la ficha del equipo con un navegador automático
+    en vez de una descarga normal. La web es una aplicación en React que rellena la plantilla
+    con JavaScript después de cargar la página, así que una descarga normal (requests) casi
+    siempre recibe la página vacía, sin jugadores, por mucho que el patrón de lectura esté bien
+    hecho: no hay nada que leer todavía. Se usa solo como último recurso, cuando la lectura
+    normal no ha encontrado nada, igual que completar_pendientes_con_navegador()."""
+    try:
+        nav = NavegadorPlaywright()
+    except Exception as ex:
+        print(f"Aviso: no se ha podido abrir el navegador para leer la plantilla: {ex}",
+              file=sys.stderr)
+        return []
+    try:
+        nav.abrir(url)
+        jugadores = []
+        for _ in range(30):
+            soup = BeautifulSoup(nav.html(), "html.parser")
+            jugadores = obtener_plantilla(soup)
+            if jugadores:
+                break
+            nav.pausa(0.5)
+        return jugadores
+    except Exception as ex:
+        print(f"Aviso: navegador (plantilla): no se pudo leer la ficha del equipo: {ex}",
+              file=sys.stderr)
+        return []
+    finally:
+        nav.cerrar()
+
+
 def aplicar_plantilla_manual(jugadores, ruta):
     """Aplica sobre la plantilla leída de la web los datos metidos a mano desde el panel de
     administrador (dorsal y fecha de nacimiento de los niños que faltan). Lo escrito a mano
@@ -1466,8 +1497,14 @@ def main():
     try:
         plantilla = obtener_plantilla(get(EQUIPO_URL))
         if not plantilla:
-            print("Aviso: no se ha reconocido la estructura de la plantilla en la ficha del "
-                  "equipo; se usará solo lo metido a mano (si lo hay).", file=sys.stderr)
+            print("Aviso: la descarga normal de la ficha del equipo ha llegado vacía (la "
+                  "plantilla la rellena JavaScript); se prueba con el navegador automático.",
+                  file=sys.stderr)
+            if not args.sin_navegador_pendientes:
+                plantilla = obtener_plantilla_con_navegador(EQUIPO_URL)
+            if not plantilla:
+                print("Aviso: tampoco se ha podido leer la plantilla con el navegador; se "
+                      "usará solo lo metido a mano (si lo hay).", file=sys.stderr)
     except Exception as e:
         errores.append("Plantilla")
         print(f"Aviso: no se pudo leer la plantilla del equipo: {e}", file=sys.stderr)

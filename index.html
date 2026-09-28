@@ -188,6 +188,9 @@
   .tarjeta-icono { display: inline-block; width: 9px; height: 12px; border-radius: 1px; margin-right: 4px; vertical-align: -1px; }
   .tarjeta-icono.amarilla { background: #f4c430; }
   .tarjeta-icono.roja { background: var(--roja); }
+  /* Goles/tarjetas del Ciudad de los Ángeles resaltados, igual que en la Clasificación */
+  .goles-lado.nuestro { background: #f7e9b0; border-radius: 4px; padding: 4px 8px; font-weight: 800; }
+  .tarjeta-linea.nuestro { background: #f7e9b0; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
 
   /* Plantilla */
   .plantilla-lista { background: var(--papel); border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
@@ -454,6 +457,11 @@
     return det.partidos[indice];
   }
 
+  // Coincide con _es_nuestro() del script de Python (compara sin acentos ni mayúsculas).
+  function esNuestro(nombre) {
+    return /ciudad\s+(de\s+)?los\s+[áa]ngeles/i.test(nombre || "");
+  }
+
   function golesHtml(detalle) {
     if (!detalle || (!detalle.goles.length && !detalle.tarjetas.length)) return "";
     function porLado(lado) {
@@ -464,13 +472,16 @@
       var lineas = g.map(function (x) {
         return '<span class="gol-linea">⚽ ' + x.minuto + "' " + escapar(x.jugador) + (x.penalti ? " (penalti)" : "") + "</span>";
       }).join("");
-      return '<div class="goles-lado"><b>' + escapar(nombre) + ":</b> " + lineas + "</div>";
+      var clase = "goles-lado" + (esNuestro(nombre) ? " nuestro" : "");
+      return '<div class="' + clase + '"><b>' + escapar(nombre) + ":</b> " + lineas + "</div>";
     }
     function tarjetasHtml() {
       if (!detalle.tarjetas.length) return "";
       var lineas = detalle.tarjetas.sort(function (a, b) { return a.minuto - b.minuto; }).map(function (x) {
-        return '<span class="tarjeta-linea"><span class="tarjeta-icono ' + x.tipo + '"></span>' +
-          x.minuto + "' " + escapar(x.jugador) + " (" + escapar(x.equipo.replace(/^C\.D\.\s*/, "")) + ")</span>";
+        var equipoLimpio = x.equipo.replace(/^C\.D\.\s*/, "");
+        var clase = "tarjeta-linea" + (esNuestro(equipoLimpio) ? " nuestro" : "");
+        return '<span class="' + clase + '"><span class="tarjeta-icono ' + x.tipo + '"></span>' +
+          x.minuto + "' " + escapar(x.jugador) + " (" + escapar(equipoLimpio) + ")</span>";
       }).join("");
       return '<div class="goles-lado">' + lineas + "</div>";
     }
@@ -599,14 +610,32 @@
     return lista;
   }
 
+  function pieAdmin() {
+    return adminActivo
+      ? '<button type="button" class="admin-guardar" id="admin-guardar" style="width:100%">Guardar y descargar plantilla_manual.json</button>' +
+        '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>'
+      : '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir">Panel de administrador</button></div>';
+  }
+
   function pintarPlantilla() {
     elCuando.textContent = "Plantilla del equipo";
     var lista = plantillaFusionada();
     btnCopiar.classList.add("desactivado");
     btnWa.classList.add("desactivado");
     btnWa.href = "#";
+    // Aunque la web todavía no dé ninguna plantilla, se sigue mostrando el acceso al panel de
+    // administrador: así se puede entrar a meterla a mano en vez de quedarse sin forma de
+    // llegar al panel solo porque el scraping no ha funcionado todavía.
     if (!lista.length) {
-      elMensaje.innerHTML = '<p class="estado">Todavía no se ha podido leer la plantilla del equipo desde la web.</p>';
+      elMensaje.innerHTML = '<p class="estado">Todavía no se ha podido leer la plantilla del equipo desde la web' +
+        (adminActivo ? '.' : '. Puedes añadirla a mano desde el panel de administrador.') + '</p>' + pieAdmin();
+      if (adminActivo) {
+        var btnG = document.getElementById("admin-guardar");
+        if (btnG) btnG.addEventListener("click", guardarPlantillaManual);
+      } else {
+        var btnA = document.getElementById("admin-abrir");
+        if (btnA) btnA.addEventListener("click", abrirModalAdmin);
+      }
       return;
     }
     var filas = lista.map(function (j, i) {
@@ -626,11 +655,7 @@
       return '<div class="jugador">' + dorsalHtml +
         '<div class="info"><div class="nombre">' + escapar(j.nombre) + "</div>" + nacimiento + camposAdmin + "</div></div>";
     }).join("");
-    var pie = adminActivo
-      ? '<button type="button" class="admin-guardar" id="admin-guardar" style="width:100%">Guardar y descargar plantilla_manual.json</button>' +
-        '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>'
-      : '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir">Panel de administrador</button></div>';
-    elMensaje.innerHTML = '<div class="plantilla-lista">' + filas + "</div>" + pie;
+    elMensaje.innerHTML = '<div class="plantilla-lista">' + filas + "</div>" + pieAdmin();
     if (adminActivo) {
       document.getElementById("admin-guardar").addEventListener("click", guardarPlantillaManual);
     } else {
