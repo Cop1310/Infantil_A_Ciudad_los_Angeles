@@ -529,13 +529,64 @@ def titulo_grupo(soup):
 # ---------------------------------------------------------------------------
 _RE_DORSAL = re.compile(r"^\d{1,2}$")
 _RE_FECHA_NAC = re.compile(r"^\d{2}[-/]\d{2}[-/]\d{4}$")
+# Ficha real del equipo (confirmada por captura de pantalla, 28/09/2026): no es una <table>,
+# es una rejilla de tarjetas, cada una con tres textos seguidos: el dorsal (o "–" si el
+# jugador aún no tiene número asignado), el nombre EN MAYÚSCULAS, y una línea de estadísticas
+# ("Inscrito en la plantilla", "N titular(es) de M convocatoria(s)", con "Portero · " delante
+# para el portero). No da fecha de nacimiento en ningún sitio de esa página.
+_RE_DORSAL_O_GUION = re.compile(r"^(\d{1,2}|[-–—])$")
+_RE_SUBTEXTO_PLANTILLA = re.compile(
+    r"^(Portero\s*[·•]\s*)?(Inscrito en la plantilla|\d+\s+titular(?:es)?\s+de\s+\d+\s+convocatoria(?:s)?)",
+    re.IGNORECASE)
+
+
+def _plantilla_de_tarjetas(textos):
+    """Plan A2: agrupa los textos en tríos (dorsal-o-guion, NOMBRE, texto de convocatorias),
+    tal y como los pinta la ficha real del equipo (ver aviso arriba). Se para en tríos
+    completos; un jugador sin dorsal asignado todavía ("–") se guarda igualmente con
+    dorsal=None, en vez de perderse."""
+    jugadores = []
+    i = 0
+    while i < len(textos) - 2:
+        t0, t1, t2 = textos[i], textos[i + 1], textos[i + 2]
+        if _RE_DORSAL_O_GUION.match(t0) and 2 < len(t1) < 60 and t1.isupper() \
+                and _RE_SUBTEXTO_PLANTILLA.match(t2):
+            dorsal = int(t0) if t0.isdigit() else None
+            jugadores.append({"dorsal": dorsal, "nombre": capitalizar(t1),
+                              "fecha_nacimiento": None, "foto": None})
+            i += 3
+            continue
+        i += 1
+    return jugadores
+
+
+# Plan A2b: por si la web llega a juntar los tres textos de cada tarjeta en uno solo (puede
+# pasar si usa <span> sin espacio entre ellos: normalizar() los desenvuelve y los pega). Mismo
+# patrón que arriba pero buscado dentro de una única cadena larga, tirando de expresiones
+# regulares en vez de trocear por nodos de texto.
+_RE_TARJETA_PEGADA = re.compile(
+    r"(\d{1,2}|[-–—])([A-ZÁÉÍÓÚÑÜ][A-ZÁÉÍÓÚÑÜ '\.]{2,58}?)"
+    r"(?:Portero\s*[·•]\s*)?(?:Inscrito en la plantilla|\d+\s+titular(?:es)?\s+de\s+\d+\s+convocatoria(?:s)?)")
+
+
+def _plantilla_de_texto_pegado(textos):
+    entero = "".join(textos)
+    jugadores = []
+    for m in _RE_TARJETA_PEGADA.finditer(entero):
+        dorsal_txt, nombre = m.group(1), m.group(2).strip()
+        if len(nombre) < 3:
+            continue
+        dorsal = int(dorsal_txt) if dorsal_txt.isdigit() else None
+        jugadores.append({"dorsal": dorsal, "nombre": capitalizar(nombre),
+                          "fecha_nacimiento": None, "foto": None})
+    return jugadores
 
 
 def obtener_plantilla(soup):
-    """Lista de jugadores del equipo: {dorsal (o None si la web no lo da todavía), nombre,
-    fecha_nacimiento (o None, casi siempre None: la web no suele publicarla), foto (siempre
-    None aquí: la web no da fotos, solo se rellena a mano)}. Devuelve [] si no se reconoce
-    ninguna estructura de plantilla en la página."""
+    """Lista de jugadores del equipo: {dorsal (o None si todavía no tiene), nombre,
+    fecha_nacimiento (o None: la web no la publica), foto (siempre None aquí: la web no da
+    fotos, solo se rellena a mano)}. Devuelve [] si no se reconoce ninguna estructura de
+    plantilla en la página."""
     normalizar(soup)
     jugadores = []
     for tr in soup.find_all("tr"):
@@ -549,11 +600,15 @@ def obtener_plantilla(soup):
             continue
         fecha_nac = next((t for t in resto[1:] if _RE_FECHA_NAC.match(t)), None)
         jugadores.append({"dorsal": dorsal, "nombre": resto[0], "fecha_nacimiento": fecha_nac, "foto": None})
+    textos = [t.strip() for t in soup.find_all(string=True)
+              if t.parent is not None and t.parent.name not in ("script", "style") and t.strip()]
     if not jugadores:
-        # Plan B: la plantilla no viene en una <table> normal; se buscan en el texto de la
-        # página tramos "dorsal, nombre[, fecha]" seguidos.
-        textos = [t.strip() for t in soup.find_all(string=True)
-                  if t.parent is not None and t.parent.name not in ("script", "style") and t.strip()]
+        jugadores = _plantilla_de_tarjetas(textos)
+    if not jugadores:
+        jugadores = _plantilla_de_texto_pegado(textos)
+    if not jugadores:
+        # Plan B (genérico, de respaldo): tramos "dorsal, nombre[, fecha]" seguidos, por si la
+        # página cambiara de estructura y ya no fueran las tarjetas de arriba.
         i = 0
         while i < len(textos) - 1:
             t = textos[i]

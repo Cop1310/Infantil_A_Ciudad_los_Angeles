@@ -210,8 +210,19 @@
   }
   .jugador .campos-admin input.dorsal-in { width: 78px; }
   .jugador .campos-admin input.fecha-in { flex: 1; }
+  .jugador .avatar-foto { flex: none; width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--linea); }
+  .jugador .goles-jugador { margin-left: 8px; font-size: 0.85rem; font-weight: 700; color: var(--suave); white-space: nowrap; }
+  .jugador .foto-admin { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .jugador .foto-admin input[type="file"] { font-size: 0.82rem; max-width: 100%; }
+  .jugador .foto-quitar {
+    flex: none; min-height: 0; font-size: 0.78rem; padding: 4px 8px; border: 1px solid var(--linea);
+    border-radius: 4px; background: var(--papel); color: var(--suave); cursor: pointer;
+  }
 
   .admin-barra { display: flex; justify-content: center; margin: 0 0 12px; }
+  .nuevo-jugador { display: flex; gap: 8px; margin: 0 0 10px; }
+  .nuevo-jugador input { flex: 1; min-width: 0; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 2px solid var(--linea); border-radius: 4px; }
+  .nuevo-jugador button { flex: none; min-height: 0; padding: 0 16px; font-size: 0.92rem; }
   .admin-link { background: none; border: none; color: var(--suave); font-size: 0.82rem; font-weight: 600; text-decoration: underline; padding: 6px; cursor: pointer; }
   .admin-guardar { margin: 12px 0 0; }
   .admin-nota { margin: 8px 0 0; font-size: 0.82rem; color: var(--suave); }
@@ -457,15 +468,6 @@
     return det.partidos[indice];
   }
 
-  // Coincide con _es_nuestro() del script de Python (compara sin acentos ni mayúsculas). Se usa
-  // como respaldo cuando todavía no se conoce la plantilla (ver más abajo), y solo entonces:
-  // el nombre de equipo que da el acta puede venir mal asignado partido a partido (el acta
-  // agrupa los goles por equipo tal y como los reconoce el análisis del texto, que a veces se
-  // equivoca), así que NO es la forma principal de decidir qué es "nuestro".
-  function esNuestro(nombre) {
-    return /ciudad\s+(de\s+)?los\s+[áa]ngeles/i.test(nombre || "");
-  }
-
   function normNombre(s) {
     return (s || "").toUpperCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
   }
@@ -483,8 +485,11 @@
     if (!detalle || (!detalle.goles.length && !detalle.tarjetas.length)) return "";
     var propios = jugadoresPropios();
     var conoceRoster = Object.keys(propios).length > 0;
-    function esPropio(jugador, nombreEquipoBloque) {
-      return conoceRoster ? !!propios[normNombre(jugador)] : esNuestro(nombreEquipoBloque);
+    // Sin plantilla todavía no hay forma fiable de saber de quién es cada gol o tarjeta: el
+    // "equipo" que da el acta puede venir mal repartido entre los dos equipos (se ha visto en
+    // partidos reales), así que se prefiere no resaltar nada a resaltar de más por error.
+    function esPropio(jugador) {
+      return conoceRoster && !!propios[normNombre(jugador)];
     }
     function porLado(lado) {
       var g = detalle.goles.filter(function (x) { return x.lado === lado; })
@@ -492,7 +497,7 @@
       if (!g.length) return "";
       var nombre = lado === "local" ? detalle.local : detalle.visitante;
       var lineas = g.map(function (x) {
-        var clase = "gol-linea" + (esPropio(x.jugador, nombre) ? " nuestro" : "");
+        var clase = "gol-linea" + (esPropio(x.jugador) ? " nuestro" : "");
         return '<span class="' + clase + '">⚽ ' + x.minuto + "' " + escapar(x.jugador) + (x.penalti ? " (penalti)" : "") + "</span>";
       }).join("");
       return '<div class="goles-lado"><b>' + escapar(nombre) + ":</b> " + lineas + "</div>";
@@ -501,7 +506,7 @@
       if (!detalle.tarjetas.length) return "";
       var lineas = detalle.tarjetas.sort(function (a, b) { return a.minuto - b.minuto; }).map(function (x) {
         var equipoLimpio = x.equipo.replace(/^C\.D\.\s*/, "");
-        var clase = "tarjeta-linea" + (esPropio(x.jugador, equipoLimpio) ? " nuestro" : "");
+        var clase = "tarjeta-linea" + (esPropio(x.jugador) ? " nuestro" : "");
         return '<span class="' + clase + '"><span class="tarjeta-icono ' + x.tipo + '"></span>' +
           x.minuto + "' " + escapar(x.jugador) + " (" + escapar(equipoLimpio) + ")</span>";
       }).join("");
@@ -654,10 +659,28 @@
   }
 
   function pieAdmin() {
-    return adminActivo
-      ? '<button type="button" class="admin-guardar" id="admin-guardar" style="width:100%">Guardar y descargar plantilla_manual.json</button>' +
-        '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>'
-      : '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir">Panel de administrador</button></div>';
+    if (!adminActivo) {
+      return '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir">Panel de administrador</button></div>';
+    }
+    return '<div class="nuevo-jugador">' +
+      '<input type="text" id="nuevo-nombre" placeholder="Nombre y apellidos del jugador nuevo">' +
+      '<button type="button" id="nuevo-anadir">Añadir</button></div>' +
+      '<button type="button" class="admin-guardar" id="admin-guardar" style="width:100%">Guardar y descargar plantilla_manual.json</button>' +
+      '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>';
+  }
+
+  function activarBotonNuevoJugador() {
+    var btn = document.getElementById("nuevo-anadir");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var inp = document.getElementById("nuevo-nombre");
+      var nombre = (inp.value || "").trim();
+      if (!nombre) { inp.focus(); return; }
+      if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null };
+      guardarOverridesEnLocalStorage();
+      pintarPlantilla();
+      mostrarToast("Jugador añadido: pon su dorsal y fecha si quieres, y pulsa Guardar");
+    });
   }
 
   function pintarPlantilla() {
@@ -676,6 +699,7 @@
       if (adminActivo) {
         var btnG = document.getElementById("admin-guardar");
         if (btnG) btnG.addEventListener("click", guardarPlantillaManual);
+        activarBotonNuevoJugador();
       } else {
         var btnA = document.getElementById("admin-abrir");
         if (btnA) btnA.addEventListener("click", abrirModalAdmin);
@@ -735,6 +759,7 @@
           pintarPlantilla();
         });
       });
+      activarBotonNuevoJugador();
     } else {
       document.getElementById("admin-abrir").addEventListener("click", abrirModalAdmin);
     }
@@ -758,15 +783,40 @@
       var web = webPorNombre[nombre] || {};
       var dorsalEsManual = dorsal !== null && dorsal !== web.dorsal;
       var fechaEsManual = fechaNac !== null && fechaNac !== web.fecha_nacimiento;
-      if (dorsalEsManual || fechaEsManual) {
+      // La foto se guarda aparte, en cuanto se elige un archivo (ver el "change" del input de
+      // foto): aquí solo se respeta lo que ya hubiera, para no perderla al tocar los otros campos.
+      var fotoActual = (overridesPlantilla[nombre] && overridesPlantilla[nombre].foto) || null;
+      if (dorsalEsManual || fechaEsManual || fotoActual) {
         overridesPlantilla[nombre] = {
           dorsal: dorsalEsManual ? dorsal : null,
           fecha_nacimiento: fechaEsManual ? fechaNac : null,
+          foto: fotoActual,
         };
       } else {
         delete overridesPlantilla[nombre];
       }
     });
+  }
+
+  // Redimensiona la foto elegida a un tamaño pequeño (para no meter fotos enormes en el JSON
+  // que luego hay que subir a GitHub) y la deja como imagen en base64, lista para guardar.
+  function procesarFoto(file, cb) {
+    var lector = new FileReader();
+    lector.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 200, w = img.width, h = img.height;
+        if (w >= h) { if (w > max) { h = Math.round(h * max / w); w = max; } }
+        else { if (h > max) { w = Math.round(w * max / h); h = max; } }
+        var canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        cb(canvas.toDataURL("image/jpeg", 0.78));
+      };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(file);
   }
 
   function guardarOverridesEnLocalStorage() {
@@ -785,7 +835,9 @@
     guardarOverridesEnLocalStorage();
     var lista = Object.keys(overridesPlantilla).map(function (nombre) {
       var o = overridesPlantilla[nombre];
-      return { nombre: nombre, dorsal: o.dorsal, fecha_nacimiento: o.fecha_nacimiento };
+      var obj = { nombre: nombre, dorsal: o.dorsal, fecha_nacimiento: o.fecha_nacimiento };
+      if (o.foto) obj.foto = o.foto;
+      return obj;
     });
     var blob = new Blob([JSON.stringify(lista, null, 1)], { type: "application/json" });
     var url = URL.createObjectURL(blob);
