@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28 13:12",
+  "generado": "2026-09-28 13:41",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
@@ -9,7 +9,128 @@
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
-  "plantilla": [],
+  "plantilla": [
+    {
+      "dorsal": 1,
+      "nombre": "Lucas Tomás Morales",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 2,
+      "nombre": "Roi Núñez González",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 3,
+      "nombre": "Moises Henrique Rojas Blanco",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 4,
+      "nombre": "Luka Gonzalez Caso",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 5,
+      "nombre": "Daniel Fernández Martínez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 7,
+      "nombre": "Diego Criado Sánchez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 8,
+      "nombre": "Adrian Ortiz Peña",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 13,
+      "nombre": "Samuel Marquez Contreras",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 14,
+      "nombre": "Rodrigo Guerra Arranz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 18,
+      "nombre": "Hugo Madruga Pardo",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 19,
+      "nombre": "Dereck Felipe Janeiro Valdivia",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 20,
+      "nombre": "Gonzalo Torres Argenta",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 21,
+      "nombre": "Izan Rodriguez Selas",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 22,
+      "nombre": "Mario Carretero de Cien",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 29,
+      "nombre": "Izan Amin García",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Abel Bartolomé Cejas",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Alvaro Jimenez Dominguez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Asier Costa Siqueira",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Jonathan Hernando Ortiz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Marcos García Martín",
+      "fecha_nacimiento": null,
+      "foto": null
+    }
+  ],
   "semanas": [
     {
       "sabado": "2026-09-26",
