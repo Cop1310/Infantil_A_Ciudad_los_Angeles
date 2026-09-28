@@ -1,0 +1,454 @@
+{
+ "clasificaciones": {
+  "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
+   "filas": [
+    {
+     "dg": 5,
+     "e": 0,
+     "g": 1,
+     "gc": 2,
+     "gf": 7,
+     "id": "1031681",
+     "nombre": "Santiago Apóstol Villaverde A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 1,
+     "pts": 3
+    },
+    {
+     "dg": 5,
+     "e": 0,
+     "g": 1,
+     "gc": 1,
+     "gf": 6,
+     "id": "1549",
+     "nombre": "Escuela de Futbol Arganda A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 2,
+     "pts": 3
+    },
+    {
+     "dg": 3,
+     "e": 0,
+     "g": 1,
+     "gc": 1,
+     "gf": 4,
+     "id": "2730",
+     "nombre": "Union Deportiva la Poveda A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 3,
+     "pts": 3
+    },
+    {
+     "dg": 3,
+     "e": 0,
+     "g": 1,
+     "gc": 0,
+     "gf": 3,
+     "id": "13613759",
+     "nombre": "Fundacion Leganes C",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 4,
+     "pts": 3
+    },
+    {
+     "dg": 2,
+     "e": 0,
+     "g": 1,
+     "gc": 1,
+     "gf": 3,
+     "id": "1692",
+     "nombre": "Adepo Palomeras A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 5,
+     "pts": 3
+    },
+    {
+     "dg": 1,
+     "e": 0,
+     "g": 1,
+     "gc": 1,
+     "gf": 2,
+     "id": "846631",
+     "nombre": "Club Seccion Deportiva del Pozo A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 6,
+     "pts": 3
+    },
+    {
+     "dg": 1,
+     "e": 0,
+     "g": 1,
+     "gc": 0,
+     "gf": 1,
+     "id": "1031993",
+     "nombre": "Fundacion Rayo Vallecano C",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 7,
+     "pts": 3
+    },
+    {
+     "dg": 1,
+     "e": 0,
+     "g": 1,
+     "gc": 0,
+     "gf": 1,
+     "id": "17202267",
+     "nombre": "Velilla A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 1,
+     "pos": 8,
+     "pts": 3
+    },
+    {
+     "dg": -1,
+     "e": 0,
+     "g": 0,
+     "gc": 2,
+     "gf": 1,
+     "id": "2739614",
+     "nombre": "Rivas Futbol Club B",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 9,
+     "pts": 0
+    },
+    {
+     "dg": -1,
+     "e": 0,
+     "g": 0,
+     "gc": 1,
+     "gf": 0,
+     "id": "526135",
+     "nombre": "Esc. Mun. Fut. Villarejo A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 10,
+     "pts": 0
+    },
+    {
+     "dg": -1,
+     "e": 0,
+     "g": 0,
+     "gc": 1,
+     "gf": 0,
+     "id": "2786",
+     "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 11,
+     "pts": 0
+    },
+    {
+     "dg": -2,
+     "e": 0,
+     "g": 0,
+     "gc": 3,
+     "gf": 1,
+     "id": "886326",
+     "nombre": "Racing de Villaverde A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 12,
+     "pts": 0
+    },
+    {
+     "dg": -3,
+     "e": 0,
+     "g": 0,
+     "gc": 4,
+     "gf": 1,
+     "id": "15704127",
+     "nombre": "Stella Maris la Gavia A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 13,
+     "pts": 0
+    },
+    {
+     "dg": -3,
+     "e": 0,
+     "g": 0,
+     "gc": 3,
+     "gf": 0,
+     "id": "1094",
+     "nombre": "Ad A.Toledo Olivos A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 14,
+     "pts": 0
+    },
+    {
+     "dg": -5,
+     "e": 0,
+     "g": 0,
+     "gc": 7,
+     "gf": 2,
+     "id": "13538235",
+     "nombre": "Ciudad de los Ángeles A",
+     "nuestro": true,
+     "p": 1,
+     "pj": 1,
+     "pos": 15,
+     "pts": 0
+    },
+    {
+     "dg": -5,
+     "e": 0,
+     "g": 0,
+     "gc": 6,
+     "gf": 1,
+     "id": "6238195",
+     "nombre": "Inter Promesas B",
+     "nuestro": false,
+     "p": 1,
+     "pj": 1,
+     "pos": 16,
+     "pts": 0
+    }
+   ],
+   "jornada": 1,
+   "titulo": "Preferente Infantil Grupo 5"
+  }
+ },
+ "meta": {
+  "cursor": {
+   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": 5606340
+  },
+  "hechas": {},
+  "proximas": {
+   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
+    "actual": 2,
+    "cursor": null,
+    "fecha": "2026-09-28"
+   }
+  },
+  "terminado": {
+   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": true
+  },
+  "version_historico": 3
+ },
+ "partidos": {
+  "5606348": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606348?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "IDB DAVID DIEZ DE LA CRUZ (ANTES CC LOS ROSALES - HA)",
+   "fecha": "2026-09-26",
+   "goles": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "ENZO ACEVEDO MANZANEQUE",
+     "lado": "visitante",
+     "minuto": 25,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "ENZO ACEVEDO MANZANEQUE",
+     "lado": "visitante",
+     "minuto": 27,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "ENZO ACEVEDO MANZANEQUE",
+     "lado": "visitante",
+     "minuto": 29,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "ENZO ACEVEDO MANZANEQUE",
+     "lado": "visitante",
+     "minuto": 33,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "JAVIER FERNADEZ MOYA",
+     "lado": "visitante",
+     "minuto": 61,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "JAVIER FERNADEZ MOYA",
+     "lado": "visitante",
+     "minuto": 65,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "JAVIER FERNADEZ MOYA",
+     "lado": "visitante",
+     "minuto": 67,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "GONZALO TORRES ARGENTA",
+     "lado": "visitante",
+     "minuto": 48,
+     "penalti": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "IZAN AMIN GARCÍA",
+     "lado": "visitante",
+     "minuto": 52,
+     "penalti": false
+    }
+   ],
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": "15:30",
+   "jornada": 1,
+   "local": [
+    "1031681",
+    "C.D. SANTIAGO APOSTOL VILLAVERDE 'A'"
+   ],
+   "pos": null,
+   "resultado": [
+    7,
+    2
+   ],
+   "tarjetas": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "IAN CARLOS MORA RAMIREZ",
+     "lado": "visitante",
+     "minuto": 28,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "JAVIER FERNADEZ MOYA",
+     "lado": "visitante",
+     "minuto": 55,
+     "tipo": "amarilla"
+    }
+   ],
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ]
+  },
+  "5606356": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606356?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "fecha": "2026-10-03",
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": "11:00",
+   "jornada": 2,
+   "local": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ],
+   "pos": [
+    15,
+    5
+   ],
+   "resultado": null,
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "1692",
+    "ADEPO PALOMERAS 'A'"
+   ]
+  },
+  "5606363": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606363?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "RIVAS - POLÍGONO SANTA ANA (HA)",
+   "fecha": "2026-10-10",
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": null,
+   "jornada": 3,
+   "local": [
+    "2739614",
+    "RIVAS FUTBOL CLUB 'B'"
+   ],
+   "pos": null,
+   "resultado": null,
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ]
+  },
+  "5606371": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606371?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "fecha": "2026-10-17",
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": null,
+   "jornada": 4,
+   "local": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ],
+   "pos": null,
+   "resultado": null,
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "15704127",
+    "S.A.D. STELLA MARIS LA GAVIA 'A'"
+   ]
+  },
+  "5606378": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606378?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "LA UNION - VALLECAS VILLA (HA)",
+   "fecha": "2026-10-24",
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": "13:30",
+   "jornada": 5,
+   "local": [
+    "2786",
+    "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'"
+   ],
+   "pos": null,
+   "resultado": null,
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ]
+  },
+  "5606386": {
+   "acta": "https://www.elbalondemadrid.es/acta/5606386?temporada=22&competicion=26737819&grupo=26737824",
+   "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "fecha": "2026-10-31",
+   "grupo": "Preferente Infantil Grupo 5",
+   "hora": null,
+   "jornada": 6,
+   "local": [
+    "13538235",
+    "C.D. CIUDAD LOS ANGELES 'A'"
+   ],
+   "pos": null,
+   "resultado": null,
+   "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
+   "visitante": [
+    "526135",
+    "ESC. MUN. FUT. VILLAREJO 'A'"
+   ]
+  }
+ }
+}

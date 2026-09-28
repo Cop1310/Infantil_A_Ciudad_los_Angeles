@@ -1,0 +1,397 @@
+{
+  "generado": "2026-09-28 12:49",
+  "desde": "2026-10-03",
+  "hasta": "2026-10-04",
+  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
+  "resultados_desde": "2026-09-26",
+  "resultados_hasta": "2026-09-27",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 26/09/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *15:30h* - Preferente Infantil Grupo 5\n📌 _Jornada 1_\n📍 Campo: IDB David Diez de la Cruz\n🔴 Santiago Apóstol Villaverde A 7 - 2 *_Ciudad de los Ángeles A_*",
+  "sin_partido": [],
+  "sin_calendario": [],
+  "errores": [],
+  "plantilla": [],
+  "semanas": [
+    {
+      "sabado": "2026-09-26",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 26/09/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *15:30h* - Preferente Infantil Grupo 5\n📌 _Jornada 1_\n📍 Campo: IDB David Diez de la Cruz\n⚽ Santiago Apóstol Villaverde A - *_Ciudad de los Ángeles A_*",
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 26/09/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *15:30h* - Preferente Infantil Grupo 5\n📌 _Jornada 1_\n📍 Campo: IDB David Diez de la Cruz\n🔴 Santiago Apóstol Villaverde A 7 - 2 *_Ciudad de los Ángeles A_*"
+    },
+    {
+      "sabado": "2026-10-03",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
+      "resultados": ""
+    },
+    {
+      "sabado": "2026-10-10",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ Rivas Futbol Club B - *_Ciudad de los Ángeles A_*",
+      "resultados": ""
+    },
+    {
+      "sabado": "2026-10-17",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Stella Maris la Gavia A",
+      "resultados": ""
+    },
+    {
+      "sabado": "2026-10-24",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *13:30h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ Udmelidaolimpia - Madrid City Vallecas A - *_Ciudad de los Ángeles A_*",
+      "resultados": ""
+    },
+    {
+      "sabado": "2026-10-31",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Esc. Mun. Fut. Villarejo A",
+      "resultados": ""
+    }
+  ],
+  "detalle_resultados": [
+    {
+      "sabado": "2026-09-26",
+      "partidos": [
+        {
+          "fecha": "2026-09-26",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 1,
+          "local": "Santiago Apóstol Villaverde A",
+          "visitante": "Ciudad de los Ángeles A",
+          "resultado": [
+            7,
+            2
+          ],
+          "goles": [
+            {
+              "minuto": 25,
+              "jugador": "ENZO ACEVEDO MANZANEQUE",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 27,
+              "jugador": "ENZO ACEVEDO MANZANEQUE",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 29,
+              "jugador": "ENZO ACEVEDO MANZANEQUE",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 33,
+              "jugador": "ENZO ACEVEDO MANZANEQUE",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 61,
+              "jugador": "JAVIER FERNADEZ MOYA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 65,
+              "jugador": "JAVIER FERNADEZ MOYA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 67,
+              "jugador": "JAVIER FERNADEZ MOYA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 48,
+              "jugador": "GONZALO TORRES ARGENTA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 52,
+              "jugador": "IZAN AMIN GARCÍA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 28,
+              "jugador": "IAN CARLOS MORA RAMIREZ",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            },
+            {
+              "minuto": 55,
+              "jugador": "JAVIER FERNADEZ MOYA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-03",
+      "partidos": []
+    },
+    {
+      "sabado": "2026-10-10",
+      "partidos": []
+    },
+    {
+      "sabado": "2026-10-17",
+      "partidos": []
+    },
+    {
+      "sabado": "2026-10-24",
+      "partidos": []
+    },
+    {
+      "sabado": "2026-10-31",
+      "partidos": []
+    }
+  ],
+  "clasificaciones": [
+    {
+      "titulo": "Preferente Infantil Grupo 5",
+      "jornada": 1,
+      "filas": [
+        {
+          "pos": 1,
+          "id": "1031681",
+          "nombre": "Santiago Apóstol Villaverde A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 7,
+          "gc": 2,
+          "dg": 5,
+          "pts": 3
+        },
+        {
+          "pos": 2,
+          "id": "1549",
+          "nombre": "Escuela de Futbol Arganda A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 6,
+          "gc": 1,
+          "dg": 5,
+          "pts": 3
+        },
+        {
+          "pos": 3,
+          "id": "2730",
+          "nombre": "Union Deportiva la Poveda A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 4,
+          "gc": 1,
+          "dg": 3,
+          "pts": 3
+        },
+        {
+          "pos": 4,
+          "id": "13613759",
+          "nombre": "Fundacion Leganes C",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 3,
+          "gc": 0,
+          "dg": 3,
+          "pts": 3
+        },
+        {
+          "pos": 5,
+          "id": "1692",
+          "nombre": "Adepo Palomeras A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 3,
+          "gc": 1,
+          "dg": 2,
+          "pts": 3
+        },
+        {
+          "pos": 6,
+          "id": "846631",
+          "nombre": "Club Seccion Deportiva del Pozo A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 2,
+          "gc": 1,
+          "dg": 1,
+          "pts": 3
+        },
+        {
+          "pos": 7,
+          "id": "1031993",
+          "nombre": "Fundacion Rayo Vallecano C",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 1,
+          "gc": 0,
+          "dg": 1,
+          "pts": 3
+        },
+        {
+          "pos": 8,
+          "id": "17202267",
+          "nombre": "Velilla A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 1,
+          "e": 0,
+          "p": 0,
+          "gf": 1,
+          "gc": 0,
+          "dg": 1,
+          "pts": 3
+        },
+        {
+          "pos": 9,
+          "id": "2739614",
+          "nombre": "Rivas Futbol Club B",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 1,
+          "gc": 2,
+          "dg": -1,
+          "pts": 0
+        },
+        {
+          "pos": 10,
+          "id": "526135",
+          "nombre": "Esc. Mun. Fut. Villarejo A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 0,
+          "gc": 1,
+          "dg": -1,
+          "pts": 0
+        },
+        {
+          "pos": 11,
+          "id": "2786",
+          "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 0,
+          "gc": 1,
+          "dg": -1,
+          "pts": 0
+        },
+        {
+          "pos": 12,
+          "id": "886326",
+          "nombre": "Racing de Villaverde A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 1,
+          "gc": 3,
+          "dg": -2,
+          "pts": 0
+        },
+        {
+          "pos": 13,
+          "id": "15704127",
+          "nombre": "Stella Maris la Gavia A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 1,
+          "gc": 4,
+          "dg": -3,
+          "pts": 0
+        },
+        {
+          "pos": 14,
+          "id": "1094",
+          "nombre": "Ad A.Toledo Olivos A",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 0,
+          "gc": 3,
+          "dg": -3,
+          "pts": 0
+        },
+        {
+          "pos": 15,
+          "id": "13538235",
+          "nombre": "Ciudad de los Ángeles A",
+          "nuestro": true,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 2,
+          "gc": 7,
+          "dg": -5,
+          "pts": 0
+        },
+        {
+          "pos": 16,
+          "id": "6238195",
+          "nombre": "Inter Promesas B",
+          "nuestro": false,
+          "pj": 1,
+          "g": 0,
+          "e": 0,
+          "p": 1,
+          "gf": 1,
+          "gc": 6,
+          "dg": -5,
+          "pts": 0
+        }
+      ],
+      "equipo": "Ciudad de los Ángeles A"
+    }
+  ]
+}
