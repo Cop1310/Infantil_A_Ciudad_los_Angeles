@@ -533,8 +533,9 @@ _RE_FECHA_NAC = re.compile(r"^\d{2}[-/]\d{2}[-/]\d{4}$")
 
 def obtener_plantilla(soup):
     """Lista de jugadores del equipo: {dorsal (o None si la web no lo da todavía), nombre,
-    fecha_nacimiento (o None, casi siempre None: la web no suele publicarla)}. Devuelve []
-    si no se reconoce ninguna estructura de plantilla en la página."""
+    fecha_nacimiento (o None, casi siempre None: la web no suele publicarla), foto (siempre
+    None aquí: la web no da fotos, solo se rellena a mano)}. Devuelve [] si no se reconoce
+    ninguna estructura de plantilla en la página."""
     normalizar(soup)
     jugadores = []
     for tr in soup.find_all("tr"):
@@ -547,7 +548,7 @@ def obtener_plantilla(soup):
         if not resto or _RE_DORSAL.match(resto[0]) or len(resto[0]) < 3:
             continue
         fecha_nac = next((t for t in resto[1:] if _RE_FECHA_NAC.match(t)), None)
-        jugadores.append({"dorsal": dorsal, "nombre": resto[0], "fecha_nacimiento": fecha_nac})
+        jugadores.append({"dorsal": dorsal, "nombre": resto[0], "fecha_nacimiento": fecha_nac, "foto": None})
     if not jugadores:
         # Plan B: la plantilla no viene en una <table> normal; se buscan en el texto de la
         # página tramos "dorsal, nombre[, fecha]" seguidos.
@@ -562,7 +563,8 @@ def obtener_plantilla(soup):
                         and not _RE_FECHA_NAC.match(siguiente):
                     hay_fecha = i + 2 < len(textos) and _RE_FECHA_NAC.match(textos[i + 2])
                     jugadores.append({"dorsal": int(t), "nombre": siguiente,
-                                      "fecha_nacimiento": textos[i + 2] if hay_fecha else None})
+                                      "fecha_nacimiento": textos[i + 2] if hay_fecha else None,
+                                      "foto": None})
                     i += 3 if hay_fecha else 2
                     continue
             i += 1
@@ -607,11 +609,11 @@ def obtener_plantilla_con_navegador(url):
 
 def aplicar_plantilla_manual(jugadores, ruta):
     """Aplica sobre la plantilla leída de la web los datos metidos a mano desde el panel de
-    administrador (dorsal y fecha de nacimiento de los niños que faltan). Lo escrito a mano
-    tiene SIEMPRE prioridad sobre lo leído de la web, así no se pierde nunca aunque la web
-    cambie o deje de publicar algún dato. Un jugador que solo exista en el fichero manual
-    (por si el nombre cambiara en la web) también se añade. Al final, la lista queda
-    ordenada por dorsal (los que aún no tienen, al final, por nombre)."""
+    administrador (dorsal, fecha de nacimiento y foto de los niños que falten o se quieran
+    corregir). Lo escrito a mano tiene SIEMPRE prioridad sobre lo leído de la web, así no se
+    pierde nunca aunque la web cambie o deje de publicar algún dato. Un jugador que solo exista
+    en el fichero manual (por si el nombre cambiara en la web) también se añade. Al final, la
+    lista queda ordenada por dorsal (los que aún no tienen, al final, por nombre)."""
     try:
         with open(ruta, encoding="utf-8") as f:
             manuales = json.load(f)
@@ -624,13 +626,15 @@ def aplicar_plantilla_manual(jugadores, ruta):
             continue
         j = por_nombre.get(nombre)
         if j is None:
-            j = {"dorsal": None, "nombre": nombre, "fecha_nacimiento": None}
+            j = {"dorsal": None, "nombre": nombre, "fecha_nacimiento": None, "foto": None}
             jugadores.append(j)
             por_nombre[nombre] = j
         if m.get("dorsal") is not None:
             j["dorsal"] = m["dorsal"]
         if m.get("fecha_nacimiento"):
             j["fecha_nacimiento"] = m["fecha_nacimiento"]
+        if m.get("foto"):
+            j["foto"] = m["foto"]
     jugadores.sort(key=lambda j: (j["dorsal"] is None, j["dorsal"] if j["dorsal"] is not None else 0,
                                   j["nombre"]))
     return jugadores

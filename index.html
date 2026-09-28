@@ -188,9 +188,9 @@
   .tarjeta-icono { display: inline-block; width: 9px; height: 12px; border-radius: 1px; margin-right: 4px; vertical-align: -1px; }
   .tarjeta-icono.amarilla { background: #f4c430; }
   .tarjeta-icono.roja { background: var(--roja); }
-  /* Goles/tarjetas del Ciudad de los Ángeles resaltados, igual que en la Clasificación */
-  .goles-lado.nuestro { background: #f7e9b0; border-radius: 4px; padding: 4px 8px; font-weight: 800; }
-  .tarjeta-linea.nuestro { background: #f7e9b0; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
+  /* Goles/tarjetas del Ciudad de los Ángeles resaltados jugador a jugador, igual que en la
+     Clasificación (no todo el bloque del equipo: cada línea según quién anotó/fue amonestado) */
+  .gol-linea.nuestro, .tarjeta-linea.nuestro { background: #f7e9b0; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
 
   /* Plantilla */
   .plantilla-lista { background: var(--papel); border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
@@ -457,29 +457,51 @@
     return det.partidos[indice];
   }
 
-  // Coincide con _es_nuestro() del script de Python (compara sin acentos ni mayúsculas).
+  // Coincide con _es_nuestro() del script de Python (compara sin acentos ni mayúsculas). Se usa
+  // como respaldo cuando todavía no se conoce la plantilla (ver más abajo), y solo entonces:
+  // el nombre de equipo que da el acta puede venir mal asignado partido a partido (el acta
+  // agrupa los goles por equipo tal y como los reconoce el análisis del texto, que a veces se
+  // equivoca), así que NO es la forma principal de decidir qué es "nuestro".
   function esNuestro(nombre) {
     return /ciudad\s+(de\s+)?los\s+[áa]ngeles/i.test(nombre || "");
   }
 
+  function normNombre(s) {
+    return (s || "").toUpperCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
+  }
+
+  // Nombres (normalizados) de los jugadores de nuestra plantilla: es la forma FIABLE de saber
+  // si un gol o una tarjeta es nuestra, jugador a jugador, en vez de fiarse del "equipo" que
+  // trae el acta (que agrupa por bloques y puede venir mal repartido entre los dos equipos).
+  function jugadoresPropios() {
+    var set = {};
+    plantillaFusionada().forEach(function (j) { set[normNombre(j.nombre)] = true; });
+    return set;
+  }
+
   function golesHtml(detalle) {
     if (!detalle || (!detalle.goles.length && !detalle.tarjetas.length)) return "";
+    var propios = jugadoresPropios();
+    var conoceRoster = Object.keys(propios).length > 0;
+    function esPropio(jugador, nombreEquipoBloque) {
+      return conoceRoster ? !!propios[normNombre(jugador)] : esNuestro(nombreEquipoBloque);
+    }
     function porLado(lado) {
       var g = detalle.goles.filter(function (x) { return x.lado === lado; })
         .sort(function (a, b) { return a.minuto - b.minuto; });
       if (!g.length) return "";
       var nombre = lado === "local" ? detalle.local : detalle.visitante;
       var lineas = g.map(function (x) {
-        return '<span class="gol-linea">⚽ ' + x.minuto + "' " + escapar(x.jugador) + (x.penalti ? " (penalti)" : "") + "</span>";
+        var clase = "gol-linea" + (esPropio(x.jugador, nombre) ? " nuestro" : "");
+        return '<span class="' + clase + '">⚽ ' + x.minuto + "' " + escapar(x.jugador) + (x.penalti ? " (penalti)" : "") + "</span>";
       }).join("");
-      var clase = "goles-lado" + (esNuestro(nombre) ? " nuestro" : "");
-      return '<div class="' + clase + '"><b>' + escapar(nombre) + ":</b> " + lineas + "</div>";
+      return '<div class="goles-lado"><b>' + escapar(nombre) + ":</b> " + lineas + "</div>";
     }
     function tarjetasHtml() {
       if (!detalle.tarjetas.length) return "";
       var lineas = detalle.tarjetas.sort(function (a, b) { return a.minuto - b.minuto; }).map(function (x) {
         var equipoLimpio = x.equipo.replace(/^C\.D\.\s*/, "");
-        var clase = "tarjeta-linea" + (esNuestro(equipoLimpio) ? " nuestro" : "");
+        var clase = "tarjeta-linea" + (esPropio(x.jugador, equipoLimpio) ? " nuestro" : "");
         return '<span class="' + clase + '"><span class="tarjeta-icono ' + x.tipo + '"></span>' +
           x.minuto + "' " + escapar(x.jugador) + " (" + escapar(equipoLimpio) + ")</span>";
       }).join("");
@@ -591,15 +613,18 @@
   // ---------------------------------------------------------------------
   function plantillaFusionada() {
     var base = (datos && datos.plantilla) || [];
-    var lista = base.map(function (j) { return { dorsal: j.dorsal, nombre: j.nombre, fecha_nacimiento: j.fecha_nacimiento }; });
+    var lista = base.map(function (j) {
+      return { dorsal: j.dorsal, nombre: j.nombre, fecha_nacimiento: j.fecha_nacimiento, foto: j.foto || null };
+    });
     var porNombre = {};
     lista.forEach(function (j) { porNombre[j.nombre] = j; });
     Object.keys(overridesPlantilla).forEach(function (nombre) {
       var o = overridesPlantilla[nombre];
       var j = porNombre[nombre];
-      if (!j) { j = { dorsal: null, nombre: nombre, fecha_nacimiento: null }; lista.push(j); porNombre[nombre] = j; }
+      if (!j) { j = { dorsal: null, nombre: nombre, fecha_nacimiento: null, foto: null }; lista.push(j); porNombre[nombre] = j; }
       if (o.dorsal !== null && o.dorsal !== undefined) j.dorsal = o.dorsal;
       if (o.fecha_nacimiento) j.fecha_nacimiento = o.fecha_nacimiento;
+      if (o.foto) j.foto = o.foto;
     });
     lista.sort(function (a, b) {
       var da = a.dorsal === null || a.dorsal === undefined, db = b.dorsal === null || b.dorsal === undefined;
@@ -608,6 +633,24 @@
       return a.nombre.localeCompare(b.nombre, "es");
     });
     return lista;
+  }
+
+  // Goles totales de cada jugador de NUESTRA plantilla, sumando el detalle de todos los
+  // resultados publicados (no viene de la web: se calcula aquí a partir de los goleadores que
+  // ya trae "detalle_resultados"). Al emparejar por nombre contra la propia plantilla, un gol
+  // mal repartido de equipo en el acta (ver golesHtml) no se cuela: si el nombre no es de un
+  // jugador nuestro, no cuenta.
+  function golesPorJugador() {
+    var contador = {};
+    (datos && datos.detalle_resultados || []).forEach(function (sab) {
+      (sab.partidos || []).forEach(function (p) {
+        (p.goles || []).forEach(function (g) {
+          var k = normNombre(g.jugador);
+          contador[k] = (contador[k] || 0) + 1;
+        });
+      });
+    });
+    return contador;
   }
 
   function pieAdmin() {
@@ -620,6 +663,7 @@
   function pintarPlantilla() {
     elCuando.textContent = "Plantilla del equipo";
     var lista = plantillaFusionada();
+    var goles = golesPorJugador();
     btnCopiar.classList.add("desactivado");
     btnWa.classList.add("desactivado");
     btnWa.href = "#";
@@ -639,25 +683,58 @@
       return;
     }
     var filas = lista.map(function (j, i) {
-      var dorsalHtml = j.dorsal !== null && j.dorsal !== undefined
-        ? '<div class="dorsal">' + j.dorsal + "</div>"
-        : '<div class="dorsal sin">?</div>';
+      var avatarHtml = j.foto
+        ? '<img class="avatar-foto" src="' + j.foto + '" alt="">'
+        : (j.dorsal !== null && j.dorsal !== undefined
+            ? '<div class="dorsal">' + j.dorsal + "</div>"
+            : '<div class="dorsal sin">?</div>');
+      var nGoles = goles[normNombre(j.nombre)] || 0;
+      var golesHtmlJug = nGoles ? '<span class="goles-jugador">⚽ ' + nGoles + "</span>" : "";
       var camposAdmin = adminActivo
         ? '<div class="campos-admin">' +
           '<input class="dorsal-in" type="number" min="1" max="99" inputmode="numeric" placeholder="Dorsal" ' +
           'value="' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '" data-nombre="' + escapar(j.nombre) + '">' +
           '<input class="fecha-in" type="text" placeholder="Fecha nacimiento (DD-MM-AAAA)" ' +
           'value="' + escapar(j.fecha_nacimiento || "") + '" data-nombre="' + escapar(j.nombre) + '">' +
+          "</div>" +
+          '<div class="foto-admin">' +
+          '<input class="foto-in" type="file" accept="image/*" data-nombre="' + escapar(j.nombre) + '">' +
+          (j.foto ? '<button type="button" class="foto-quitar" data-nombre="' + escapar(j.nombre) + '">Quitar foto</button>' : "") +
           "</div>"
         : "";
       var nacimiento = !adminActivo && j.fecha_nacimiento
         ? '<div class="nacimiento">Nacido el ' + escapar(j.fecha_nacimiento) + "</div>" : "";
-      return '<div class="jugador">' + dorsalHtml +
-        '<div class="info"><div class="nombre">' + escapar(j.nombre) + "</div>" + nacimiento + camposAdmin + "</div></div>";
+      return '<div class="jugador">' + avatarHtml +
+        '<div class="info"><div class="nombre">' + escapar(j.nombre) + golesHtmlJug + "</div>" + nacimiento + camposAdmin + "</div></div>";
     }).join("");
     elMensaje.innerHTML = '<div class="plantilla-lista">' + filas + "</div>" + pieAdmin();
     if (adminActivo) {
       document.getElementById("admin-guardar").addEventListener("click", guardarPlantillaManual);
+      Array.prototype.forEach.call(elMensaje.querySelectorAll(".foto-in"), function (inp) {
+        inp.addEventListener("change", function () {
+          var f = inp.files && inp.files[0];
+          if (!f) return;
+          var nombre = inp.getAttribute("data-nombre");
+          procesarFoto(f, function (dataUrl) {
+            if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null };
+            overridesPlantilla[nombre].foto = dataUrl;
+            guardarOverridesEnLocalStorage();
+            pintarPlantilla();
+          });
+        });
+      });
+      Array.prototype.forEach.call(elMensaje.querySelectorAll(".foto-quitar"), function (btn) {
+        btn.addEventListener("click", function () {
+          var nombre = btn.getAttribute("data-nombre");
+          var o = overridesPlantilla[nombre];
+          if (o) {
+            delete o.foto;
+            if (!o.dorsal && !o.fecha_nacimiento && !o.foto) delete overridesPlantilla[nombre];
+          }
+          guardarOverridesEnLocalStorage();
+          pintarPlantilla();
+        });
+      });
     } else {
       document.getElementById("admin-abrir").addEventListener("click", abrirModalAdmin);
     }
