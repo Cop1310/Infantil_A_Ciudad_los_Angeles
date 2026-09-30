@@ -67,12 +67,14 @@
   .partido p { margin: 0; overflow-wrap: anywhere; }
   .partido strong { font-weight: 800; }
 
-  .pestanas { display: flex; margin: 0 0 14px; border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
+  .pestanas { display: flex; flex-wrap: wrap; margin: 0 0 14px; border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
   .pestanas button {
-    flex: 1; min-height: 46px; border: 0; border-radius: 0; background: var(--papel); color: var(--tinta);
-    font-weight: 700; font-size: clamp(0.68rem, 3.4vw, 0.92rem); padding: 0 3px;
+    flex: 1 1 33.33%; min-height: 44px; border: 0; background: var(--papel); color: var(--tinta);
+    font-weight: 700; font-size: clamp(0.7rem, 3.4vw, 0.92rem); padding: 0 3px;
+    border-top: 2px solid var(--tinta); margin-top: -2px;
   }
-  .pestanas button + button { border-left: 2px solid var(--tinta); }
+  .pestanas button:nth-child(-n+3) { border-top: 0; margin-top: 0; }
+  .pestanas button:not(:nth-child(3n+1)) { border-left: 2px solid var(--tinta); }
   .pestanas button[aria-selected="true"] { background: var(--tinta); color: #fff; }
   .partido.origen { background: #f6f6f3; color: var(--suave); font-size: 0.9rem; }
   .partido.origen a { color: inherit; }
@@ -214,6 +216,25 @@
   .gol-linea.nuestro, .tarjeta-linea.nuestro { background: #f7e9b0; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
   .gol-linea.propia { color: var(--roja); }
 
+  /* Entrenador: generador de convocatoria */
+  .entrenador-panel { display: flex; flex-direction: column; gap: 14px; }
+  .entrenador-etiqueta { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--suave); }
+  .entrenador-etiqueta select, .entrenador-etiqueta input[type="text"], .entrenador-etiqueta textarea {
+    font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 2px solid var(--linea); border-radius: 4px; color: var(--tinta); width: 100%;
+  }
+  .entrenador-etiqueta textarea { min-height: 56px; resize: vertical; }
+  .fila-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .convocados-contador { font-weight: 800; font-size: 0.95rem; }
+  .convocado-fila { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; }
+  .convocado-fila + .convocado-fila { border-top: 1px solid var(--linea); }
+  .convocado-fila input[type="checkbox"] { width: 20px; height: 20px; flex: none; }
+  .convocado-dorsal {
+    flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--tinta); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;
+  }
+  .convocado-dorsal.sin { background: #cfcfc9; color: #555; font-size: 0.7rem; }
+  .convocado-nombre { font-weight: 700; }
+
   /* Noticias */
   .noticias-lista { display: flex; flex-direction: column; gap: 12px; }
   .noticia {
@@ -320,6 +341,7 @@
     <button type="button" role="tab" id="tab-clasificacion" aria-selected="false">Clasificación</button>
     <button type="button" role="tab" id="tab-plantilla" aria-selected="false">Plantilla</button>
     <button type="button" role="tab" id="tab-noticias" aria-selected="false">Noticias</button>
+    <button type="button" role="tab" id="tab-entrenador" aria-selected="false">Entrenador</button>
   </div>
   <div class="semanas" id="semanas" hidden>
     <button type="button" id="sem-ant" aria-label="Fin de semana anterior">◀</button>
@@ -345,7 +367,7 @@
 <div class="modal-fondo" id="modal-admin" hidden>
   <div class="modal">
     <h2>Panel de administrador</h2>
-    <p>Introduce la contraseña para poder editar la plantilla o las noticias.</p>
+    <p>Introduce la contraseña para poder editar la plantilla, las noticias o preparar la convocatoria.</p>
     <input type="password" id="admin-clave" placeholder="Contraseña" autocomplete="off">
     <p class="modal-error" id="admin-error"></p>
     <div class="fila-botones">
@@ -364,6 +386,16 @@
   var adminActivo = false;
   var overridesPlantilla = {};   // {nombre: {dorsal, fecha_nacimiento}} — lo metido a mano, en este navegador
   var noticiasManuales = [];     // [{id, texto, foto, hasta}] — avisos metidos a mano, en este navegador
+  // Estado del generador de convocatoria (pestaña Entrenador): vive solo en memoria, no se
+  // guarda ni se sube a ningún sitio -se genera el mensaje al momento y se comparte, como con
+  // el resto de pestañas de "Copiar mensaje"/WhatsApp.
+  var convocadosSel = {};        // {id del jugador: true}
+  var partidoConvSel = 0;        // índice dentro de partidosConvocables()
+  var antelacionConv = 30;       // minutos de antelación para la hora de convocatoria
+  var equipacionConv = { camiseta: null, pantalon: null, medias: null };
+  var campoManualConv = "";      // ubicación (enlace) del campo, opcional, a mano
+  var motivacionalConv = "";
+  var recordatorioConv = "";
   var HASH_ADMIN = "8e051b489ca542b1b8db91382956fca4e6bcfe1850880d8f85d4c3a61c72f8d6"; // ver aviso más abajo
   var CLAVE_LOCAL = "infantil_a_plantilla_manual";
   var CLAVE_LOCAL_NOTICIAS = "infantil_a_noticias_manual";
@@ -379,6 +411,7 @@
   var tabC = document.getElementById("tab-clasificacion");
   var tabPl = document.getElementById("tab-plantilla");
   var tabN = document.getElementById("tab-noticias");
+  var tabE = document.getElementById("tab-entrenador");
   var elChips = document.getElementById("chips");
   var elSemanas = document.getElementById("semanas");
   var selSemana = document.getElementById("sem-sel");
@@ -429,7 +462,7 @@
 
   function pintarSelectorSemanas() {
     var s = semanas();
-    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias" || s.length < 2) { elSemanas.hidden = true; return; }
+    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias" || activa === "entrenador" || s.length < 2) { elSemanas.hidden = true; return; }
     elSemanas.hidden = false;
     var i = sel[activa];
     selSemana.innerHTML = s.map(function (x, k) { return { x: x, k: k }; }).reverse().map(function (o) {
@@ -459,7 +492,11 @@
 
   function textoActivo() {
     if (!datos) return "";
-    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias") return activa === "clasificacion" ? textoClasificacion() : "";
+    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias" || activa === "entrenador") {
+      if (activa === "clasificacion") return textoClasificacion();
+      if (activa === "entrenador") return textoConvocatoria();
+      return "";
+    }
     var s = semanas();
     if (s.length) {
       var w = s[Math.max(0, Math.min(sel[activa], s.length - 1))];
@@ -591,7 +628,12 @@
       '<div class="nombre-mc">' + nombre + '</div>' + golNum + '</div>';
   }
 
-  function partidoHtml(bloque, indice) {
+  // Analiza un bloque de texto de un partido (el mismo formato de "texto"/"resultados" que ya
+  // se usa para pintar Partidos/Resultados) y saca hora, título de la competición, jornada,
+  // campo y los dos equipos. Se usa tanto para pintar esas dos pestañas como para el generador
+  // de convocatoria de la pestaña Entrenador, así no hay dos sitios leyendo el mismo texto con
+  // patrones distintos que se puedan desincronizar.
+  function analizarBloquePartido(bloque) {
     var l = bloque.split("\n"), hora = null, titulo, jor = null, campo = null, eq = null;
     var cab = /^⏰\s*\*(\d{2}:\d{2})h\*\s*-\s*(.+)$/.exec(l[0]);
     if (cab) { hora = cab[1]; titulo = cab[2]; }
@@ -608,6 +650,24 @@
       else eq = partirEquipos(l[i]);
     }
     if (!eq) return null;
+    return { hora: hora, titulo: titulo, jor: jor, campo: campo, eq: eq };
+  }
+
+  // Quita el emoji y la posición ("*(15º)* ") de una de las dos mitades de `eq` (eq.local o
+  // eq.visitante, tal como los da partirEquipos) y dice si es "nuestro" equipo (va envuelto en
+  // *_..._*, igual que ya distingue equipoHtml/filaMarcadorHtml) y cuál es su nombre limpio.
+  function analizarLadoEquipo(s) {
+    s = (s || "").replace(/^[\p{Extended_Pictographic}️\s]+/u, "").trim();
+    var m = /^\*\((\d+)º\)\*\s*(.*)$/.exec(s);
+    if (m) s = m[2];
+    var us = /^\*_(.+)_\*$/.exec(s);
+    return { nuestro: !!us, nombre: us ? us[1] : s };
+  }
+
+  function partidoHtml(bloque, indice) {
+    var info = analizarBloquePartido(bloque);
+    if (!info) return null;
+    var hora = info.hora, titulo = info.titulo, jor = info.jor, campo = info.campo, eq = info.eq;
     var clase = { "🟢": "gana", "🟡": "empata", "🔴": "pierde" }[eq.icono] || "neutro";
     var etiqueta = escapar(titulo.replace(/\s+Grupo\s+(\d+)/i, " · grupo $1"));
     var detalle = (jor ? "<em>Jornada " + jor + "</em>" : "") + (jor && campo ? " · " : "") + (campo ? ICONO_PIN + escapar(campo) : "");
@@ -849,6 +909,211 @@
     setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
     pintarNoticias();
     mostrarToast("Guardado en este dispositivo y archivo descargado");
+  }
+
+  // ---------------------------------------------------------------------
+  // Entrenador: generador de convocatoria (pestaña con el mismo panel/contraseña que Plantilla
+  // y Noticias). No se guarda ni se sube a ningún sitio -el mensaje se genera al momento en el
+  // navegador del entrenador, con el mismo patrón de "Copiar mensaje"/WhatsApp que ya usan
+  // Partidos, Resultados y Clasificación.
+  // ---------------------------------------------------------------------
+
+  // Partidos próximos (pestaña "Partidos") de todas las semanas visibles, con lo que hace
+  // falta para la convocatoria: fecha exacta, hora, campo y rival -analizando el mismo texto
+  // que ya se usa para pintar esa pestaña (ver analizarBloquePartido/analizarLadoEquipo).
+  function partidosConvocables() {
+    var lista = [];
+    semanas().forEach(function (s) {
+      if (!s.partidos) return;
+      var fechaActual = s.sabado;
+      s.partidos.split(/\n\s*\n/).forEach(function (bloque) {
+        var d = /📅\s*\*(?:SÁBADO|DOMINGO)\s+(\d{2})\/(\d{2})\/(\d{4})\*/i.exec(bloque);
+        if (d) { fechaActual = d[3] + "-" + d[2] + "-" + d[1]; return; }
+        var info = analizarBloquePartido(bloque);
+        if (!info) return;
+        var local = analizarLadoEquipo(info.eq.local), visitante = analizarLadoEquipo(info.eq.visitante);
+        var rival = local.nuestro ? visitante.nombre : local.nombre;
+        lista.push({ fecha: fechaActual, jornada: info.jor, hora: info.hora, campo: info.campo, rival: rival });
+      });
+    });
+    return lista;
+  }
+
+  // Resta `minutos` a una hora "HH:MM" y devuelve otra "HH:MM" (para la hora de convocatoria,
+  // que es la hora del partido con la antelación que elija el entrenador).
+  function horaMenos(hora, minutos) {
+    if (!hora) return null;
+    var p = hora.split(":");
+    var d = new Date(2000, 0, 1, parseInt(p[0], 10), parseInt(p[1], 10));
+    d.setMinutes(d.getMinutes() - minutos);
+    return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  }
+
+  function textoConvocatoria() {
+    var partidos = partidosConvocables();
+    if (!partidos.length) return "";
+    var p = partidos[Math.max(0, Math.min(partidoConvSel, partidos.length - 1))];
+    var convocados = plantillaFusionada().filter(function (j) { return convocadosSel[j.id]; });
+    if (!convocados.length) return "";
+
+    var df = p.fecha.split("-");
+    var lineas = ["JORNADA " + (p.jornada || "?") + " DE LIGA", "📆" + df[2] + "/" + df[1] + "/" + df[0]];
+    if (p.hora) {
+      lineas.push("⌚️ convocatoria " + (horaMenos(p.hora, antelacionConv) || p.hora));
+      lineas.push("⏱️" + p.hora + " horas");
+    }
+    if (p.campo || campoManualConv.trim()) {
+      lineas.push("");
+      if (p.campo) lineas.push("🏟️ " + p.campo);
+      if (campoManualConv.trim()) lineas.push(campoManualConv.trim());
+    }
+    lineas.push("");
+    lineas.push("🆚️ " + p.rival);
+    if (equipacionConv.camiseta || equipacionConv.pantalon || equipacionConv.medias) {
+      lineas.push("");
+      if (equipacionConv.camiseta) lineas.push("Camiseta " + (equipacionConv.camiseta === "rosa" ? "🩷" : "🖤🤍"));
+      if (equipacionConv.pantalon) lineas.push("Pantalon " + (equipacionConv.pantalon === "negro" ? "⚫️" : "⚪️"));
+      if (equipacionConv.medias) lineas.push("Medias " + (equipacionConv.medias === "negro" ? "⚫️" : "⚪️"));
+    }
+    lineas.push("");
+    lineas.push("CONVOCATORIA");
+    convocados.forEach(function (j) {
+      lineas.push((j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "-") + ". " + j.nombre);
+    });
+    if (motivacionalConv.trim() || recordatorioConv.trim()) {
+      lineas.push("");
+      if (motivacionalConv.trim()) lineas.push(motivacionalConv.trim());
+      if (recordatorioConv.trim()) lineas.push("(" + recordatorioConv.trim() + ")");
+    }
+    return lineas.join("\n");
+  }
+
+  function actualizarBarraEntrenador() {
+    var texto = textoConvocatoria();
+    if (texto) {
+      btnCopiar.classList.remove("desactivado");
+      btnWa.classList.remove("desactivado");
+      btnWa.href = "https://wa.me/?text=" + encodeURIComponent(texto);
+    } else {
+      btnCopiar.classList.add("desactivado");
+      btnWa.classList.add("desactivado");
+      btnWa.href = "#";
+    }
+  }
+
+  function pintarEntrenador() {
+    elCuando.textContent = "Convocatoria";
+    if (!adminActivo) {
+      elMensaje.innerHTML = '<p class="estado">Esta pestaña es solo para el entrenador.</p>' +
+        '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir-entrenador">Panel de administrador</button></div>';
+      document.getElementById("admin-abrir-entrenador").addEventListener("click", abrirModalAdmin);
+      btnCopiar.classList.add("desactivado");
+      btnWa.classList.add("desactivado");
+      btnWa.href = "#";
+      return;
+    }
+
+    var partidos = partidosConvocables();
+    if (!partidos.length) {
+      elMensaje.innerHTML = '<p class="estado">No hay ningún partido próximo todavía para convocar.</p>';
+      btnCopiar.classList.add("desactivado");
+      btnWa.classList.add("desactivado");
+      btnWa.href = "#";
+      return;
+    }
+    if (partidoConvSel >= partidos.length) partidoConvSel = 0;
+
+    var opcionesPartido = partidos.map(function (x, i) {
+      var d = x.fecha.split("-");
+      return '<option value="' + i + '"' + (i === partidoConvSel ? " selected" : "") + ">" +
+        escapar("Jornada " + (x.jornada || "?") + " · " + d[2] + "/" + d[1] + " vs " + x.rival) + "</option>";
+    }).join("");
+
+    function grupoChips(campo, opciones) {
+      return '<div class="fila-chips">' + opciones.map(function (o) {
+        return '<button type="button" class="chip equip-chip" data-campo="' + campo + '" data-valor="' + o.valor +
+          '" aria-pressed="' + (equipacionConv[campo] === o.valor) + '">' + o.etiqueta + "</button>";
+      }).join("") + "</div>";
+    }
+
+    var jugadores = plantillaFusionada();
+    var nConv = jugadores.filter(function (j) { return convocadosSel[j.id]; }).length;
+    var filasJugadores = jugadores.map(function (j) {
+      var marcado = !!convocadosSel[j.id];
+      return '<label class="convocado-fila">' +
+        '<input type="checkbox" class="convocado-check" data-id="' + escapar(j.id) + '"' + (marcado ? " checked" : "") + '>' +
+        '<span class="convocado-dorsal' + (j.dorsal !== null && j.dorsal !== undefined ? "" : " sin") + '">' +
+        (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "?") + '</span>' +
+        '<span class="convocado-nombre">' + escapar(j.nombre) + "</span></label>";
+    }).join("");
+
+    elMensaje.innerHTML =
+      '<div class="entrenador-panel">' +
+      '<label class="entrenador-etiqueta">Partido<select id="conv-partido">' + opcionesPartido + '</select></label>' +
+      '<div class="entrenador-etiqueta">Convocatoria (antelación)' +
+        '<div class="fila-chips">' + [30, 45, 60].map(function (m) {
+          return '<button type="button" class="chip conv-antelacion" data-min="' + m + '" aria-pressed="' + (antelacionConv === m) + '">' + m + ' min</button>';
+        }).join("") + "</div></div>" +
+      '<label class="entrenador-etiqueta">Ubicación del campo (opcional, enlace de Google Maps)' +
+        '<input type="text" id="conv-campo-manual" placeholder="https://maps.app.goo.gl/..." value="' + escapar(campoManualConv) + '"></label>' +
+      '<div class="entrenador-etiqueta">Equipación' +
+        grupoChips("camiseta", [{ valor: "rayas", etiqueta: "🖤🤍 Rayas" }, { valor: "rosa", etiqueta: "🩷 Rosa" }]) +
+        grupoChips("pantalon", [{ valor: "negro", etiqueta: "⚫️ Negro" }, { valor: "blanco", etiqueta: "⚪️ Blanco" }]) +
+        grupoChips("medias", [{ valor: "negro", etiqueta: "⚫️ Negro" }, { valor: "blanco", etiqueta: "⚪️ Blanco" }]) +
+        "</div>" +
+      '<label class="entrenador-etiqueta">Mensaje motivador (opcional)<textarea id="conv-motivacional" placeholder="p. ej. Vamos a por el primer +3 🖤🤍🖤">' +
+        escapar(motivacionalConv) + '</textarea></label>' +
+      '<label class="entrenador-etiqueta">Recordatorio (opcional)<textarea id="conv-recordatorio" placeholder="p. ej. Obligatorio peto marcado y botella de agua">' +
+        escapar(recordatorioConv) + '</textarea></label>' +
+      '<div class="convocados-contador">' + nConv + " convocado" + (nConv === 1 ? "" : "s") + " seleccionado" + (nConv === 1 ? "" : "s") + '</div>' +
+      '<div class="plantilla-lista">' + filasJugadores + "</div>" +
+      "</div>";
+
+    document.getElementById("conv-partido").addEventListener("change", function (e) {
+      partidoConvSel = parseInt(e.target.value, 10) || 0;
+      pintarEntrenador();
+    });
+    document.getElementById("conv-campo-manual").addEventListener("input", function (e) {
+      campoManualConv = e.target.value;
+      actualizarBarraEntrenador();
+    });
+    document.getElementById("conv-motivacional").addEventListener("input", function (e) {
+      motivacionalConv = e.target.value;
+      actualizarBarraEntrenador();
+    });
+    document.getElementById("conv-recordatorio").addEventListener("input", function (e) {
+      recordatorioConv = e.target.value;
+      actualizarBarraEntrenador();
+    });
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".conv-antelacion"), function (btn) {
+      btn.addEventListener("click", function () {
+        antelacionConv = parseInt(btn.getAttribute("data-min"), 10);
+        pintarEntrenador();
+      });
+    });
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".equip-chip"), function (btn) {
+      btn.addEventListener("click", function () {
+        var campo = btn.getAttribute("data-campo");
+        var valor = btn.getAttribute("data-valor");
+        // pulsar la opción ya elegida la deja sin seleccionar (por si el entrenador quiere
+        // dejarla sin especificar en el mensaje)
+        equipacionConv[campo] = equipacionConv[campo] === valor ? null : valor;
+        pintarEntrenador();
+      });
+    });
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".convocado-check"), function (chk) {
+      chk.addEventListener("change", function () {
+        var id = chk.getAttribute("data-id");
+        if (chk.checked) convocadosSel[id] = true; else delete convocadosSel[id];
+        actualizarBarraEntrenador();
+        // Solo se actualiza el contador, sin repintar toda la lista (se perdería el scroll).
+        var n = Object.keys(convocadosSel).length;
+        var contador = elMensaje.querySelector(".convocados-contador");
+        if (contador) contador.textContent = n + " convocado" + (n === 1 ? "" : "s") + " seleccionado" + (n === 1 ? "" : "s");
+      });
+    });
+
+    actualizarBarraEntrenador();
   }
 
   // ---------------------------------------------------------------------
@@ -1200,7 +1465,9 @@
         cerrarModalAdmin();
         // El panel de administrador se usa tanto desde Plantilla como desde Noticias: se
         // repinta lo que esté activo en ese momento, sea cual sea desde donde se ha abierto.
-        if (activa === "noticias") pintarNoticias(); else pintarPlantilla();
+        if (activa === "noticias") pintarNoticias();
+        else if (activa === "entrenador") pintarEntrenador();
+        else pintarPlantilla();
       } else {
         errorAdmin.textContent = "Contraseña incorrecta.";
       }
@@ -1216,7 +1483,11 @@
     tabC.setAttribute("aria-selected", activa === "clasificacion");
     tabPl.setAttribute("aria-selected", activa === "plantilla");
     tabN.setAttribute("aria-selected", activa === "noticias");
-    document.body.classList.toggle("sin-barra", activa !== "partidos");   // solo el partido en sí es lo que interesa enviar
+    tabE.setAttribute("aria-selected", activa === "entrenador");
+    // La barra de Copiar/WhatsApp interesa en Partidos (para enviar el aviso del próximo
+    // partido) y en Entrenador (para enviar la convocatoria ya armada); en el resto de
+    // pestañas no hay nada que compartir.
+    document.body.classList.toggle("sin-barra", activa !== "partidos" && activa !== "entrenador");
     elChips.hidden = activa !== "clasificacion";
     // El día concreto ya se ve en el selector de semana de abajo: aquí, debajo del título, va
     // solo un rótulo fijo (antes salía la misma fecha dos veces).
@@ -1229,6 +1500,8 @@
       pintarPlantilla();
     } else if (activa === "noticias") {
       pintarNoticias();
+    } else if (activa === "entrenador") {
+      pintarEntrenador();
     } else if (activa === "clasificacion") {
       pintarClasificacion();
       if (texto) {
@@ -1309,6 +1582,7 @@
   tabC.addEventListener("click", function () { elegir("clasificacion"); });
   tabPl.addEventListener("click", function () { elegir("plantilla"); });
   tabN.addEventListener("click", function () { elegir("noticias"); });
+  tabE.addEventListener("click", function () { elegir("entrenador"); });
   selSemana.addEventListener("change", function () { sel[activa] = parseInt(selSemana.value, 10); pintar(); });
   btnAnt.addEventListener("click", function () { if (sel[activa] > 0) { sel[activa] -= 1; pintar(); } });
   btnSig.addEventListener("click", function () { if (sel[activa] < semanas().length - 1) { sel[activa] += 1; pintar(); } });
