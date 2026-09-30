@@ -345,7 +345,7 @@
 <div class="modal-fondo" id="modal-admin" hidden>
   <div class="modal">
     <h2>Panel de administrador</h2>
-    <p>Introduce la contraseña para poder editar los dorsales y las fechas de nacimiento de la plantilla.</p>
+    <p>Introduce la contraseña para poder editar la plantilla o las noticias.</p>
     <input type="password" id="admin-clave" placeholder="Contraseña" autocomplete="off">
     <p class="modal-error" id="admin-error"></p>
     <div class="fila-botones">
@@ -707,6 +707,151 @@
   }
 
   // ---------------------------------------------------------------------
+  // Noticias: cumpleaños (automáticos, calculados por el backend a partir de la fecha de
+  // nacimiento de la plantilla, SIN decir la edad -son menores) y avisos metidos a mano desde
+  // el panel de administrador (mismo panel/contraseña que en Plantilla).
+  //
+  // Las de cumpleaños vienen siempre del servidor (datos.noticias) y no se pueden borrar desde
+  // aquí -si un cumpleaños está mal, se corrige la fecha de nacimiento desde Plantilla. Las
+  // manuales, en modo lectura, también se muestran tal cual las da el servidor; en modo
+  // administrador se editan en una lista aparte (`noticiasManuales`, en este navegador) que,
+  // la primera vez que se entra al panel, se rellena con las que ya estuvieran publicadas (así
+  // se pueden quitar o corregir, no solo añadir nuevas) y que manda hasta que se guarda y se
+  // sube de nuevo el fichero -igual que con la plantilla manual.
+  // ---------------------------------------------------------------------
+  function noticias() {
+    return (datos && datos.noticias) || [];
+  }
+
+  var noticiasSemillaHecha = false;
+  function noticiasManualesParaEditar() {
+    if (!noticiasSemillaHecha) {
+      noticiasSemillaHecha = true;
+      if (!noticiasManuales.length) {
+        noticiasManuales = noticias().filter(function (n) { return n.tipo === "manual"; })
+          .map(function (n, i) { return { id: "srv" + i, texto: n.texto, foto: n.foto || null, hasta: null }; });
+      }
+    }
+    return noticiasManuales;
+  }
+
+  function tarjetaNoticiaHtml(n, conBotonEliminar) {
+    var esCumple = n.tipo === "cumpleanos";
+    var icono = esCumple ? "🎂" : "📢";
+    var texto = esCumple
+      ? "¡Hoy es el cumpleaños de " + escapar(n.texto) + "!"
+      : escapar(n.texto).replace(/\n/g, "<br>");
+    var foto = n.foto ? '<img class="noticia-foto" src="' + n.foto + '" alt="">' : "";
+    var admin = conBotonEliminar
+      ? '<div class="noticia-admin"><button type="button" class="noticia-eliminar" data-id="' +
+        escapar(n.id) + '">Eliminar noticia</button></div>'
+      : "";
+    return '<div class="noticia' + (esCumple ? " cumpleanos" : "") + '">' + foto +
+      '<div class="noticia-cuerpo"><div class="noticia-icono">' + icono + '</div>' +
+      '<div class="noticia-texto">' + texto + "</div></div>" + admin + "</div>";
+  }
+
+  function formularioNuevaNoticia() {
+    return '<div class="nueva-noticia">' +
+      '<textarea id="nueva-noticia-texto" placeholder="Escribe el aviso (p. ej. se suspende el entreno del jueves)"></textarea>' +
+      '<div class="foto-admin"><input type="file" accept="image/*" id="nueva-noticia-foto"></div>' +
+      '<div class="fila-nueva-noticia">' +
+      '<label>Mostrar hasta (opcional) <input type="date" id="nueva-noticia-hasta"></label>' +
+      '<button type="button" id="nueva-noticia-anadir">Añadir noticia</button>' +
+      "</div></div>";
+  }
+
+  function pintarNoticias() {
+    elCuando.textContent = "Noticias";
+    btnCopiar.classList.add("desactivado");
+    btnWa.classList.add("desactivado");
+    btnWa.href = "#";
+
+    if (!adminActivo) {
+      var tarjetas = noticias().map(function (n) { return tarjetaNoticiaHtml(n, false); }).join("");
+      elMensaje.innerHTML =
+        (tarjetas ? '<div class="noticias-lista">' + tarjetas + "</div>" : '<p class="estado">No hay noticias por ahora.</p>') +
+        '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir-noticias">Panel de administrador</button></div>';
+      document.getElementById("admin-abrir-noticias").addEventListener("click", abrirModalAdmin);
+      return;
+    }
+
+    var cumple = noticias().filter(function (n) { return n.tipo === "cumpleanos"; });
+    var manuales = noticiasManualesParaEditar();
+    var tarjetas = cumple.map(function (n) { return tarjetaNoticiaHtml(n, false); }).join("") +
+      manuales.map(function (n) { return tarjetaNoticiaHtml({ tipo: "manual", texto: n.texto, foto: n.foto, id: n.id }, true); }).join("");
+    elMensaje.innerHTML = formularioNuevaNoticia() +
+      (tarjetas ? '<div class="noticias-lista">' + tarjetas + "</div>" : '<p class="estado">No hay noticias por ahora.</p>') +
+      '<button type="button" class="admin-guardar" id="noticias-guardar" style="width:100%;margin-top:12px">Guardar y descargar noticias_manual.json</button>' +
+      '<p class="admin-nota">Al guardar se descarga <code>noticias_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos avisos no se pierdan cuando la app se actualice sola.</p>' +
+      '<div class="admin-barra"><button type="button" class="admin-link" id="noticias-salir">Salir del panel de administrador</button></div>';
+
+    document.getElementById("nueva-noticia-anadir").addEventListener("click", function () {
+      var inpTexto = document.getElementById("nueva-noticia-texto");
+      var texto = (inpTexto.value || "").trim();
+      if (!texto) { inpTexto.focus(); return; }
+      var hasta = document.getElementById("nueva-noticia-hasta").value || null;
+      var inpFoto = document.getElementById("nueva-noticia-foto");
+      var f = inpFoto.files && inpFoto.files[0];
+      function agregar(fotoDataUrl) {
+        noticiasManuales.push({ id: "n" + Date.now(), texto: texto, foto: fotoDataUrl || null, hasta: hasta });
+        guardarNoticiasEnLocalStorage();
+        pintarNoticias();
+        mostrarToast("Noticia añadida: pulsa Guardar y descargar para que se publique de verdad");
+      }
+      if (f) procesarFoto(f, agregar); else agregar(null);
+    });
+
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".noticia-eliminar"), function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-id");
+        if (!window.confirm("¿Eliminar esta noticia?\n\nNo se aplicará de verdad hasta que pulses \"Guardar y descargar noticias_manual.json\" y subas el archivo al repositorio.")) return;
+        noticiasManuales = noticiasManuales.filter(function (n) { return n.id !== id; });
+        guardarNoticiasEnLocalStorage();
+        pintarNoticias();
+      });
+    });
+
+    document.getElementById("noticias-guardar").addEventListener("click", guardarNoticiasManual);
+    document.getElementById("noticias-salir").addEventListener("click", function () {
+      adminActivo = false;
+      pintarNoticias();
+    });
+  }
+
+  function guardarNoticiasEnLocalStorage() {
+    try { localStorage.setItem(CLAVE_LOCAL_NOTICIAS, JSON.stringify(noticiasManuales)); } catch (e) {}
+  }
+
+  function cargarNoticiasDeLocalStorage() {
+    try {
+      var v = localStorage.getItem(CLAVE_LOCAL_NOTICIAS);
+      if (v) noticiasManuales = JSON.parse(v) || [];
+    } catch (e) { noticiasManuales = []; }
+  }
+
+  function guardarNoticiasManual() {
+    guardarNoticiasEnLocalStorage();
+    var lista = noticiasManuales.map(function (n) {
+      var obj = { texto: n.texto };
+      if (n.foto) obj.foto = n.foto;
+      if (n.hasta) obj.hasta = n.hasta;
+      return obj;
+    });
+    var blob = new Blob([JSON.stringify(lista, null, 1)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "noticias_manual.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    pintarNoticias();
+    mostrarToast("Guardado en este dispositivo y archivo descargado");
+  }
+
+  // ---------------------------------------------------------------------
   // Plantilla (y su panel de administrador)
   // ---------------------------------------------------------------------
   // `id` es el identificador ESTABLE de cada jugador: para los que trae la web, su nombre tal
@@ -1053,7 +1198,9 @@
       if (hash === HASH_ADMIN) {
         adminActivo = true;
         cerrarModalAdmin();
-        pintarPlantilla();
+        // El panel de administrador se usa tanto desde Plantilla como desde Noticias: se
+        // repinta lo que esté activo en ese momento, sea cual sea desde donde se ha abierto.
+        if (activa === "noticias") pintarNoticias(); else pintarPlantilla();
       } else {
         errorAdmin.textContent = "Contraseña incorrecta.";
       }
@@ -1068,6 +1215,7 @@
     tabR.setAttribute("aria-selected", activa === "resultados");
     tabC.setAttribute("aria-selected", activa === "clasificacion");
     tabPl.setAttribute("aria-selected", activa === "plantilla");
+    tabN.setAttribute("aria-selected", activa === "noticias");
     document.body.classList.toggle("sin-barra", activa !== "partidos");   // solo el partido en sí es lo que interesa enviar
     elChips.hidden = activa !== "clasificacion";
     // El día concreto ya se ve en el selector de semana de abajo: aquí, debajo del título, va
@@ -1079,6 +1227,8 @@
 
     if (activa === "plantilla") {
       pintarPlantilla();
+    } else if (activa === "noticias") {
+      pintarNoticias();
     } else if (activa === "clasificacion") {
       pintarClasificacion();
       if (texto) {
@@ -1158,6 +1308,7 @@
   tabR.addEventListener("click", function () { elegir("resultados"); });
   tabC.addEventListener("click", function () { elegir("clasificacion"); });
   tabPl.addEventListener("click", function () { elegir("plantilla"); });
+  tabN.addEventListener("click", function () { elegir("noticias"); });
   selSemana.addEventListener("change", function () { sel[activa] = parseInt(selSemana.value, 10); pintar(); });
   btnAnt.addEventListener("click", function () { if (sel[activa] > 0) { sel[activa] -= 1; pintar(); } });
   btnSig.addEventListener("click", function () { if (sel[activa] < semanas().length - 1) { sel[activa] += 1; pintar(); } });
@@ -1228,6 +1379,7 @@
   }
 
   cargarOverridesDeLocalStorage();
+  cargarNoticiasDeLocalStorage();
   btnActualizar.addEventListener("click", function () { cargarDatos(false); });
   cargarDatos(true);
 })();
