@@ -798,6 +798,59 @@ def aplicar_plantilla_manual(jugadores, ruta):
 
 
 # ---------------------------------------------------------------------------
+# Noticias: cumpleaños automáticos (a partir de la plantilla) y avisos metidos a mano desde
+# el panel de administrador (noticias_manual.json, mismo patrón que plantilla_manual.json).
+#
+# AVISO DE PRIVACIDAD (hablado con César, 30/09/2026): los jugadores son menores, así que el
+# cumpleaños se anuncia SIN decir la edad que cumplen -solo el nombre y que es su cumpleaños.
+# No se calcula ni se publica la edad en ningún sitio de esta función.
+# ---------------------------------------------------------------------------
+_RE_FECHA_NAC_DIA_MES = re.compile(r"^(\d{2})[-/](\d{2})[-/]\d{4}$")
+
+
+def cumpleanos_de_hoy(plantilla, hoy):
+    """Noticias de cumpleaños: un jugador de la plantilla fusionada por cada uno cuyo día y mes
+    de nacimiento coincidan con `hoy`. Como la fecha de nacimiento en esta app es casi siempre
+    un dato metido a mano (la web no la publica), esto solo funciona para los jugadores a los
+    que se les haya rellenado ese campo desde el panel de administrador."""
+    noticias = []
+    for j in plantilla:
+        m = _RE_FECHA_NAC_DIA_MES.match(j.get("fecha_nacimiento") or "")
+        if not m:
+            continue
+        dia, mes = int(m.group(1)), int(m.group(2))
+        if dia == hoy.day and mes == hoy.month:
+            noticias.append({"tipo": "cumpleanos", "texto": j["nombre"], "foto": j.get("foto")})
+    return noticias
+
+
+def aplicar_noticias_manuales(ruta, hoy):
+    """Noticias metidas a mano desde el panel de administrador (avisos del entrenador, etc.).
+    Cada una puede llevar una fecha "hasta" (AAAA-MM-DD): pasada esa fecha deja de mostrarse
+    sola, sin que haga falta borrarla a mano del panel. Sin "hasta", se muestra siempre hasta
+    que se borre expresamente."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            manuales = json.load(f)
+    except (OSError, ValueError):
+        manuales = []
+    noticias = []
+    for n in manuales:
+        texto = (n.get("texto") or "").strip()
+        if not texto:
+            continue
+        hasta = n.get("hasta")
+        if hasta:
+            try:
+                if hoy > date.fromisoformat(hasta):
+                    continue
+            except ValueError:
+                pass  # fecha "hasta" con formato raro: se muestra igualmente, por si acaso
+        noticias.append({"tipo": "manual", "texto": texto, "foto": n.get("foto")})
+    return noticias
+
+
+# ---------------------------------------------------------------------------
 # Estado: partidos vistos (para poder dar el resultado aunque la web ya haya
 # pasado a la jornada siguiente)
 # ---------------------------------------------------------------------------
@@ -1569,6 +1622,8 @@ def main():
                     help="fichero con partidos escritos a mano (opcional)")
     ap.add_argument("--plantilla-manual", default="plantilla_manual.json",
                     help="fichero con dorsales/fechas de nacimiento metidos a mano desde el panel de administrador")
+    ap.add_argument("--noticias-manual", default="noticias_manual.json",
+                    help="fichero con noticias/avisos metidos a mano desde el panel de administrador")
     ap.add_argument("--navegador", action="store_true",
                     help="recorrer todas las jornadas con un navegador automático (necesita Playwright)")
     ap.add_argument("--sin-navegador-pendientes", action="store_true",
@@ -1705,6 +1760,11 @@ def main():
         print(f"Aviso: no se pudo leer la plantilla del equipo: {e}", file=sys.stderr)
     plantilla = aplicar_plantilla_manual(plantilla, args.plantilla_manual)
 
+    # Noticias: cumpleaños de hoy (sin edad, ver aviso de privacidad junto a cumpleanos_de_hoy)
+    # más lo que el entrenador haya metido a mano desde el panel. Los cumpleaños van primero.
+    hoy = ahora().date()
+    noticias = cumpleanos_de_hoy(plantilla, hoy) + aplicar_noticias_manuales(args.noticias_manual, hoy)
+
     if args.json:
         with open(args.json, "w", encoding="utf-8") as f:
             json.dump({
@@ -1721,6 +1781,7 @@ def main():
                                    for c in pendientes],
                 "errores": errores,
                 "plantilla": plantilla,
+                "noticias": noticias,
                 "semanas": [
                     {"sabado": sab.isoformat(),
                      "partidos": componer(estado, sab, False),

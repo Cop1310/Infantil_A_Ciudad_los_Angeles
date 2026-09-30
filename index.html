@@ -70,7 +70,7 @@
   .pestanas { display: flex; margin: 0 0 14px; border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
   .pestanas button {
     flex: 1; min-height: 46px; border: 0; border-radius: 0; background: var(--papel); color: var(--tinta);
-    font-weight: 700; font-size: 0.92rem; padding: 0 4px;
+    font-weight: 700; font-size: clamp(0.68rem, 3.4vw, 0.92rem); padding: 0 3px;
   }
   .pestanas button + button { border-left: 2px solid var(--tinta); }
   .pestanas button[aria-selected="true"] { background: var(--tinta); color: #fff; }
@@ -214,6 +214,31 @@
   .gol-linea.nuestro, .tarjeta-linea.nuestro { background: #f7e9b0; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
   .gol-linea.propia { color: var(--roja); }
 
+  /* Noticias */
+  .noticias-lista { display: flex; flex-direction: column; gap: 12px; }
+  .noticia {
+    background: var(--papel); border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden;
+  }
+  .noticia .noticia-foto { display: block; width: 100%; height: 260px; object-fit: cover; background: #f2f2ee; }
+  .noticia .noticia-cuerpo { padding: 14px 16px; }
+  .noticia .noticia-icono { font-size: 1.5rem; line-height: 1; margin-bottom: 4px; }
+  .noticia .noticia-texto { font-size: 1.05rem; font-weight: 700; }
+  .noticia.cumpleanos { border-color: #b3261e; }
+  .noticia-admin { margin-top: 6px; display: flex; justify-content: flex-end; padding: 0 14px 12px; }
+  .noticia-eliminar {
+    min-height: 0; font-size: 0.78rem; font-weight: 700; padding: 5px 10px;
+    border: 1px solid var(--roja); border-radius: 4px; background: var(--papel); color: var(--roja); cursor: pointer;
+  }
+  .nueva-noticia { background: var(--papel); border: 2px solid var(--linea); border-radius: 4px; padding: 12px; margin: 0 0 14px; }
+  .nueva-noticia textarea {
+    width: 100%; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 2px solid var(--linea);
+    border-radius: 4px; resize: vertical; min-height: 64px; margin-bottom: 8px;
+  }
+  .nueva-noticia .fila-nueva-noticia { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .nueva-noticia label { font-size: 0.85rem; color: var(--suave); display: flex; align-items: center; gap: 4px; }
+  .nueva-noticia input[type="date"] { font: inherit; font-size: 0.88rem; padding: 6px 8px; border: 1px solid var(--linea); border-radius: 4px; }
+  .nueva-noticia button { flex: none; min-height: 0; padding: 8px 16px; font-size: 0.9rem; margin-left: auto; }
+
   /* Plantilla */
   .plantilla-lista { background: var(--papel); border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
   .jugador { display: flex; align-items: center; gap: 12px; padding: 11px 14px; }
@@ -294,6 +319,7 @@
     <button type="button" role="tab" id="tab-resultados" aria-selected="false">Resultados</button>
     <button type="button" role="tab" id="tab-clasificacion" aria-selected="false">Clasificación</button>
     <button type="button" role="tab" id="tab-plantilla" aria-selected="false">Plantilla</button>
+    <button type="button" role="tab" id="tab-noticias" aria-selected="false">Noticias</button>
   </div>
   <div class="semanas" id="semanas" hidden>
     <button type="button" id="sem-ant" aria-label="Fin de semana anterior">◀</button>
@@ -337,8 +363,10 @@
   var sel = { partidos: null, resultados: null };
   var adminActivo = false;
   var overridesPlantilla = {};   // {nombre: {dorsal, fecha_nacimiento}} — lo metido a mano, en este navegador
+  var noticiasManuales = [];     // [{id, texto, foto, hasta}] — avisos metidos a mano, en este navegador
   var HASH_ADMIN = "8e051b489ca542b1b8db91382956fca4e6bcfe1850880d8f85d4c3a61c72f8d6"; // ver aviso más abajo
   var CLAVE_LOCAL = "infantil_a_plantilla_manual";
+  var CLAVE_LOCAL_NOTICIAS = "infantil_a_noticias_manual";
 
   var elMensaje = document.getElementById("mensaje");
   var elCuando = document.getElementById("cuando");
@@ -350,6 +378,7 @@
   var tabR = document.getElementById("tab-resultados");
   var tabC = document.getElementById("tab-clasificacion");
   var tabPl = document.getElementById("tab-plantilla");
+  var tabN = document.getElementById("tab-noticias");
   var elChips = document.getElementById("chips");
   var elSemanas = document.getElementById("semanas");
   var selSemana = document.getElementById("sem-sel");
@@ -400,7 +429,7 @@
 
   function pintarSelectorSemanas() {
     var s = semanas();
-    if (activa === "clasificacion" || activa === "plantilla" || s.length < 2) { elSemanas.hidden = true; return; }
+    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias" || s.length < 2) { elSemanas.hidden = true; return; }
     elSemanas.hidden = false;
     var i = sel[activa];
     selSemana.innerHTML = s.map(function (x, k) { return { x: x, k: k }; }).reverse().map(function (o) {
@@ -430,7 +459,7 @@
 
   function textoActivo() {
     if (!datos) return "";
-    if (activa === "clasificacion" || activa === "plantilla") return activa === "clasificacion" ? textoClasificacion() : "";
+    if (activa === "clasificacion" || activa === "plantilla" || activa === "noticias") return activa === "clasificacion" ? textoClasificacion() : "";
     var s = semanas();
     if (s.length) {
       var w = s[Math.max(0, Math.min(sel[activa], s.length - 1))];
