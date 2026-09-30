@@ -746,11 +746,20 @@ def obtener_plantilla_con_navegador(url):
 
 def aplicar_plantilla_manual(jugadores, ruta):
     """Aplica sobre la plantilla leída de la web los datos metidos a mano desde el panel de
-    administrador (dorsal, fecha de nacimiento y foto de los niños que falten o se quieran
-    corregir). Lo escrito a mano tiene SIEMPRE prioridad sobre lo leído de la web, así no se
-    pierde nunca aunque la web cambie o deje de publicar algún dato. Un jugador que solo exista
-    en el fichero manual (por si el nombre cambiara en la web) también se añade. Al final, la
-    lista queda ordenada por dorsal (los que aún no tienen, al final, por nombre)."""
+    administrador: dorsal, fecha de nacimiento, foto, nombre corregido y bajas (jugadores que
+    han salido del equipo), de los niños que falten o se quieran corregir. Lo escrito a mano
+    tiene SIEMPRE prioridad sobre lo leído de la web, así no se pierde nunca aunque la web
+    cambie o deje de publicar algún dato. Un jugador que solo exista en el fichero manual
+    también se añade. Al final, la lista queda ordenada por dorsal (los que aún no tienen, al
+    final, por nombre).
+
+    Cada entrada de plantilla_manual.json se identifica por "nombre_original": el nombre tal
+    como lo trae (o traía) la web, o el que se escribió al dar de alta a mano a un jugador que
+    la web no publica -ese identificador NO cambia aunque luego se corrija el nombre mostrado
+    ("nombre"), así el resto de sus datos manuales no se pierden al renombrarlo. Los ficheros
+    guardados por versiones anteriores del panel (antes de que existiera "nombre_original")
+    solo traen "nombre": se usa también como identificador, para no romper esos ficheros ya
+    descargados y subidos al repositorio."""
     try:
         with open(ruta, encoding="utf-8") as f:
             manuales = json.load(f)
@@ -758,14 +767,25 @@ def aplicar_plantilla_manual(jugadores, ruta):
         manuales = []
     por_nombre = {j["nombre"]: j for j in jugadores}
     for m in manuales:
-        nombre = (m.get("nombre") or "").strip()
-        if not nombre:
+        nombre_original = (m.get("nombre_original") or m.get("nombre") or "").strip()
+        if not nombre_original:
             continue
-        j = por_nombre.get(nombre)
+        j = por_nombre.get(nombre_original)
+        if m.get("eliminado"):
+            # El jugador ha salido del equipo: se quita de la plantilla final, tanto si venía
+            # de la web (que puede tardar en actualizarse) como si solo existía en el fichero
+            # manual.
+            if j is not None:
+                jugadores.remove(j)
+                del por_nombre[nombre_original]
+            continue
         if j is None:
-            j = {"dorsal": None, "nombre": nombre, "fecha_nacimiento": None, "foto": None}
+            j = {"dorsal": None, "nombre": nombre_original, "fecha_nacimiento": None, "foto": None}
             jugadores.append(j)
-            por_nombre[nombre] = j
+            por_nombre[nombre_original] = j
+        nombre_nuevo = (m.get("nombre") or "").strip()
+        if nombre_nuevo and nombre_nuevo != nombre_original:
+            j["nombre"] = nombre_nuevo
         if m.get("dorsal") is not None:
             j["dorsal"] = m["dorsal"]
         if m.get("fecha_nacimiento"):

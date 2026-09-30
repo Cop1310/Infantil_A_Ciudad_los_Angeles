@@ -226,10 +226,12 @@
   .jugador .info { flex: 1; min-width: 0; }
   .jugador .nombre { font-weight: 700; overflow-wrap: anywhere; }
   .jugador .nacimiento { color: var(--suave); font-size: 0.85rem; margin-top: 1px; }
-  .jugador .campos-admin { display: flex; gap: 8px; margin-top: 6px; }
+  .jugador .campos-admin { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
   .jugador .campos-admin input {
     font: inherit; font-size: 0.9rem; padding: 6px 8px; border: 1px solid var(--linea); border-radius: 4px; min-width: 0;
   }
+  .jugador .campos-admin input.nombre-in { width: 100%; }
+  .jugador .campos-admin .fila-campos { display: flex; gap: 8px; }
   .jugador .campos-admin input.dorsal-in { width: 78px; }
   .jugador .campos-admin input.fecha-in { flex: 1; }
   .jugador .avatar-foto { flex: none; width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--linea); }
@@ -239,6 +241,10 @@
   .jugador .foto-quitar {
     flex: none; min-height: 0; font-size: 0.78rem; padding: 4px 8px; border: 1px solid var(--linea);
     border-radius: 4px; background: var(--papel); color: var(--suave); cursor: pointer;
+  }
+  .jugador .jugador-eliminar {
+    align-self: flex-start; min-height: 0; font-size: 0.78rem; font-weight: 700; padding: 5px 10px; margin-top: 2px;
+    border: 1px solid var(--roja); border-radius: 4px; background: var(--papel); color: var(--roja); cursor: pointer;
   }
 
   .admin-barra { display: flex; justify-content: center; margin: 0 0 12px; }
@@ -674,21 +680,33 @@
   // ---------------------------------------------------------------------
   // Plantilla (y su panel de administrador)
   // ---------------------------------------------------------------------
+  // `id` es el identificador ESTABLE de cada jugador: para los que trae la web, su nombre tal
+  // cual lo publica (así se sabe siempre a quién corresponde un cambio manual, aunque luego se
+  // le corrija el nombre); para los añadidos a mano, el nombre que se escribió al darlos de
+  // alta. El nombre MOSTRADO (j.nombre) puede cambiar con el tiempo si se corrige desde el
+  // panel de administrador, pero `id` no cambia nunca: es la clave con la que se guardan sus
+  // cambios en overridesPlantilla, y por tanto en plantilla_manual.json.
   function plantillaFusionada() {
     var base = (datos && datos.plantilla) || [];
     var lista = base.map(function (j) {
-      return { dorsal: j.dorsal, nombre: j.nombre, fecha_nacimiento: j.fecha_nacimiento, foto: j.foto || null };
+      return { id: j.nombre, dorsal: j.dorsal, nombre: j.nombre, fecha_nacimiento: j.fecha_nacimiento, foto: j.foto || null };
     });
-    var porNombre = {};
-    lista.forEach(function (j) { porNombre[j.nombre] = j; });
-    Object.keys(overridesPlantilla).forEach(function (nombre) {
-      var o = overridesPlantilla[nombre];
-      var j = porNombre[nombre];
-      if (!j) { j = { dorsal: null, nombre: nombre, fecha_nacimiento: null, foto: null }; lista.push(j); porNombre[nombre] = j; }
+    var porId = {};
+    lista.forEach(function (j) { porId[j.id] = j; });
+    Object.keys(overridesPlantilla).forEach(function (id) {
+      var o = overridesPlantilla[id];
+      var j = porId[id];
+      if (!j) { j = { id: id, dorsal: null, nombre: id, fecha_nacimiento: null, foto: null }; lista.push(j); porId[id] = j; }
+      if (o.nombre) j.nombre = o.nombre;
       if (o.dorsal !== null && o.dorsal !== undefined) j.dorsal = o.dorsal;
       if (o.fecha_nacimiento) j.fecha_nacimiento = o.fecha_nacimiento;
       if (o.foto) j.foto = o.foto;
+      if (o.eliminado) j.eliminado = true;
     });
+    // Un jugador marcado como eliminado (salió del equipo) desaparece de la plantilla, aunque
+    // la web todavía lo esté publicando: lo manual tiene prioridad, igual que con el resto de
+    // los campos.
+    lista = lista.filter(function (j) { return !j.eliminado; });
     lista.sort(function (a, b) {
       var da = a.dorsal === null || a.dorsal === undefined, db = b.dorsal === null || b.dorsal === undefined;
       if (da !== db) return da ? 1 : -1;
@@ -724,7 +742,20 @@
       '<input type="text" id="nuevo-nombre" placeholder="Nombre y apellidos del jugador nuevo">' +
       '<button type="button" id="nuevo-anadir">Añadir</button></div>' +
       '<button type="button" class="admin-guardar" id="admin-guardar" style="width:100%">Guardar y descargar plantilla_manual.json</button>' +
-      '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>';
+      '<p class="admin-nota">Al guardar se descarga <code>plantilla_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>' +
+      '<div class="admin-barra"><button type="button" class="admin-link" id="admin-salir">Salir del panel de administrador</button></div>';
+  }
+
+  // El botón de salir vive en el pie del panel de administrador (ver pieAdmin): pone
+  // adminActivo a false y repinta, igual que si se recargara la página entera. Sin este botón
+  // no había forma de abandonar el modo edición dentro de la misma sesión de la pestaña.
+  function activarBotonSalirAdmin() {
+    var btn = document.getElementById("admin-salir");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      adminActivo = false;
+      pintarPlantilla();
+    });
   }
 
   function activarBotonNuevoJugador() {
@@ -734,7 +765,8 @@
       var inp = document.getElementById("nuevo-nombre");
       var nombre = (inp.value || "").trim();
       if (!nombre) { inp.focus(); return; }
-      if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null };
+      leerCamposPlantilla();
+      if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null, foto: null };
       guardarOverridesEnLocalStorage();
       pintarPlantilla();
       mostrarToast("Jugador añadido: pon su dorsal y fecha si quieres, y pulsa Guardar");
@@ -758,6 +790,7 @@
         var btnG = document.getElementById("admin-guardar");
         if (btnG) btnG.addEventListener("click", guardarPlantillaManual);
         activarBotonNuevoJugador();
+        activarBotonSalirAdmin();
       } else {
         var btnA = document.getElementById("admin-abrir");
         if (btnA) btnA.addEventListener("click", abrirModalAdmin);
@@ -774,15 +807,20 @@
       var golesHtmlJug = nGoles ? '<span class="goles-jugador">⚽ ' + nGoles + "</span>" : "";
       var camposAdmin = adminActivo
         ? '<div class="campos-admin">' +
+          '<input class="nombre-in" type="text" placeholder="Nombre y apellidos" ' +
+          'value="' + escapar(j.nombre) + '" data-id="' + escapar(j.id) + '">' +
+          '<div class="fila-campos">' +
           '<input class="dorsal-in" type="number" min="1" max="99" inputmode="numeric" placeholder="Dorsal" ' +
-          'value="' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '" data-nombre="' + escapar(j.nombre) + '">' +
+          'value="' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '" data-id="' + escapar(j.id) + '">' +
           '<input class="fecha-in" type="text" placeholder="Fecha nacimiento (DD-MM-AAAA)" ' +
-          'value="' + escapar(j.fecha_nacimiento || "") + '" data-nombre="' + escapar(j.nombre) + '">' +
-          "</div>" +
+          'value="' + escapar(j.fecha_nacimiento || "") + '" data-id="' + escapar(j.id) + '">' +
+          "</div></div>" +
           '<div class="foto-admin">' +
-          '<input class="foto-in" type="file" accept="image/*" data-nombre="' + escapar(j.nombre) + '">' +
-          (j.foto ? '<button type="button" class="foto-quitar" data-nombre="' + escapar(j.nombre) + '">Quitar foto</button>' : "") +
-          "</div>"
+          '<input class="foto-in" type="file" accept="image/*" data-id="' + escapar(j.id) + '">' +
+          (j.foto ? '<button type="button" class="foto-quitar" data-id="' + escapar(j.id) + '">Quitar foto</button>' : "") +
+          "</div>" +
+          '<button type="button" class="jugador-eliminar" data-id="' + escapar(j.id) + '" ' +
+          'data-nombre-mostrado="' + escapar(j.nombre) + '">Eliminar jugador</button>'
         : "";
       var nacimiento = !adminActivo && j.fecha_nacimiento
         ? '<div class="nacimiento">Nacido el ' + escapar(j.fecha_nacimiento) + "</div>" : "";
@@ -796,10 +834,10 @@
         inp.addEventListener("change", function () {
           var f = inp.files && inp.files[0];
           if (!f) return;
-          var nombre = inp.getAttribute("data-nombre");
+          var id = inp.getAttribute("data-id");
           procesarFoto(f, function (dataUrl) {
-            if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null };
-            overridesPlantilla[nombre].foto = dataUrl;
+            if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, fecha_nacimiento: null, foto: null };
+            overridesPlantilla[id].foto = dataUrl;
             guardarOverridesEnLocalStorage();
             pintarPlantilla();
           });
@@ -807,17 +845,34 @@
       });
       Array.prototype.forEach.call(elMensaje.querySelectorAll(".foto-quitar"), function (btn) {
         btn.addEventListener("click", function () {
-          var nombre = btn.getAttribute("data-nombre");
-          var o = overridesPlantilla[nombre];
+          var id = btn.getAttribute("data-id");
+          var o = overridesPlantilla[id];
           if (o) {
             delete o.foto;
-            if (!o.dorsal && !o.fecha_nacimiento && !o.foto) delete overridesPlantilla[nombre];
+            if (!o.dorsal && !o.fecha_nacimiento && !o.foto && !o.nombre && !o.eliminado) delete overridesPlantilla[id];
           }
           guardarOverridesEnLocalStorage();
           pintarPlantilla();
         });
       });
+      // Eliminar jugador: se marca con "eliminado" en vez de borrarse sin más, para que
+      // plantillaFusionada() lo quite de la lista (aunque la web lo siga publicando) y para que
+      // esa baja se guarde igual que cualquier otro cambio manual, al pulsar "Guardar".
+      Array.prototype.forEach.call(elMensaje.querySelectorAll(".jugador-eliminar"), function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.getAttribute("data-id");
+          var nombreMostrado = btn.getAttribute("data-nombre-mostrado") || id;
+          if (!window.confirm("¿Eliminar a " + nombreMostrado + " de la plantilla?\n\nNo se aplicará de verdad hasta que pulses \"Guardar y descargar plantilla_manual.json\" y subas el archivo al repositorio.")) return;
+          leerCamposPlantilla();
+          if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, fecha_nacimiento: null, foto: null };
+          overridesPlantilla[id].eliminado = true;
+          guardarOverridesEnLocalStorage();
+          pintarPlantilla();
+          mostrarToast("Jugador marcado para eliminar: pulsa Guardar y descargar para que se aplique de verdad");
+        });
+      });
       activarBotonNuevoJugador();
+      activarBotonSalirAdmin();
     } else {
       document.getElementById("admin-abrir").addEventListener("click", abrirModalAdmin);
     }
@@ -827,31 +882,43 @@
     // Solo se guarda como "manual" lo que sea DISTINTO de lo que ya da la web: así, si el
     // campo venía relleno porque la web ya lo publicaba, no se congela innecesariamente (y
     // si la web llega a publicar más adelante lo que antes solo estaba a mano, el dato de la
-    // web vuelve a tomar el relevo en cuanto coincida).
-    var webPorNombre = {};
-    ((datos && datos.plantilla) || []).forEach(function (j) { webPorNombre[j.nombre] = j; });
+    // web vuelve a tomar el relevo en cuanto coincida). El nombre editable es la excepción: se
+    // guarda por `id` (el nombre ORIGINAL, de la web o con el que se dio de alta a mano), que
+    // nunca cambia aunque se corrija el nombre mostrado -así el resto de los datos manuales de
+    // ese jugador no se pierden al renombrarlo.
+    var webPorId = {};
+    ((datos && datos.plantilla) || []).forEach(function (j) { webPorId[j.nombre] = j; });
     var filas = elMensaje.querySelectorAll(".jugador");
     filas.forEach(function (fila) {
+      var inNombre = fila.querySelector(".nombre-in");
       var inDorsal = fila.querySelector(".dorsal-in");
       var inFecha = fila.querySelector(".fecha-in");
       if (!inDorsal) return;
-      var nombre = inDorsal.getAttribute("data-nombre");
+      var id = inDorsal.getAttribute("data-id");
+      var web = webPorId[id] || {};
+      var nombreOriginal = web.nombre || id;
+      var nombreNuevo = (inNombre.value || "").trim() || nombreOriginal;
       var dorsal = inDorsal.value.trim() ? parseInt(inDorsal.value, 10) : null;
       var fechaNac = inFecha.value.trim() || null;
-      var web = webPorNombre[nombre] || {};
+      var nombreEsManual = nombreNuevo !== nombreOriginal;
       var dorsalEsManual = dorsal !== null && dorsal !== web.dorsal;
       var fechaEsManual = fechaNac !== null && fechaNac !== web.fecha_nacimiento;
-      // La foto se guarda aparte, en cuanto se elige un archivo (ver el "change" del input de
-      // foto): aquí solo se respeta lo que ya hubiera, para no perderla al tocar los otros campos.
-      var fotoActual = (overridesPlantilla[nombre] && overridesPlantilla[nombre].foto) || null;
-      if (dorsalEsManual || fechaEsManual || fotoActual) {
-        overridesPlantilla[nombre] = {
+      // La foto y la baja ("eliminado") se guardan aparte, en cuanto se elige un archivo o se
+      // confirma la baja: aquí solo se respeta lo que ya hubiera, para no perderlo al tocar los
+      // otros campos.
+      var previo = overridesPlantilla[id] || {};
+      var fotoActual = previo.foto || null;
+      var eliminadoActual = !!previo.eliminado;
+      if (nombreEsManual || dorsalEsManual || fechaEsManual || fotoActual || eliminadoActual) {
+        overridesPlantilla[id] = {
+          nombre: nombreEsManual ? nombreNuevo : null,
           dorsal: dorsalEsManual ? dorsal : null,
           fecha_nacimiento: fechaEsManual ? fechaNac : null,
           foto: fotoActual,
+          eliminado: eliminadoActual,
         };
       } else {
-        delete overridesPlantilla[nombre];
+        delete overridesPlantilla[id];
       }
     });
   }
@@ -891,10 +958,16 @@
   function guardarPlantillaManual() {
     leerCamposPlantilla();
     guardarOverridesEnLocalStorage();
-    var lista = Object.keys(overridesPlantilla).map(function (nombre) {
-      var o = overridesPlantilla[nombre];
-      var obj = { nombre: nombre, dorsal: o.dorsal, fecha_nacimiento: o.fecha_nacimiento };
+    // `nombre_original` es el `id` estable (ver plantillaFusionada): el backend lo usa para
+    // saber a qué jugador de la web corresponde cada entrada, tanto si se ha corregido el
+    // nombre como si no. Con archivos plantilla_manual.json guardados antes de esta versión
+    // (sin nombre_original) el backend sigue funcionando: usa "nombre" como identificador,
+    // igual que hacía hasta ahora.
+    var lista = Object.keys(overridesPlantilla).map(function (id) {
+      var o = overridesPlantilla[id];
+      var obj = { nombre_original: id, nombre: o.nombre || id, dorsal: o.dorsal, fecha_nacimiento: o.fecha_nacimiento };
       if (o.foto) obj.foto = o.foto;
+      if (o.eliminado) obj.eliminado = true;
       return obj;
     });
     var blob = new Blob([JSON.stringify(lista, null, 1)], { type: "application/json" });
