@@ -5,6 +5,7 @@
     {
      "dg": 5,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
      "g": 1,
      "gc": 2,
      "gf": 7,
@@ -19,6 +20,7 @@
     {
      "dg": 5,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000040925_EF_Arganda_3526.jpg?nova=1",
      "g": 1,
      "gc": 1,
      "gf": 6,
@@ -33,6 +35,7 @@
     {
      "dg": 3,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
      "g": 1,
      "gc": 1,
      "gf": 4,
@@ -47,6 +50,7 @@
     {
      "dg": 3,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png?nova=1",
      "g": 1,
      "gc": 0,
      "gf": 3,
@@ -61,6 +65,7 @@
     {
      "dg": 2,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
      "g": 1,
      "gc": 1,
      "gf": 3,
@@ -75,6 +80,7 @@
     {
      "dg": 1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg?nova=1",
      "g": 1,
      "gc": 1,
      "gf": 2,
@@ -89,6 +95,7 @@
     {
      "dg": 1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011206462_fundacion_esc.jpg?nova=1",
      "g": 1,
      "gc": 0,
      "gf": 1,
@@ -103,6 +110,7 @@
     {
      "dg": 1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg?nova=1",
      "g": 1,
      "gc": 0,
      "gf": 1,
@@ -117,6 +125,7 @@
     {
      "dg": -1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
      "g": 0,
      "gc": 2,
      "gf": 1,
@@ -131,6 +140,7 @@
     {
      "dg": -1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
      "g": 0,
      "gc": 1,
      "gf": 0,
@@ -145,6 +155,7 @@
     {
      "dg": -1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
      "g": 0,
      "gc": 1,
      "gf": 0,
@@ -159,6 +170,7 @@
     {
      "dg": -2,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
      "g": 0,
      "gc": 3,
      "gf": 1,
@@ -173,6 +185,7 @@
     {
      "dg": -3,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png?nova=1",
      "g": 0,
      "gc": 4,
      "gf": 1,
@@ -187,6 +200,7 @@
     {
      "dg": -3,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg?nova=1",
      "g": 0,
      "gc": 3,
      "gf": 0,
@@ -201,6 +215,7 @@
     {
      "dg": -5,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
      "g": 0,
      "gc": 7,
      "gf": 2,
@@ -215,6 +230,7 @@
     {
      "dg": -5,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012187655_ESCUDO_modified.png?nova=1",
      "g": 0,
      "gc": 6,
      "gf": 1,
@@ -252,6 +268,8 @@
   "5606348": {
    "acta": "https://www.elbalondemadrid.es/acta/5606348?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "IDB DAVID DIEZ DE LA CRUZ (ANTES CC LOS ROSALES - HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
    "fecha": "2026-09-26",
    "goles": [
     {
@@ -355,6 +373,8 @@
   "5606356": {
    "acta": "https://www.elbalondemadrid.es/acta/5606356?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
    "fecha": "2026-10-03",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "11:00",
@@ -377,6 +397,8 @@
   "5606363": {
    "acta": "https://www.elbalondemadrid.es/acta/5606363?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "RIVAS - POLÍGONO SANTA ANA (HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
    "fecha": "2026-10-10",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": null,
@@ -396,6 +418,8 @@
   "5606371": {
    "acta": "https://www.elbalondemadrid.es/acta/5606371?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png?nova=1",
    "fecha": "2026-10-17",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": null,
@@ -415,6 +439,8 @@
   "5606378": {
    "acta": "https://www.elbalondemadrid.es/acta/5606378?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "LA UNION - VALLECAS VILLA (HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
    "fecha": "2026-10-24",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "13:30",
@@ -434,6 +460,8 @@
   "5606386": {
    "acta": "https://www.elbalondemadrid.es/acta/5606386?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+   "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
    "fecha": "2026-10-31",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": null,

@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-30 07:50",
+  "generado": "2026-09-30 12:49",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
@@ -173,6 +173,8 @@
           "jornada": 1,
           "local": "Santiago Apóstol Villaverde A",
           "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
           "resultado": [
             7,
             2
@@ -282,6 +284,92 @@
       "partidos": []
     }
   ],
+  "detalle_partidos": [
+    {
+      "sabado": "2026-09-26",
+      "partidos": [
+        {
+          "fecha": "2026-09-26",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 1,
+          "local": "Santiago Apóstol Villaverde A",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-03",
+      "partidos": [
+        {
+          "fecha": "2026-10-03",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 2,
+          "local": "Ciudad de los Ángeles A",
+          "visitante": "Adepo Palomeras A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-10",
+      "partidos": [
+        {
+          "fecha": "2026-10-10",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 3,
+          "local": "Rivas Futbol Club B",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-17",
+      "partidos": [
+        {
+          "fecha": "2026-10-17",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 4,
+          "local": "Ciudad de los Ángeles A",
+          "visitante": "Stella Maris la Gavia A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png?nova=1"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-24",
+      "partidos": [
+        {
+          "fecha": "2026-10-24",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 5,
+          "local": "Udmelidaolimpia - Madrid City Vallecas A",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-10-31",
+      "partidos": [
+        {
+          "fecha": "2026-10-31",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 6,
+          "local": "Ciudad de los Ángeles A",
+          "visitante": "Esc. Mun. Fut. Villarejo A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1"
+        }
+      ]
+    }
+  ],
   "clasificaciones": [
     {
       "titulo": "Preferente Infantil Grupo 5",
@@ -292,6 +380,7 @@
           "id": "1031681",
           "nombre": "Santiago Apóstol Villaverde A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -306,6 +395,7 @@
           "id": "1549",
           "nombre": "Escuela de Futbol Arganda A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000040925_EF_Arganda_3526.jpg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -320,6 +410,7 @@
           "id": "2730",
           "nombre": "Union Deportiva la Poveda A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -334,6 +425,7 @@
           "id": "13613759",
           "nombre": "Fundacion Leganes C",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -348,6 +440,7 @@
           "id": "1692",
           "nombre": "Adepo Palomeras A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -362,6 +455,7 @@
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -376,6 +470,7 @@
           "id": "1031993",
           "nombre": "Fundacion Rayo Vallecano C",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011206462_fundacion_esc.jpg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -390,6 +485,7 @@
           "id": "17202267",
           "nombre": "Velilla A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg?nova=1",
           "pj": 1,
           "g": 1,
           "e": 0,
@@ -404,6 +500,7 @@
           "id": "2739614",
           "nombre": "Rivas Futbol Club B",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -418,6 +515,7 @@
           "id": "526135",
           "nombre": "Esc. Mun. Fut. Villarejo A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -432,6 +530,7 @@
           "id": "2786",
           "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -446,6 +545,7 @@
           "id": "886326",
           "nombre": "Racing de Villaverde A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -460,6 +560,7 @@
           "id": "15704127",
           "nombre": "Stella Maris la Gavia A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -474,6 +575,7 @@
           "id": "1094",
           "nombre": "Ad A.Toledo Olivos A",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -488,6 +590,7 @@
           "id": "13538235",
           "nombre": "Ciudad de los Ángeles A",
           "nuestro": true,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
@@ -502,6 +605,7 @@
           "id": "6238195",
           "nombre": "Inter Promesas B",
           "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012187655_ESCUDO_modified.png?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
