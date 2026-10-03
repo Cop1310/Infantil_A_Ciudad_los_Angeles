@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-03 22:36",
+  "generado": "2026-10-04 01:20",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
@@ -10,6 +10,12 @@
   "sin_calendario": [],
   "errores": [],
   "plantilla": [
+    {
+      "dorsal": 1,
+      "nombre": "Lucas Tomás Morales",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
     {
       "dorsal": 2,
       "nombre": "Roi Núñez González",
@@ -35,12 +41,6 @@
       "foto": null
     },
     {
-      "dorsal": 6,
-      "nombre": "David Peinado Pastor",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
       "dorsal": 7,
       "nombre": "Diego Criado Sánchez",
       "fecha_nacimiento": null,
@@ -53,12 +53,6 @@
       "foto": null
     },
     {
-      "dorsal": 10,
-      "nombre": "Miguel Martín Jiménez",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
       "dorsal": 13,
       "nombre": "Samuel Marquez Contreras",
       "fecha_nacimiento": null,
@@ -67,12 +61,6 @@
     {
       "dorsal": 14,
       "nombre": "Rodrigo Guerra Arranz",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": 15,
-      "nombre": "Cristian Stefan Manea",
       "fecha_nacimiento": null,
       "foto": null
     },
@@ -113,8 +101,32 @@
       "foto": null
     },
     {
-      "dorsal": 71,
-      "nombre": "Lucas Tomás Morales",
+      "dorsal": null,
+      "nombre": "Abel Bartolomé Cejas",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Alvaro Jimenez Dominguez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Asier Costa Siqueira",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Jonathan Hernando Ortiz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": null,
+      "nombre": "Marcos García Martín",
       "fecha_nacimiento": null,
       "foto": null
     }
@@ -133,7 +145,7 @@
     },
     {
       "sabado": "2026-10-10",
-      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ Rivas Futbol Club B - *_Ciudad de los Ángeles A_*",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ Rivas Futbol Club B - *_Ciudad de los Ángeles A_*",
       "resultados": ""
     },
     {
