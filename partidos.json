@@ -1,21 +1,15 @@
 {
-  "generado": "2026-10-02 14:13",
+  "generado": "2026-10-03 13:25",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
-  "resultados_desde": "2026-09-26",
-  "resultados_hasta": "2026-09-27",
-  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 26/09/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *15:30h* - Preferente Infantil Grupo 5\n📌 _Jornada 1_\n📍 Campo: IDB David Diez de la Cruz\n🔴 Santiago Apóstol Villaverde A 7 - 2 *_Ciudad de los Ángeles A_*",
+  "resultados_desde": "2026-10-03",
+  "resultados_hasta": "2026-10-04",
+  "resultados": "",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
   "plantilla": [
-    {
-      "dorsal": 1,
-      "nombre": "Lucas Tomás Morales",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
     {
       "dorsal": 2,
       "nombre": "Roi Núñez González",
@@ -41,6 +35,12 @@
       "foto": null
     },
     {
+      "dorsal": 6,
+      "nombre": "David Peinado Pastor",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
       "dorsal": 7,
       "nombre": "Diego Criado Sánchez",
       "fecha_nacimiento": null,
@@ -53,6 +53,12 @@
       "foto": null
     },
     {
+      "dorsal": 10,
+      "nombre": "Miguel Martín Jiménez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
       "dorsal": 13,
       "nombre": "Samuel Marquez Contreras",
       "fecha_nacimiento": null,
@@ -61,6 +67,12 @@
     {
       "dorsal": 14,
       "nombre": "Rodrigo Guerra Arranz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 15,
+      "nombre": "Cristian Stefan Manea",
       "fecha_nacimiento": null,
       "foto": null
     },
@@ -101,32 +113,8 @@
       "foto": null
     },
     {
-      "dorsal": null,
-      "nombre": "Abel Bartolomé Cejas",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
-      "nombre": "Alvaro Jimenez Dominguez",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
-      "nombre": "Asier Costa Siqueira",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
-      "nombre": "Jonathan Hernando Ortiz",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
-      "nombre": "Marcos García Martín",
+      "dorsal": 71,
+      "nombre": "Lucas Tomás Morales",
       "fecha_nacimiento": null,
       "foto": null
     }
@@ -374,7 +362,7 @@
   "clasificaciones": [
     {
       "titulo": "Preferente Infantil Grupo 5",
-      "jornada": 1,
+      "jornada": 2,
       "filas": [
         {
           "pos": 1,
@@ -453,6 +441,21 @@
         },
         {
           "pos": 6,
+          "id": "886326",
+          "nombre": "Racing de Villaverde A",
+          "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
+          "pj": 2,
+          "g": 1,
+          "e": 0,
+          "p": 1,
+          "gf": 4,
+          "gc": 3,
+          "dg": 1,
+          "pts": 3
+        },
+        {
+          "pos": 7,
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
@@ -467,7 +470,7 @@
           "pts": 3
         },
         {
-          "pos": 7,
+          "pos": 8,
           "id": "1031993",
           "nombre": "Fundacion Rayo Vallecano C",
           "nuestro": false,
@@ -482,7 +485,7 @@
           "pts": 3
         },
         {
-          "pos": 8,
+          "pos": 9,
           "id": "17202267",
           "nombre": "Velilla A",
           "nuestro": false,
@@ -497,37 +500,7 @@
           "pts": 3
         },
         {
-          "pos": 9,
-          "id": "2739614",
-          "nombre": "Rivas Futbol Club B",
-          "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
-          "pj": 1,
-          "g": 0,
-          "e": 0,
-          "p": 1,
-          "gf": 1,
-          "gc": 2,
-          "dg": -1,
-          "pts": 0
-        },
-        {
           "pos": 10,
-          "id": "526135",
-          "nombre": "Esc. Mun. Fut. Villarejo A",
-          "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
-          "pj": 1,
-          "g": 0,
-          "e": 0,
-          "p": 1,
-          "gf": 0,
-          "gc": 1,
-          "dg": -1,
-          "pts": 0
-        },
-        {
-          "pos": 11,
           "id": "2786",
           "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
           "nuestro": false,
@@ -542,22 +515,22 @@
           "pts": 0
         },
         {
-          "pos": 12,
-          "id": "886326",
-          "nombre": "Racing de Villaverde A",
+          "pos": 11,
+          "id": "526135",
+          "nombre": "Esc. Mun. Fut. Villarejo A",
           "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
           "pj": 1,
           "g": 0,
           "e": 0,
           "p": 1,
-          "gf": 1,
-          "gc": 3,
-          "dg": -2,
+          "gf": 0,
+          "gc": 1,
+          "dg": -1,
           "pts": 0
         },
         {
-          "pos": 13,
+          "pos": 12,
           "id": "15704127",
           "nombre": "Stella Maris la Gavia A",
           "nuestro": false,
@@ -572,7 +545,7 @@
           "pts": 0
         },
         {
-          "pos": 14,
+          "pos": 13,
           "id": "1094",
           "nombre": "Ad A.Toledo Olivos A",
           "nuestro": false,
@@ -584,6 +557,21 @@
           "gf": 0,
           "gc": 3,
           "dg": -3,
+          "pts": 0
+        },
+        {
+          "pos": 14,
+          "id": "2739614",
+          "nombre": "Rivas Futbol Club B",
+          "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
+          "pj": 2,
+          "g": 0,
+          "e": 0,
+          "p": 2,
+          "gf": 1,
+          "gc": 5,
+          "dg": -4,
           "pts": 0
         },
         {

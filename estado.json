@@ -80,6 +80,21 @@
     {
      "dg": 1,
      "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
+     "g": 1,
+     "gc": 3,
+     "gf": 4,
+     "id": "886326",
+     "nombre": "Racing de Villaverde A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 2,
+     "pos": 6,
+     "pts": 3
+    },
+    {
+     "dg": 1,
+     "e": 0,
      "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg?nova=1",
      "g": 1,
      "gc": 1,
@@ -89,7 +104,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 1,
-     "pos": 6,
+     "pos": 7,
      "pts": 3
     },
     {
@@ -104,7 +119,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 1,
-     "pos": 7,
+     "pos": 8,
      "pts": 3
     },
     {
@@ -119,22 +134,22 @@
      "nuestro": false,
      "p": 0,
      "pj": 1,
-     "pos": 8,
+     "pos": 9,
      "pts": 3
     },
     {
      "dg": -1,
      "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
      "g": 0,
-     "gc": 2,
-     "gf": 1,
-     "id": "2739614",
-     "nombre": "Rivas Futbol Club B",
+     "gc": 1,
+     "gf": 0,
+     "id": "2786",
+     "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 9,
+     "pos": 10,
      "pts": 0
     },
     {
@@ -149,37 +164,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 10,
-     "pts": 0
-    },
-    {
-     "dg": -1,
-     "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
-     "g": 0,
-     "gc": 1,
-     "gf": 0,
-     "id": "2786",
-     "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 1,
      "pos": 11,
-     "pts": 0
-    },
-    {
-     "dg": -2,
-     "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000054928_Racing_Villaverde.jpg?nova=1",
-     "g": 0,
-     "gc": 3,
-     "gf": 1,
-     "id": "886326",
-     "nombre": "Racing de Villaverde A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 1,
-     "pos": 12,
      "pts": 0
     },
     {
@@ -194,7 +179,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 13,
+     "pos": 12,
      "pts": 0
     },
     {
@@ -209,6 +194,21 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
+     "pos": 13,
+     "pts": 0
+    },
+    {
+     "dg": -4,
+     "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
+     "g": 0,
+     "gc": 5,
+     "gf": 1,
+     "id": "2739614",
+     "nombre": "Rivas Futbol Club B",
+     "nuestro": false,
+     "p": 2,
+     "pj": 2,
      "pos": 14,
      "pts": 0
     },
@@ -243,7 +243,7 @@
      "pts": 0
     }
    ],
-   "jornada": 1,
+   "jornada": 2,
    "titulo": "Preferente Infantil Grupo 5"
   }
  },
