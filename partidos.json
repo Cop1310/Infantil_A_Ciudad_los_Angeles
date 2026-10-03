@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-03 13:25",
+  "generado": "2026-10-03 16:08",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
   "resultados_desde": "2026-10-03",
   "resultados_hasta": "2026-10-04",
-  "resultados": "",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *(15º)* *_Ciudad de los Ángeles A_* 0 - 8 *(5º)* Adepo Palomeras A",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -129,7 +129,7 @@
     {
       "sabado": "2026-10-03",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
-      "resultados": ""
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *(15º)* *_Ciudad de los Ángeles A_* 0 - 8 *(5º)* Adepo Palomeras A"
     },
     {
       "sabado": "2026-10-10",
@@ -254,7 +254,23 @@
     },
     {
       "sabado": "2026-10-03",
-      "partidos": []
+      "partidos": [
+        {
+          "fecha": "2026-10-03",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 2,
+          "local": "Ciudad de los Ángeles A",
+          "visitante": "Adepo Palomeras A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
+          "resultado": [
+            0,
+            8
+          ],
+          "goles": [],
+          "tarjetas": []
+        }
+      ]
     },
     {
       "sabado": "2026-10-10",
@@ -366,6 +382,36 @@
       "filas": [
         {
           "pos": 1,
+          "id": "1692",
+          "nombre": "Adepo Palomeras A",
+          "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
+          "pj": 2,
+          "g": 2,
+          "e": 0,
+          "p": 0,
+          "gf": 11,
+          "gc": 1,
+          "dg": 10,
+          "pts": 6
+        },
+        {
+          "pos": 2,
+          "id": "2730",
+          "nombre": "Union Deportiva la Poveda A",
+          "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
+          "pj": 2,
+          "g": 2,
+          "e": 0,
+          "p": 0,
+          "gf": 8,
+          "gc": 1,
+          "dg": 7,
+          "pts": 6
+        },
+        {
+          "pos": 3,
           "id": "1031681",
           "nombre": "Santiago Apóstol Villaverde A",
           "nuestro": false,
@@ -380,7 +426,7 @@
           "pts": 3
         },
         {
-          "pos": 2,
+          "pos": 4,
           "id": "1549",
           "nombre": "Escuela de Futbol Arganda A",
           "nuestro": false,
@@ -395,22 +441,7 @@
           "pts": 3
         },
         {
-          "pos": 3,
-          "id": "2730",
-          "nombre": "Union Deportiva la Poveda A",
-          "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
-          "pj": 1,
-          "g": 1,
-          "e": 0,
-          "p": 0,
-          "gf": 4,
-          "gc": 1,
-          "dg": 3,
-          "pts": 3
-        },
-        {
-          "pos": 4,
+          "pos": 5,
           "id": "13613759",
           "nombre": "Fundacion Leganes C",
           "nuestro": false,
@@ -422,21 +453,6 @@
           "gf": 3,
           "gc": 0,
           "dg": 3,
-          "pts": 3
-        },
-        {
-          "pos": 5,
-          "id": "1692",
-          "nombre": "Adepo Palomeras A",
-          "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
-          "pj": 1,
-          "g": 1,
-          "e": 0,
-          "p": 0,
-          "gf": 3,
-          "gc": 1,
-          "dg": 2,
           "pts": 3
         },
         {
@@ -501,21 +517,6 @@
         },
         {
           "pos": 10,
-          "id": "2786",
-          "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
-          "nuestro": false,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
-          "pj": 1,
-          "g": 0,
-          "e": 0,
-          "p": 1,
-          "gf": 0,
-          "gc": 1,
-          "dg": -1,
-          "pts": 0
-        },
-        {
-          "pos": 11,
           "id": "526135",
           "nombre": "Esc. Mun. Fut. Villarejo A",
           "nuestro": false,
@@ -530,7 +531,7 @@
           "pts": 0
         },
         {
-          "pos": 12,
+          "pos": 11,
           "id": "15704127",
           "nombre": "Stella Maris la Gavia A",
           "nuestro": false,
@@ -545,7 +546,7 @@
           "pts": 0
         },
         {
-          "pos": 13,
+          "pos": 12,
           "id": "1094",
           "nombre": "Ad A.Toledo Olivos A",
           "nuestro": false,
@@ -560,7 +561,7 @@
           "pts": 0
         },
         {
-          "pos": 14,
+          "pos": 13,
           "id": "2739614",
           "nombre": "Rivas Futbol Club B",
           "nuestro": false,
@@ -575,22 +576,7 @@
           "pts": 0
         },
         {
-          "pos": 15,
-          "id": "13538235",
-          "nombre": "Ciudad de los Ángeles A",
-          "nuestro": true,
-          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
-          "pj": 1,
-          "g": 0,
-          "e": 0,
-          "p": 1,
-          "gf": 2,
-          "gc": 7,
-          "dg": -5,
-          "pts": 0
-        },
-        {
-          "pos": 16,
+          "pos": 14,
           "id": "6238195",
           "nombre": "Inter Promesas B",
           "nuestro": false,
@@ -602,6 +588,36 @@
           "gf": 1,
           "gc": 6,
           "dg": -5,
+          "pts": 0
+        },
+        {
+          "pos": 15,
+          "id": "2786",
+          "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
+          "nuestro": false,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
+          "pj": 2,
+          "g": 0,
+          "e": 0,
+          "p": 2,
+          "gf": 0,
+          "gc": 5,
+          "dg": -5,
+          "pts": 0
+        },
+        {
+          "pos": 16,
+          "id": "13538235",
+          "nombre": "Ciudad de los Ángeles A",
+          "nuestro": true,
+          "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+          "pj": 2,
+          "g": 0,
+          "e": 0,
+          "p": 2,
+          "gf": 2,
+          "gc": 15,
+          "dg": -13,
           "pts": 0
         }
       ],

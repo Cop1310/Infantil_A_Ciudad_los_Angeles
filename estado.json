@@ -3,6 +3,36 @@
   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
    "filas": [
     {
+     "dg": 10,
+     "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
+     "g": 2,
+     "gc": 1,
+     "gf": 11,
+     "id": "1692",
+     "nombre": "Adepo Palomeras A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 2,
+     "pos": 1,
+     "pts": 6
+    },
+    {
+     "dg": 7,
+     "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
+     "g": 2,
+     "gc": 1,
+     "gf": 8,
+     "id": "2730",
+     "nombre": "Union Deportiva la Poveda A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 2,
+     "pos": 2,
+     "pts": 6
+    },
+    {
      "dg": 5,
      "e": 0,
      "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
@@ -14,7 +44,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 1,
-     "pos": 1,
+     "pos": 3,
      "pts": 3
     },
     {
@@ -29,22 +59,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 1,
-     "pos": 2,
-     "pts": 3
-    },
-    {
-     "dg": 3,
-     "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010913564_logo_poveda.jpg?nova=1",
-     "g": 1,
-     "gc": 1,
-     "gf": 4,
-     "id": "2730",
-     "nombre": "Union Deportiva la Poveda A",
-     "nuestro": false,
-     "p": 0,
-     "pj": 1,
-     "pos": 3,
+     "pos": 4,
      "pts": 3
     },
     {
@@ -56,21 +71,6 @@
      "gf": 3,
      "id": "13613759",
      "nombre": "Fundacion Leganes C",
-     "nuestro": false,
-     "p": 0,
-     "pj": 1,
-     "pos": 4,
-     "pts": 3
-    },
-    {
-     "dg": 2,
-     "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
-     "g": 1,
-     "gc": 1,
-     "gf": 3,
-     "id": "1692",
-     "nombre": "Adepo Palomeras A",
      "nuestro": false,
      "p": 0,
      "pj": 1,
@@ -140,21 +140,6 @@
     {
      "dg": -1,
      "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
-     "g": 0,
-     "gc": 1,
-     "gf": 0,
-     "id": "2786",
-     "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 1,
-     "pos": 10,
-     "pts": 0
-    },
-    {
-     "dg": -1,
-     "e": 0,
      "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1",
      "g": 0,
      "gc": 1,
@@ -164,7 +149,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 11,
+     "pos": 10,
      "pts": 0
     },
     {
@@ -179,7 +164,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 12,
+     "pos": 11,
      "pts": 0
     },
     {
@@ -194,7 +179,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
-     "pos": 13,
+     "pos": 12,
      "pts": 0
     },
     {
@@ -209,22 +194,7 @@
      "nuestro": false,
      "p": 2,
      "pj": 2,
-     "pos": 14,
-     "pts": 0
-    },
-    {
-     "dg": -5,
-     "e": 0,
-     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
-     "g": 0,
-     "gc": 7,
-     "gf": 2,
-     "id": "13538235",
-     "nombre": "Ciudad de los Ángeles A",
-     "nuestro": true,
-     "p": 1,
-     "pj": 1,
-     "pos": 15,
+     "pos": 13,
      "pts": 0
     },
     {
@@ -239,6 +209,36 @@
      "nuestro": false,
      "p": 1,
      "pj": 1,
+     "pos": 14,
+     "pts": 0
+    },
+    {
+     "dg": -5,
+     "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png?nova=1",
+     "g": 0,
+     "gc": 5,
+     "gf": 0,
+     "id": "2786",
+     "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
+     "nuestro": false,
+     "p": 2,
+     "pj": 2,
+     "pos": 15,
+     "pts": 0
+    },
+    {
+     "dg": -13,
+     "e": 0,
+     "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
+     "g": 0,
+     "gc": 15,
+     "gf": 2,
+     "id": "13538235",
+     "nombre": "Ciudad de los Ángeles A",
+     "nuestro": true,
+     "p": 2,
+     "pj": 2,
      "pos": 16,
      "pts": 0
     }
@@ -387,7 +387,10 @@
     15,
     5
    ],
-   "resultado": null,
+   "resultado": [
+    0,
+    8
+   ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
     "1692",
