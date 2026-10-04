@@ -79,7 +79,7 @@
     },
     {
      "dg": 5,
-     "e": 0,
+     "e": 1,
      "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
      "g": 1,
      "gc": 2,
@@ -88,13 +88,13 @@
      "nombre": "Santiago Apóstol Villaverde A",
      "nuestro": false,
      "p": 0,
-     "pj": 1,
+     "pj": 2,
      "pos": 6,
-     "pts": 3
+     "pts": 4
     },
     {
      "dg": 3,
-     "e": 0,
+     "e": 1,
      "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png?nova=1",
      "g": 1,
      "gc": 0,
@@ -103,9 +103,9 @@
      "nombre": "Fundacion Leganes C",
      "nuestro": false,
      "p": 0,
-     "pj": 1,
+     "pj": 2,
      "pos": 7,
-     "pts": 3
+     "pts": 4
     },
     {
      "dg": 1,
@@ -376,6 +376,72 @@
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011125642_PNG_6X6cm_300_dpi.png?nova=1",
    "fecha": "2026-10-03",
+   "goles": [
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "RICARDO GABRIEL BALZA CORDERO",
+     "lado": "visitante",
+     "minuto": 17,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "ALEX PEZ ALAMEDA",
+     "lado": "visitante",
+     "minuto": 19,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "MATHIAS EDUARDO ALDAS NUÑEZ",
+     "lado": "visitante",
+     "minuto": 30,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "MATEO SUAREZ LOPEZ",
+     "lado": "visitante",
+     "minuto": 46,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "AITOR VERGARA FERNANDEZ",
+     "lado": "visitante",
+     "minuto": 55,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "MARIO DIAZ-MECO CORRALES",
+     "lado": "visitante",
+     "minuto": 58,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "AITOR DE FRANCISCO ALONSO",
+     "lado": "visitante",
+     "minuto": 63,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "MARIO DIAZ-MECO CORRALES",
+     "lado": "visitante",
+     "minuto": 64,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "11:00",
    "jornada": 2,
@@ -390,6 +456,29 @@
    "resultado": [
     0,
     8
+   ],
+   "tarjetas": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+     "lado": "local",
+     "minuto": 47,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "local",
+     "minuto": 65,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "ADEPO PALOMERAS 'A'",
+     "jugador": "AITOR DE FRANCISCO ALONSO",
+     "lado": "visitante",
+     "minuto": 33,
+     "tipo": "amarilla"
+    }
    ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [

@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-04 01:20",
+  "generado": "2026-10-04 14:07",
   "desde": "2026-10-03",
   "hasta": "2026-10-04",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
@@ -53,6 +53,12 @@
       "foto": null
     },
     {
+      "dorsal": 9,
+      "nombre": "Marcos García Martín",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
       "dorsal": 13,
       "nombre": "Samuel Marquez Contreras",
       "fecha_nacimiento": null,
@@ -61,6 +67,12 @@
     {
       "dorsal": 14,
       "nombre": "Rodrigo Guerra Arranz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 17,
+      "nombre": "Abel Bartolomé Cejas",
       "fecha_nacimiento": null,
       "foto": null
     },
@@ -102,12 +114,6 @@
     },
     {
       "dorsal": null,
-      "nombre": "Abel Bartolomé Cejas",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
       "nombre": "Alvaro Jimenez Dominguez",
       "fecha_nacimiento": null,
       "foto": null
@@ -121,12 +127,6 @@
     {
       "dorsal": null,
       "nombre": "Jonathan Hernando Ortiz",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
-      "nombre": "Marcos García Martín",
       "fecha_nacimiento": null,
       "foto": null
     }
@@ -279,8 +279,95 @@
             0,
             8
           ],
-          "goles": [],
-          "tarjetas": []
+          "goles": [
+            {
+              "minuto": 17,
+              "jugador": "RICARDO GABRIEL BALZA CORDERO",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 19,
+              "jugador": "ALEX PEZ ALAMEDA",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 30,
+              "jugador": "MATHIAS EDUARDO ALDAS NUÑEZ",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 46,
+              "jugador": "MATEO SUAREZ LOPEZ",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 55,
+              "jugador": "AITOR VERGARA FERNANDEZ",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 58,
+              "jugador": "MARIO DIAZ-MECO CORRALES",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 63,
+              "jugador": "AITOR DE FRANCISCO ALONSO",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 64,
+              "jugador": "MARIO DIAZ-MECO CORRALES",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 47,
+              "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "local"
+            },
+            {
+              "minuto": 65,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "local"
+            },
+            {
+              "minuto": 33,
+              "jugador": "AITOR DE FRANCISCO ALONSO",
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            }
+          ]
         }
       ]
     },
@@ -473,14 +560,14 @@
           "nombre": "Santiago Apóstol Villaverde A",
           "nuestro": false,
           "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg?nova=1",
-          "pj": 1,
+          "pj": 2,
           "g": 1,
-          "e": 0,
+          "e": 1,
           "p": 0,
           "gf": 7,
           "gc": 2,
           "dg": 5,
-          "pts": 3
+          "pts": 4
         },
         {
           "pos": 7,
@@ -488,14 +575,14 @@
           "nombre": "Fundacion Leganes C",
           "nuestro": false,
           "escudo": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png?nova=1",
-          "pj": 1,
+          "pj": 2,
           "g": 1,
-          "e": 0,
+          "e": 1,
           "p": 0,
           "gf": 3,
           "gc": 0,
           "dg": 3,
-          "pts": 3
+          "pts": 4
         },
         {
           "pos": 8,
