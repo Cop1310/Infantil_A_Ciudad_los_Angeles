@@ -392,7 +392,10 @@
   var convocadosSel = {};        // {id del jugador: true}
   var partidoConvSel = 0;        // índice dentro de partidosConvocables()
   var antelacionConv = 30;       // minutos de antelación para la hora de convocatoria
-  var equipacionConv = { camiseta: null, pantalon: null, medias: null };
+  // Cada campo guarda un conjunto de valores marcados (no uno solo): el entrenador puede
+  // marcar las dos opciones de pantalón/medias/camiseta si quiere que el equipo se lleve
+  // ambas equipaciones por si acaso.
+  var equipacionConv = { camiseta: {}, pantalon: {}, medias: {} };
   var campoManualConv = "";      // ubicación (enlace) del campo, opcional, a mano
   var motivacionalConv = "";
   var recordatorioConv = "";
@@ -969,11 +972,21 @@
     }
     lineas.push("");
     lineas.push("🆚️ " + p.rival);
-    if (equipacionConv.camiseta || equipacionConv.pantalon || equipacionConv.medias) {
+    // Texto de una prenda a partir de los valores marcados (puede haber uno o los dos, p.
+    // ej. si el entrenador quiere que se lleven las dos equipaciones por si acaso).
+    function textoEquipacion(campo, emojis) {
+      var marcados = Object.keys(equipacionConv[campo]).filter(function (v) { return equipacionConv[campo][v]; });
+      if (!marcados.length) return null;
+      return marcados.map(function (v) { return emojis[v]; }).join(" y ");
+    }
+    var txtCamiseta = textoEquipacion("camiseta", { rayas: "🖤🤍", rosa: "🩷" });
+    var txtPantalon = textoEquipacion("pantalon", { negro: "⚫️", blanco: "⚪️" });
+    var txtMedias = textoEquipacion("medias", { negro: "⚫️", blanco: "⚪️" });
+    if (txtCamiseta || txtPantalon || txtMedias) {
       lineas.push("");
-      if (equipacionConv.camiseta) lineas.push("Camiseta " + (equipacionConv.camiseta === "rosa" ? "🩷" : "🖤🤍"));
-      if (equipacionConv.pantalon) lineas.push("Pantalon " + (equipacionConv.pantalon === "negro" ? "⚫️" : "⚪️"));
-      if (equipacionConv.medias) lineas.push("Medias " + (equipacionConv.medias === "negro" ? "⚫️" : "⚪️"));
+      if (txtCamiseta) lineas.push("Camiseta " + txtCamiseta);
+      if (txtPantalon) lineas.push("Pantalon " + txtPantalon);
+      if (txtMedias) lineas.push("Medias " + txtMedias);
     }
     lineas.push("");
     lineas.push("CONVOCATORIA");
@@ -1032,7 +1045,7 @@
     function grupoChips(campo, opciones) {
       return '<div class="fila-chips">' + opciones.map(function (o) {
         return '<button type="button" class="chip equip-chip" data-campo="' + campo + '" data-valor="' + o.valor +
-          '" aria-pressed="' + (equipacionConv[campo] === o.valor) + '">' + o.etiqueta + "</button>";
+          '" aria-pressed="' + (!!equipacionConv[campo][o.valor]) + '">' + o.etiqueta + "</button>";
       }).join("") + "</div>";
     }
 
@@ -1095,9 +1108,10 @@
       btn.addEventListener("click", function () {
         var campo = btn.getAttribute("data-campo");
         var valor = btn.getAttribute("data-valor");
-        // pulsar la opción ya elegida la deja sin seleccionar (por si el entrenador quiere
-        // dejarla sin especificar en el mensaje)
-        equipacionConv[campo] = equipacionConv[campo] === valor ? null : valor;
+        // cada opción se marca/desmarca de forma independiente: se pueden tener las dos
+        // marcadas a la vez (p. ej. si el entrenador quiere que se lleven las dos
+        // equipaciones por si acaso) o ninguna (sin especificar en el mensaje)
+        equipacionConv[campo][valor] = !equipacionConv[campo][valor];
         pintarEntrenador();
       });
     });
@@ -1528,13 +1542,7 @@
     }
 
     var avisos = [];
-    // "sin_partido" lo calcula el backend solo para el fin de semana más próximo en el
-    // momento de generar el JSON (datos.desde): si se ha navegado a otra semana con el
-    // selector, ese aviso ya no tiene por qué seguir siendo cierto, así que solo se muestra
-    // cuando la semana que se está viendo es justo esa.
-    var semanaVista = semanas()[Math.max(0, Math.min(sel.partidos, semanas().length - 1))];
-    var esSemanaDelAviso = semanaVista && datos.desde && semanaVista.sabado === datos.desde;
-    if (activa === "partidos" && esSemanaDelAviso && datos.sin_partido && datos.sin_partido.length) {
+    if (activa === "partidos" && datos.sin_partido && datos.sin_partido.length) {
       avisos.push("<p>Sin partido este fin de semana:<br>" +
         datos.sin_partido.map(escapar).join("<br>") + "</p>");
     }
