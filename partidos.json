@@ -1,8 +1,8 @@
 {
-  "generado": "2026-10-04 23:38",
-  "desde": "2026-10-03",
-  "hasta": "2026-10-04",
-  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(15º)* *_Ciudad de los Ángeles A_* - *(5º)* Adepo Palomeras A",
+  "generado": "2026-10-05 02:10",
+  "desde": "2026-10-10",
+  "hasta": "2026-10-11",
+  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ *(11º)* Rivas Futbol Club B - *(16º)* *_Ciudad de los Ángeles A_*",
   "resultados_desde": "2026-10-03",
   "resultados_hasta": "2026-10-04",
   "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 03/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 2_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *(15º)* *_Ciudad de los Ángeles A_* 0 - 8 *(5º)* Adepo Palomeras A",
@@ -145,7 +145,7 @@
     },
     {
       "sabado": "2026-10-10",
-      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ Rivas Futbol Club B - *_Ciudad de los Ángeles A_*",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ *(11º)* Rivas Futbol Club B - *(16º)* *_Ciudad de los Ángeles A_*",
       "resultados": ""
     },
     {
@@ -161,6 +161,11 @@
     {
       "sabado": "2026-10-31",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Esc. Mun. Fut. Villarejo A",
+      "resultados": ""
+    },
+    {
+      "sabado": "2026-11-07",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n⚽ Inter Promesas B - *_Ciudad de los Ángeles A_*",
       "resultados": ""
     }
   ],
@@ -281,91 +286,91 @@
           ],
           "goles": [
             {
-              "minuto": 17,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "RICARDO GABRIEL BALZA CORDERO",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 17,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 19,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "ALEX PEZ ALAMEDA",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 19,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 30,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "MATHIAS EDUARDO ALDAS NUÑEZ",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 30,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 46,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "MATEO SUAREZ LOPEZ",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 46,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 55,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "AITOR VERGARA FERNANDEZ",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 55,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
+              "equipo": "ADEPO PALOMERAS 'A'",
+              "jugador": "MARIO DIAZ-MECO CORRALES",
+              "lado": "visitante",
               "minuto": 58,
-              "jugador": "MARIO DIAZ-MECO CORRALES",
-              "equipo": "ADEPO PALOMERAS 'A'",
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 63,
+              "equipo": "ADEPO PALOMERAS 'A'",
               "jugador": "AITOR DE FRANCISCO ALONSO",
-              "equipo": "ADEPO PALOMERAS 'A'",
+              "lado": "visitante",
+              "minuto": 63,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 64,
-              "jugador": "MARIO DIAZ-MECO CORRALES",
               "equipo": "ADEPO PALOMERAS 'A'",
+              "jugador": "MARIO DIAZ-MECO CORRALES",
+              "lado": "visitante",
+              "minuto": 64,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             }
           ],
           "tarjetas": [
             {
-              "minuto": 47,
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
               "jugador": "MOISES HENRIQUE ROJAS BLANCO",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "amarilla",
-              "lado": "local"
+              "lado": "local",
+              "minuto": 47,
+              "tipo": "amarilla"
             },
             {
-              "minuto": 65,
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
               "jugador": "MARIO CARRETERO DE CIEN",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "amarilla",
-              "lado": "local"
+              "lado": "local",
+              "minuto": 65,
+              "tipo": "amarilla"
             },
             {
-              "minuto": 33,
-              "jugador": "AITOR DE FRANCISCO ALONSO",
               "equipo": "ADEPO PALOMERAS 'A'",
-              "tipo": "amarilla",
-              "lado": "visitante"
+              "jugador": "AITOR DE FRANCISCO ALONSO",
+              "lado": "visitante",
+              "minuto": 33,
+              "tipo": "amarilla"
             }
           ]
         }
@@ -385,6 +390,10 @@
     },
     {
       "sabado": "2026-10-31",
+      "partidos": []
+    },
+    {
+      "sabado": "2026-11-07",
       "partidos": []
     }
   ],
@@ -426,8 +435,8 @@
           "jornada": 3,
           "local": "Rivas Futbol Club B",
           "visitante": "Ciudad de los Ángeles A",
-          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000098133_escudo-rivas-fc.png?nova=1",
-          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1"
+          "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
+          "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png"
         }
       ]
     },
@@ -440,8 +449,8 @@
           "jornada": 4,
           "local": "Ciudad de los Ángeles A",
           "visitante": "Stella Maris la Gavia A",
-          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
-          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png?nova=1"
+          "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png",
+          "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011208343_Escudo_SMLG.png"
         }
       ]
     },
@@ -454,8 +463,8 @@
           "jornada": 5,
           "local": "Udmelidaolimpia - Madrid City Vallecas A",
           "visitante": "Ciudad de los Ángeles A",
-          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png",
-          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1"
+          "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012219483_navbarApp.png",
+          "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png"
         }
       ]
     },
@@ -468,8 +477,22 @@
           "jornada": 6,
           "local": "Ciudad de los Ángeles A",
           "visitante": "Esc. Mun. Fut. Villarejo A",
-          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png?nova=1",
-          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg?nova=1"
+          "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png",
+          "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg"
+        }
+      ]
+    },
+    {
+      "sabado": "2026-11-07",
+      "partidos": [
+        {
+          "fecha": "2026-11-07",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 7,
+          "local": "Inter Promesas B",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
+          "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png"
         }
       ]
     }
