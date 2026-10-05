@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-05 02:10",
+  "generado": "2026-10-05 09:51",
   "desde": "2026-10-10",
   "hasta": "2026-10-11",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ *(11º)* Rivas Futbol Club B - *(16º)* *_Ciudad de los Ángeles A_*",
@@ -41,6 +41,12 @@
       "foto": null
     },
     {
+      "dorsal": 6,
+      "nombre": "David Peinado Pastor",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
       "dorsal": 7,
       "nombre": "Diego Criado Sánchez",
       "fecha_nacimiento": null,
@@ -49,12 +55,24 @@
     {
       "dorsal": 8,
       "nombre": "Adrian Ortiz Peña",
-      "fecha_nacimiento": "30-09-2013",
+      "fecha_nacimiento": null,
       "foto": null
     },
     {
       "dorsal": 9,
       "nombre": "Marcos García Martín",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 10,
+      "nombre": "Miguel Martín Jiménez",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 11,
+      "nombre": "Asier Costa Siqueira",
       "fecha_nacimiento": null,
       "foto": null
     },
@@ -67,6 +85,12 @@
     {
       "dorsal": 14,
       "nombre": "Rodrigo Guerra Arranz",
+      "fecha_nacimiento": null,
+      "foto": null
+    },
+    {
+      "dorsal": 15,
+      "nombre": "Cristian Stefan Manea",
       "fecha_nacimiento": null,
       "foto": null
     },
@@ -107,26 +131,20 @@
       "foto": null
     },
     {
-      "dorsal": 29,
-      "nombre": "Izan Amin García",
-      "fecha_nacimiento": null,
-      "foto": null
-    },
-    {
-      "dorsal": null,
+      "dorsal": 23,
       "nombre": "Alvaro Jimenez Dominguez",
       "fecha_nacimiento": null,
       "foto": null
     },
     {
-      "dorsal": null,
-      "nombre": "Asier Costa Siqueira",
+      "dorsal": 24,
+      "nombre": "Jonathan Hernando Ortiz",
       "fecha_nacimiento": null,
       "foto": null
     },
     {
-      "dorsal": null,
-      "nombre": "Jonathan Hernando Ortiz",
+      "dorsal": 29,
+      "nombre": "Izan Amin García",
       "fecha_nacimiento": null,
       "foto": null
     }
