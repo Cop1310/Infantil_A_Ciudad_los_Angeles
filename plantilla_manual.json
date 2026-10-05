@@ -1,8 +1,38 @@
 [
  {
-  "nombre_original": "Adrian Ortiz Peña",
-  "nombre": "Adrian Ortiz Peña",
-  "dorsal": null,
-  "fecha_nacimiento": "30-09-2013"
+  "nombre_original": "David Peinado Pastor",
+  "nombre": "David Peinado Pastor",
+  "dorsal": 6,
+  "fecha_nacimiento": null
+ },
+ {
+  "nombre_original": "Miguel Martín Jiménez",
+  "nombre": "Miguel Martín Jiménez",
+  "dorsal": 10,
+  "fecha_nacimiento": null
+ },
+ {
+  "nombre_original": "Cristian Stefan Manea",
+  "nombre": "Cristian Stefan Manea",
+  "dorsal": 15,
+  "fecha_nacimiento": null
+ },
+ {
+  "nombre_original": "Alvaro Jimenez Dominguez",
+  "nombre": "Alvaro Jimenez Dominguez",
+  "dorsal": 23,
+  "fecha_nacimiento": null
+ },
+ {
+  "nombre_original": "Asier Costa Siqueira",
+  "nombre": "Asier Costa Siqueira",
+  "dorsal": 11,
+  "fecha_nacimiento": null
+ },
+ {
+  "nombre_original": "Jonathan Hernando Ortiz",
+  "nombre": "Jonathan Hernando Ortiz",
+  "dorsal": 24,
+  "fecha_nacimiento": null
  }
 ]
