@@ -1582,6 +1582,13 @@
           if (!f) return;
           var id = inp.getAttribute("data-id");
           procesarFoto(f, function (dataUrl) {
+            // Antes de tocar nada hay que volcar a overridesPlantilla lo que haya escrito en
+            // TODAS las filas (no solo esta): si no, como pintarPlantilla() reconstruye la
+            // lista entera a partir de overridesPlantilla, cualquier dorsal/nombre/fecha que
+            // se hubiera escrito en otra fila sin pulsar "Guardar" todavía se perdía al subir
+            // una foto en cualquier otra fila (este era el motivo de que algunos dorsales no
+            // se guardaran).
+            leerCamposPlantilla();
             if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, apodo: null, fecha_nacimiento: null, foto: null };
             overridesPlantilla[id].foto = dataUrl;
             guardarOverridesEnLocalStorage();
@@ -1592,6 +1599,9 @@
       Array.prototype.forEach.call(elMensaje.querySelectorAll(".foto-quitar"), function (btn) {
         btn.addEventListener("click", function () {
           var id = btn.getAttribute("data-id");
+          // Mismo motivo que en el cambio de foto: hay que capturar primero lo escrito en
+          // todas las filas, para no perderlo al repintar la lista.
+          leerCamposPlantilla();
           var o = overridesPlantilla[id];
           if (o) {
             delete o.foto;
