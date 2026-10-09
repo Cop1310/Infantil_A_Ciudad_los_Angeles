@@ -1077,14 +1077,34 @@
     });
   }
 
+  // Etiqueta "bonita" (como en el <select> de alta) para un puesto guardado en minúsculas;
+  // si no se reconoce (dato antiguo o escrito a mano de otra forma) se muestra tal cual.
+  function etiquetaPuesto(valor) {
+    var encontrada = PUESTOS_CUERPO_TECNICO.filter(function (e) {
+      return e.toLowerCase() === (valor || "").toLowerCase();
+    })[0];
+    return encontrada || (valor || "");
+  }
+
+  // Lista del cuerpo técnico. Se ve SIEMPRE, con o sin sesión de administrador iniciada -igual
+  // que la Plantilla muestra a los jugadores sin hacer falta loguearse-, y solo cuando
+  // adminActivo es true se añaden los campos editables y los botones de alta/guardado.
   function cuerpoTecnicoAdminHtml() {
     var personas = cuerpoTecnicoParaEditar();
     var filas = personas.map(function (p) {
+      var avatarHtml = p.foto ? '<img class="avatar-foto" src="' + p.foto + '" alt="">' : '<div class="dorsal sin">?</div>';
+      if (!adminActivo) {
+        var nacimiento = p.fecha_nacimiento
+          ? '<div class="nacimiento">Nacido el ' + escapar(p.fecha_nacimiento) + "</div>" : "";
+        return '<div class="jugador persona-tecnico">' + avatarHtml +
+          '<div class="info"><div class="nombre">' + escapar(p.nombre || "") +
+          '<span class="puesto-mostrado"> · ' + escapar(etiquetaPuesto(p.puesto)) + "</span></div>" +
+          nacimiento + "</div></div>";
+      }
       var opciones = PUESTOS_CUERPO_TECNICO.map(function (etiqueta) {
         var valor = etiqueta.toLowerCase();
         return '<option value="' + valor + '"' + (p.puesto === valor ? " selected" : "") + '>' + etiqueta + '</option>';
       }).join("");
-      var avatarHtml = p.foto ? '<img class="avatar-foto" src="' + p.foto + '" alt="">' : '<div class="dorsal sin">?</div>';
       return '<div class="jugador persona-tecnico" data-id="' + escapar(p.id) + '">' + avatarHtml +
         '<div class="info campos-admin">' +
         '<input class="nombre-in tecnico-nombre-in" type="text" placeholder="Nombre y apellidos" value="' + escapar(p.nombre || "") + '">' +
@@ -1097,10 +1117,12 @@
         '<button type="button" class="jugador-eliminar tecnico-eliminar" data-id="' + escapar(p.id) + '">Eliminar</button>' +
         "</div></div>";
     }).join("");
-    return '<div class="cuerpo-tecnico-admin">' +
+    var cabecera = '<div class="cuerpo-tecnico-admin">' +
       '<h3 class="subtitulo-admin">Cuerpo técnico</h3>' +
       (filas ? '<div class="plantilla-lista">' + filas + "</div>"
-             : '<p class="estado">Todavía no hay nadie dado de alta.</p>') +
+             : '<p class="estado">Todavía no hay nadie dado de alta.</p>');
+    if (!adminActivo) return cabecera + "</div>";
+    return cabecera +
       '<div class="nuevo-jugador"><button type="button" id="tecnico-anadir" style="width:100%">Añadir persona</button></div>' +
       '<button type="button" class="admin-guardar" id="tecnico-guardar" style="width:100%">Guardar y descargar cuerpo_tecnico_manual.json</button>' +
       '<p class="admin-nota">Al guardar se descarga <code>cuerpo_tecnico_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>' +
@@ -1129,8 +1151,11 @@
   }
 
   // Conecta los eventos de la sección de Cuerpo técnico, tanto si se pinta junto a la
-  // convocatoria como si se pinta sola (no hay ningún partido próximo todavía).
+  // convocatoria como si se pinta sola (no hay ningún partido próximo todavía). Sin sesión de
+  // administrador la sección se pinta en modo solo-lectura (ver cuerpoTecnicoAdminHtml) y no
+  // tiene ninguno de estos botones ni campos, así que no hay nada que conectar.
   function wireCuerpoTecnicoAdmin() {
+    if (!adminActivo) return;
     document.getElementById("tecnico-anadir").addEventListener("click", function () {
       cuerpoTecnicoLocal.push({ id: "p" + Date.now(), nombre: "", puesto: "entrenador",
                                 fecha_nacimiento: null, foto: null });
@@ -1176,8 +1201,10 @@
   function pintarEntrenador() {
     elCuando.textContent = "Cuerpo técnico";
     if (!adminActivo) {
-      elMensaje.innerHTML = '<p class="estado">Esta pestaña es solo para el cuerpo técnico.</p>' +
+      elMensaje.innerHTML = cuerpoTecnicoAdminHtml() +
+        '<p class="estado">La convocatoria es solo para el cuerpo técnico.</p>' +
         '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir-entrenador">Panel de administrador</button></div>';
+      wireCuerpoTecnicoAdmin();
       document.getElementById("admin-abrir-entrenador").addEventListener("click", abrirModalAdmin);
       btnCopiar.classList.add("desactivado");
       btnWa.classList.add("desactivado");
