@@ -1,0 +1,17 @@
+[
+ {
+  "nombre": "Medi",
+  "puesto": "entrenador",
+  "fecha_nacimiento": "09-10-1988"
+ },
+ {
+  "nombre": "Sotillo",
+  "puesto": "delegado",
+  "fecha_nacimiento": "10-10-2006"
+ },
+ {
+  "nombre": "Jose",
+  "puesto": "ayudante de entrenador",
+  "fecha_nacimiento": "21-10-2008"
+ }
+]
