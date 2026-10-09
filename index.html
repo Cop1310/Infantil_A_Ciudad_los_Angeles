@@ -297,6 +297,34 @@
     border: 1px solid var(--roja); border-radius: 4px; background: var(--papel); color: var(--roja); cursor: pointer;
   }
 
+  /* Fichas de jugador / cuerpo técnico (vista pública, sin sesión de administrador): foto
+     grande en formato vertical con el número (o el puesto) y el nombre superpuestos abajo,
+     en rejilla -varias columnas, más alta que ancha- en vez de una lista de filas horizontales. */
+  .plantilla-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px;
+  }
+  .ficha-jugador {
+    position: relative; aspect-ratio: 2 / 3; border-radius: 10px; overflow: hidden;
+    background: linear-gradient(165deg, #d7cff2 0%, #7566c9 55%, #221c4e 100%);
+    border: 1px solid var(--linea);
+  }
+  .ficha-jugador .avatar-foto {
+    position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; border: none;
+    object-fit: cover; object-position: top center;
+  }
+  .ficha-jugador .ficha-sin-foto {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 2.6rem; font-weight: 800; color: rgba(255, 255, 255, 0.5);
+  }
+  .ficha-pie {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 10px 9px; color: #fff;
+    background: linear-gradient(to top, rgba(8, 6, 26, 0.9) 0%, rgba(8, 6, 26, 0.55) 60%, transparent 100%);
+  }
+  .ficha-linea1 { display: flex; align-items: baseline; gap: 6px; }
+  .ficha-dorsal { font-size: 1.3rem; font-weight: 800; line-height: 1.1; }
+  .ficha-nombre { font-size: 0.88rem; font-weight: 700; line-height: 1.15; overflow-wrap: anywhere; }
+  .ficha-puesto { font-size: 0.72rem; font-weight: 600; color: rgba(255, 255, 255, 0.78); margin-top: 1px; }
+
   .admin-barra { display: flex; justify-content: center; margin: 0 0 12px; }
   .subtitulo-admin { font-size: 1rem; font-weight: 800; margin: 18px 0 8px; }
   .cuerpo-tecnico-admin { margin-top: 10px; }
@@ -1091,16 +1119,30 @@
   // adminActivo es true se añaden los campos editables y los botones de alta/guardado.
   function cuerpoTecnicoAdminHtml() {
     var personas = cuerpoTecnicoParaEditar();
+
+    // Vista pública (sin sesión de administrador): misma rejilla de fichas "cromo" que la
+    // Plantilla -foto, nombre y, aquí sí, el puesto en vez del dorsal, porque no hay número
+    // de dorsal en el cuerpo técnico y sin el puesto no se distingue entrenador de ayudante-.
+    if (!adminActivo) {
+      var fichas = personas.map(function (p) {
+        var fotoHtml = p.foto
+          ? '<img class="avatar-foto" src="' + p.foto + '" alt="">'
+          : '<div class="ficha-sin-foto">?</div>';
+        return '<div class="ficha-jugador">' + fotoHtml +
+          '<div class="ficha-pie">' +
+          '<div class="ficha-nombre">' + escapar(p.nombre || "") + "</div>" +
+          '<div class="ficha-puesto">' + escapar(etiquetaPuesto(p.puesto)) + "</div>" +
+          "</div></div>";
+      }).join("");
+      return '<div class="cuerpo-tecnico-admin">' +
+        '<h3 class="subtitulo-admin">Cuerpo técnico</h3>' +
+        (fichas ? '<div class="plantilla-grid">' + fichas + "</div>"
+                : '<p class="estado">Todavía no hay nadie dado de alta.</p>') +
+        "</div>";
+    }
+
     var filas = personas.map(function (p) {
       var avatarHtml = p.foto ? '<img class="avatar-foto" src="' + p.foto + '" alt="">' : '<div class="dorsal sin">?</div>';
-      if (!adminActivo) {
-        var nacimiento = p.fecha_nacimiento
-          ? '<div class="nacimiento">Nacido el ' + escapar(p.fecha_nacimiento) + "</div>" : "";
-        return '<div class="jugador persona-tecnico">' + avatarHtml +
-          '<div class="info"><div class="nombre">' + escapar(p.nombre || "") +
-          '<span class="puesto-mostrado"> · ' + escapar(etiquetaPuesto(p.puesto)) + "</span></div>" +
-          nacimiento + "</div></div>";
-      }
       var opciones = PUESTOS_CUERPO_TECNICO.map(function (etiqueta) {
         var valor = etiqueta.toLowerCase();
         return '<option value="' + valor + '"' + (p.puesto === valor ? " selected" : "") + '>' + etiqueta + '</option>';
@@ -1117,12 +1159,10 @@
         '<button type="button" class="jugador-eliminar tecnico-eliminar" data-id="' + escapar(p.id) + '">Eliminar</button>' +
         "</div></div>";
     }).join("");
-    var cabecera = '<div class="cuerpo-tecnico-admin">' +
+    return '<div class="cuerpo-tecnico-admin">' +
       '<h3 class="subtitulo-admin">Cuerpo técnico</h3>' +
       (filas ? '<div class="plantilla-lista">' + filas + "</div>"
-             : '<p class="estado">Todavía no hay nadie dado de alta.</p>');
-    if (!adminActivo) return cabecera + "</div>";
-    return cabecera +
+             : '<p class="estado">Todavía no hay nadie dado de alta.</p>') +
       '<div class="nuevo-jugador"><button type="button" id="tecnico-anadir" style="width:100%">Añadir persona</button></div>' +
       '<button type="button" class="admin-guardar" id="tecnico-guardar" style="width:100%">Guardar y descargar cuerpo_tecnico_manual.json</button>' +
       '<p class="admin-nota">Al guardar se descarga <code>cuerpo_tecnico_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>' +
@@ -1443,6 +1483,25 @@
         var btnA = document.getElementById("admin-abrir");
         if (btnA) btnA.addEventListener("click", abrirModalAdmin);
       }
+      return;
+    }
+    // Vista pública (sin sesión de administrador): rejilla de fichas tipo "cromo" -foto grande,
+    // dorsal y nombre superpuestos abajo, sin posición ni más datos-, en vez de la lista de
+    // filas con los campos de edición, que solo tiene sentido con el panel abierto.
+    if (!adminActivo) {
+      var fichas = lista.map(function (j) {
+        var fotoHtml = j.foto
+          ? '<img class="avatar-foto" src="' + j.foto + '" alt="">'
+          : '<div class="ficha-sin-foto">' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "?") + "</div>";
+        return '<div class="ficha-jugador">' + fotoHtml +
+          '<div class="ficha-pie"><div class="ficha-linea1">' +
+          '<span class="ficha-dorsal">' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '</span>' +
+          '<span class="ficha-nombre">' + escapar(j.apodo || j.nombre) + "</span>" +
+          "</div></div></div>";
+      }).join("");
+      elMensaje.innerHTML = '<div class="plantilla-grid">' + fichas + "</div>" + pieAdmin();
+      var btnAbrir = document.getElementById("admin-abrir");
+      if (btnAbrir) btnAbrir.addEventListener("click", abrirModalAdmin);
       return;
     }
     var filas = lista.map(function (j, i) {
