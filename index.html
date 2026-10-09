@@ -241,7 +241,7 @@
   .noticia {
     background: var(--papel); border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden;
   }
-  .noticia .noticia-foto { display: block; width: 100%; height: 260px; object-fit: cover; background: #f2f2ee; }
+  .noticia .noticia-foto { display: block; width: 100%; max-height: 260px; object-fit: contain; background: #f2f2ee; }
   .noticia .noticia-cuerpo { padding: 14px 16px; }
   .noticia .noticia-icono { font-size: 1.5rem; line-height: 1; margin-bottom: 4px; }
   .noticia .noticia-texto { font-size: 1.05rem; font-weight: 700; }
@@ -281,6 +281,9 @@
   .jugador .campos-admin .fila-campos { display: flex; gap: 8px; }
   .jugador .campos-admin input.dorsal-in { width: 78px; }
   .jugador .campos-admin input.fecha-in { flex: 1; }
+  .jugador .campos-admin select {
+    font: inherit; font-size: 0.9rem; padding: 6px 8px; border: 1px solid var(--linea); border-radius: 4px; width: 100%;
+  }
   .jugador .avatar-foto { flex: none; width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--linea); }
   .jugador .goles-jugador { margin-left: 8px; font-size: 0.85rem; font-weight: 700; color: var(--suave); white-space: nowrap; }
   .jugador .foto-admin { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
@@ -295,6 +298,8 @@
   }
 
   .admin-barra { display: flex; justify-content: center; margin: 0 0 12px; }
+  .subtitulo-admin { font-size: 1rem; font-weight: 800; margin: 18px 0 8px; }
+  .cuerpo-tecnico-admin { margin-top: 10px; }
   .nuevo-jugador { display: flex; gap: 8px; margin: 0 0 10px; }
   .nuevo-jugador input { flex: 1; min-width: 0; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 2px solid var(--linea); border-radius: 4px; }
   .nuevo-jugador button { flex: none; min-height: 0; padding: 0 16px; font-size: 0.92rem; }
@@ -342,7 +347,7 @@
     <button type="button" role="tab" id="tab-clasificacion" aria-selected="false">Clasificación</button>
     <button type="button" role="tab" id="tab-plantilla" aria-selected="false">Plantilla</button>
     <button type="button" role="tab" id="tab-noticias" aria-selected="false">Noticias</button>
-    <button type="button" role="tab" id="tab-entrenador" aria-selected="false">Entrenador</button>
+    <button type="button" role="tab" id="tab-entrenador" aria-selected="false">Cuerpo técnico</button>
   </div>
   <div class="semanas" id="semanas" hidden>
     <button type="button" id="sem-ant" aria-label="Fin de semana anterior">◀</button>
@@ -403,6 +408,13 @@
   var HASH_ADMIN = "8e051b489ca542b1b8db91382956fca4e6bcfe1850880d8f85d4c3a61c72f8d6"; // ver aviso más abajo
   var CLAVE_LOCAL = "infantil_a_plantilla_manual";
   var CLAVE_LOCAL_NOTICIAS = "infantil_a_noticias_manual";
+  // Cuerpo técnico (pestaña "Cuerpo técnico", antes "Entrenador"): entrenador, ayudantes,
+  // preparador físico, delegado... metidos siempre a mano, sin ninguna web de la que venir
+  // -por eso se edita como una lista propia en este navegador (igual que noticiasManuales),
+  // no como "overrides" sobre una lista de la web (como overridesPlantilla).
+  var cuerpoTecnicoLocal = [];   // [{id, nombre, puesto, fecha_nacimiento, foto}]
+  var CLAVE_LOCAL_CUERPO_TECNICO = "infantil_a_cuerpo_tecnico_manual";
+  var PUESTOS_CUERPO_TECNICO = ["Entrenador", "Ayudante de entrenador", "Preparador físico", "Delegado"];
 
   var elMensaje = document.getElementById("mensaje");
   var elCuando = document.getElementById("cuando");
@@ -798,8 +810,11 @@
   function tarjetaNoticiaHtml(n, conBotonEliminar) {
     var esCumple = n.tipo === "cumpleanos";
     var icono = esCumple ? "🎂" : "📢";
+    // "rol" dice cómo se nombra a la persona en el aviso: "jugador" para los niños, o el
+    // puesto tal cual (entrenador, preparador físico...) para el cuerpo técnico -ver
+    // cumpleanos_de_hoy/cumpleanos_cuerpo_tecnico en el backend.
     var texto = esCumple
-      ? "¡Hoy es el cumpleaños de " + escapar(n.texto) + "!"
+      ? "¡Hoy es el cumpleaños de nuestro " + escapar(n.rol || "jugador") + " " + escapar(n.texto) + "!"
       : escapar(n.texto).replace(/\n/g, "<br>");
     var foto = n.foto ? '<img class="noticia-foto" src="' + n.foto + '" alt="">' : "";
     var admin = conBotonEliminar
@@ -1011,10 +1026,157 @@
     }
   }
 
+  // ---------------------------------------------------------------------
+  // Cuerpo técnico: altas de entrenador, ayudantes, preparador físico, delegado... (puede
+  // haber varios de un mismo puesto, o ninguno). Sirve, sobre todo, para que el backend pueda
+  // anunciar también SUS cumpleaños en Noticias (con nombre, no con apodo: a diferencia de los
+  // jugadores, no son menores y no hay restricción de privacidad -ver cumpleanos_cuerpo_tecnico
+  // en el backend). Se guarda con el mismo patrón de "editar en este navegador, Guardar y
+  // descargar, subir a GitHub" que Plantilla y Noticias.
+  // ---------------------------------------------------------------------
+  function cuerpoTecnico() {
+    return (datos && datos.cuerpo_tecnico) || [];
+  }
+
+  var cuerpoTecnicoSemillaHecha = false;
+  function cuerpoTecnicoParaEditar() {
+    if (!cuerpoTecnicoSemillaHecha) {
+      cuerpoTecnicoSemillaHecha = true;
+      if (!cuerpoTecnicoLocal.length) {
+        cuerpoTecnicoLocal = cuerpoTecnico().map(function (p, i) {
+          return { id: "srv" + i, nombre: p.nombre, puesto: p.puesto || "entrenador",
+                   fecha_nacimiento: p.fecha_nacimiento || null, foto: p.foto || null };
+        });
+      }
+    }
+    return cuerpoTecnicoLocal;
+  }
+
+  function guardarCuerpoTecnicoEnLocalStorage() {
+    try { localStorage.setItem(CLAVE_LOCAL_CUERPO_TECNICO, JSON.stringify(cuerpoTecnicoLocal)); } catch (e) {}
+  }
+
+  function cargarCuerpoTecnicoDeLocalStorage() {
+    try {
+      var v = localStorage.getItem(CLAVE_LOCAL_CUERPO_TECNICO);
+      if (v) cuerpoTecnicoLocal = JSON.parse(v) || [];
+    } catch (e) { cuerpoTecnicoLocal = []; }
+  }
+
+  // Lee del formulario (nombre, puesto, fecha) lo que haya escrito en cada fila justo antes de
+  // guardar -igual que leerCamposPlantilla(), pero sin comparar contra ninguna web, porque
+  // aquí no la hay: todo es siempre manual.
+  function leerCamposCuerpoTecnico() {
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".persona-tecnico"), function (fila) {
+      var id = fila.getAttribute("data-id");
+      var p = cuerpoTecnicoLocal.filter(function (x) { return x.id === id; })[0];
+      if (!p) return;
+      p.nombre = (fila.querySelector(".tecnico-nombre-in").value || "").trim();
+      p.puesto = fila.querySelector(".tecnico-puesto-in").value;
+      p.fecha_nacimiento = (fila.querySelector(".tecnico-fecha-in").value || "").trim() || null;
+    });
+  }
+
+  function cuerpoTecnicoAdminHtml() {
+    var personas = cuerpoTecnicoParaEditar();
+    var filas = personas.map(function (p) {
+      var opciones = PUESTOS_CUERPO_TECNICO.map(function (etiqueta) {
+        var valor = etiqueta.toLowerCase();
+        return '<option value="' + valor + '"' + (p.puesto === valor ? " selected" : "") + '>' + etiqueta + '</option>';
+      }).join("");
+      var avatarHtml = p.foto ? '<img class="avatar-foto" src="' + p.foto + '" alt="">' : '<div class="dorsal sin">?</div>';
+      return '<div class="jugador persona-tecnico" data-id="' + escapar(p.id) + '">' + avatarHtml +
+        '<div class="info campos-admin">' +
+        '<input class="nombre-in tecnico-nombre-in" type="text" placeholder="Nombre y apellidos" value="' + escapar(p.nombre || "") + '">' +
+        '<select class="tecnico-puesto-in">' + opciones + '</select>' +
+        '<input class="fecha-in tecnico-fecha-in" type="text" placeholder="Fecha nacimiento (DD-MM-AAAA, opcional)" value="' + escapar(p.fecha_nacimiento || "") + '">' +
+        '<div class="foto-admin">' +
+        '<input class="foto-in tecnico-foto-in" type="file" accept="image/*" data-id="' + escapar(p.id) + '">' +
+        (p.foto ? '<button type="button" class="foto-quitar tecnico-foto-quitar" data-id="' + escapar(p.id) + '">Quitar foto</button>' : "") +
+        "</div>" +
+        '<button type="button" class="jugador-eliminar tecnico-eliminar" data-id="' + escapar(p.id) + '">Eliminar</button>' +
+        "</div></div>";
+    }).join("");
+    return '<div class="cuerpo-tecnico-admin">' +
+      '<h3 class="subtitulo-admin">Cuerpo técnico</h3>' +
+      (filas ? '<div class="plantilla-lista">' + filas + "</div>"
+             : '<p class="estado">Todavía no hay nadie dado de alta.</p>') +
+      '<div class="nuevo-jugador"><button type="button" id="tecnico-anadir" style="width:100%">Añadir persona</button></div>' +
+      '<button type="button" class="admin-guardar" id="tecnico-guardar" style="width:100%">Guardar y descargar cuerpo_tecnico_manual.json</button>' +
+      '<p class="admin-nota">Al guardar se descarga <code>cuerpo_tecnico_manual.json</code>: súbelo a la carpeta del repositorio en GitHub (sustituyendo al que hubiera) para que estos datos no se pierdan cuando la app se actualice sola.</p>' +
+      "</div>";
+  }
+
+  function guardarCuerpoTecnicoManual() {
+    leerCamposCuerpoTecnico();
+    guardarCuerpoTecnicoEnLocalStorage();
+    var lista = cuerpoTecnicoLocal.filter(function (p) { return (p.nombre || "").trim(); }).map(function (p) {
+      var obj = { nombre: p.nombre, puesto: p.puesto, fecha_nacimiento: p.fecha_nacimiento || null };
+      if (p.foto) obj.foto = p.foto;
+      return obj;
+    });
+    var blob = new Blob([JSON.stringify(lista, null, 1)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "cuerpo_tecnico_manual.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    pintarEntrenador();
+    mostrarToast("Guardado en este dispositivo y archivo descargado");
+  }
+
+  // Conecta los eventos de la sección de Cuerpo técnico, tanto si se pinta junto a la
+  // convocatoria como si se pinta sola (no hay ningún partido próximo todavía).
+  function wireCuerpoTecnicoAdmin() {
+    document.getElementById("tecnico-anadir").addEventListener("click", function () {
+      cuerpoTecnicoLocal.push({ id: "p" + Date.now(), nombre: "", puesto: "entrenador",
+                                fecha_nacimiento: null, foto: null });
+      guardarCuerpoTecnicoEnLocalStorage();
+      pintarEntrenador();
+    });
+    document.getElementById("tecnico-guardar").addEventListener("click", guardarCuerpoTecnicoManual);
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".tecnico-foto-in"), function (inp) {
+      inp.addEventListener("change", function () {
+        var f = inp.files && inp.files[0];
+        if (!f) return;
+        var id = inp.getAttribute("data-id");
+        procesarFoto(f, function (dataUrl) {
+          leerCamposCuerpoTecnico();
+          var p = cuerpoTecnicoLocal.filter(function (x) { return x.id === id; })[0];
+          if (p) p.foto = dataUrl;
+          guardarCuerpoTecnicoEnLocalStorage();
+          pintarEntrenador();
+        });
+      });
+    });
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".tecnico-foto-quitar"), function (btn) {
+      btn.addEventListener("click", function () {
+        leerCamposCuerpoTecnico();
+        var id = btn.getAttribute("data-id");
+        var p = cuerpoTecnicoLocal.filter(function (x) { return x.id === id; })[0];
+        if (p) p.foto = null;
+        guardarCuerpoTecnicoEnLocalStorage();
+        pintarEntrenador();
+      });
+    });
+    Array.prototype.forEach.call(elMensaje.querySelectorAll(".tecnico-eliminar"), function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-id");
+        if (!window.confirm("¿Eliminar a esta persona del cuerpo técnico?\n\nNo se aplicará de verdad hasta que pulses \"Guardar y descargar cuerpo_tecnico_manual.json\" y subas el archivo al repositorio.")) return;
+        cuerpoTecnicoLocal = cuerpoTecnicoLocal.filter(function (x) { return x.id !== id; });
+        guardarCuerpoTecnicoEnLocalStorage();
+        pintarEntrenador();
+      });
+    });
+  }
+
   function pintarEntrenador() {
-    elCuando.textContent = "Convocatoria";
+    elCuando.textContent = "Cuerpo técnico";
     if (!adminActivo) {
-      elMensaje.innerHTML = '<p class="estado">Esta pestaña es solo para el entrenador.</p>' +
+      elMensaje.innerHTML = '<p class="estado">Esta pestaña es solo para el cuerpo técnico.</p>' +
         '<div class="admin-barra"><button type="button" class="admin-link" id="admin-abrir-entrenador">Panel de administrador</button></div>';
       document.getElementById("admin-abrir-entrenador").addEventListener("click", abrirModalAdmin);
       btnCopiar.classList.add("desactivado");
@@ -1025,7 +1187,9 @@
 
     var partidos = partidosConvocables();
     if (!partidos.length) {
-      elMensaje.innerHTML = '<p class="estado">No hay ningún partido próximo todavía para convocar.</p>';
+      elMensaje.innerHTML = '<p class="estado">No hay ningún partido próximo todavía para convocar.</p>' +
+        cuerpoTecnicoAdminHtml();
+      wireCuerpoTecnicoAdmin();
       btnCopiar.classList.add("desactivado");
       btnWa.classList.add("desactivado");
       btnWa.href = "#";
@@ -1077,7 +1241,8 @@
         escapar(recordatorioConv) + '</textarea></label>' +
       '<div class="convocados-contador">' + nConv + " convocado" + (nConv === 1 ? "" : "s") + " seleccionado" + (nConv === 1 ? "" : "s") + '</div>' +
       '<div class="plantilla-lista">' + filasJugadores + "</div>" +
-      "</div>";
+      "</div>" +
+      cuerpoTecnicoAdminHtml();
 
     document.getElementById("conv-partido").addEventListener("change", function (e) {
       partidoConvSel = parseInt(e.target.value, 10) || 0;
@@ -1124,6 +1289,7 @@
       });
     });
 
+    wireCuerpoTecnicoAdmin();
     actualizarBarraEntrenador();
   }
 
@@ -1139,16 +1305,21 @@
   function plantillaFusionada() {
     var base = (datos && datos.plantilla) || [];
     var lista = base.map(function (j) {
-      return { id: j.nombre, dorsal: j.dorsal, nombre: j.nombre, fecha_nacimiento: j.fecha_nacimiento, foto: j.foto || null };
+      return { id: j.nombre, dorsal: j.dorsal, nombre: j.nombre, apodo: j.apodo || null,
+               fecha_nacimiento: j.fecha_nacimiento, foto: j.foto || null };
     });
     var porId = {};
     lista.forEach(function (j) { porId[j.id] = j; });
     Object.keys(overridesPlantilla).forEach(function (id) {
       var o = overridesPlantilla[id];
       var j = porId[id];
-      if (!j) { j = { id: id, dorsal: null, nombre: id, fecha_nacimiento: null, foto: null }; lista.push(j); porId[id] = j; }
+      if (!j) {
+        j = { id: id, dorsal: null, nombre: id, apodo: null, fecha_nacimiento: null, foto: null };
+        lista.push(j); porId[id] = j;
+      }
       if (o.nombre) j.nombre = o.nombre;
       if (o.dorsal !== null && o.dorsal !== undefined) j.dorsal = o.dorsal;
+      if (o.apodo) j.apodo = o.apodo;
       if (o.fecha_nacimiento) j.fecha_nacimiento = o.fecha_nacimiento;
       if (o.foto) j.foto = o.foto;
       if (o.eliminado) j.eliminado = true;
@@ -1216,7 +1387,7 @@
       var nombre = (inp.value || "").trim();
       if (!nombre) { inp.focus(); return; }
       leerCamposPlantilla();
-      if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, fecha_nacimiento: null, foto: null };
+      if (!overridesPlantilla[nombre]) overridesPlantilla[nombre] = { dorsal: null, apodo: null, fecha_nacimiento: null, foto: null };
       guardarOverridesEnLocalStorage();
       pintarPlantilla();
       mostrarToast("Jugador añadido: pon su dorsal y fecha si quieres, y pulsa Guardar");
@@ -1259,6 +1430,8 @@
         ? '<div class="campos-admin">' +
           '<input class="nombre-in" type="text" placeholder="Nombre y apellidos" ' +
           'value="' + escapar(j.nombre) + '" data-id="' + escapar(j.id) + '">' +
+          '<input class="apodo-in" type="text" placeholder="Apodo (como se le conoce en el equipo, si es distinto)" ' +
+          'value="' + escapar(j.apodo || "") + '" data-id="' + escapar(j.id) + '">' +
           '<div class="fila-campos">' +
           '<input class="dorsal-in" type="number" min="1" max="99" inputmode="numeric" placeholder="Dorsal" ' +
           'value="' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '" data-id="' + escapar(j.id) + '">' +
@@ -1272,10 +1445,11 @@
           '<button type="button" class="jugador-eliminar" data-id="' + escapar(j.id) + '" ' +
           'data-nombre-mostrado="' + escapar(j.nombre) + '">Eliminar jugador</button>'
         : "";
+      var nombreMostrado = escapar(j.nombre) + (!adminActivo && j.apodo ? ' «' + escapar(j.apodo) + '»' : "");
       var nacimiento = !adminActivo && j.fecha_nacimiento
         ? '<div class="nacimiento">Nacido el ' + escapar(j.fecha_nacimiento) + "</div>" : "";
       return '<div class="jugador">' + avatarHtml +
-        '<div class="info"><div class="nombre">' + escapar(j.nombre) + golesHtmlJug + "</div>" + nacimiento + camposAdmin + "</div></div>";
+        '<div class="info"><div class="nombre">' + nombreMostrado + golesHtmlJug + "</div>" + nacimiento + camposAdmin + "</div></div>";
     }).join("");
     elMensaje.innerHTML = '<div class="plantilla-lista">' + filas + "</div>" + pieAdmin();
     if (adminActivo) {
@@ -1286,7 +1460,7 @@
           if (!f) return;
           var id = inp.getAttribute("data-id");
           procesarFoto(f, function (dataUrl) {
-            if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, fecha_nacimiento: null, foto: null };
+            if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, apodo: null, fecha_nacimiento: null, foto: null };
             overridesPlantilla[id].foto = dataUrl;
             guardarOverridesEnLocalStorage();
             pintarPlantilla();
@@ -1299,7 +1473,7 @@
           var o = overridesPlantilla[id];
           if (o) {
             delete o.foto;
-            if (!o.dorsal && !o.fecha_nacimiento && !o.foto && !o.nombre && !o.eliminado) delete overridesPlantilla[id];
+            if (!o.dorsal && !o.apodo && !o.fecha_nacimiento && !o.foto && !o.nombre && !o.eliminado) delete overridesPlantilla[id];
           }
           guardarOverridesEnLocalStorage();
           pintarPlantilla();
@@ -1314,7 +1488,7 @@
           var nombreMostrado = btn.getAttribute("data-nombre-mostrado") || id;
           if (!window.confirm("¿Eliminar a " + nombreMostrado + " de la plantilla?\n\nNo se aplicará de verdad hasta que pulses \"Guardar y descargar plantilla_manual.json\" y subas el archivo al repositorio.")) return;
           leerCamposPlantilla();
-          if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, fecha_nacimiento: null, foto: null };
+          if (!overridesPlantilla[id]) overridesPlantilla[id] = { dorsal: null, apodo: null, fecha_nacimiento: null, foto: null };
           overridesPlantilla[id].eliminado = true;
           guardarOverridesEnLocalStorage();
           pintarPlantilla();
@@ -1341,6 +1515,7 @@
     var filas = elMensaje.querySelectorAll(".jugador");
     filas.forEach(function (fila) {
       var inNombre = fila.querySelector(".nombre-in");
+      var inApodo = fila.querySelector(".apodo-in");
       var inDorsal = fila.querySelector(".dorsal-in");
       var inFecha = fila.querySelector(".fecha-in");
       if (!inDorsal) return;
@@ -1349,9 +1524,13 @@
       var nombreOriginal = web.nombre || id;
       var nombreNuevo = (inNombre.value || "").trim() || nombreOriginal;
       var dorsal = inDorsal.value.trim() ? parseInt(inDorsal.value, 10) : null;
+      var apodo = (inApodo.value || "").trim() || null;
       var fechaNac = inFecha.value.trim() || null;
       var nombreEsManual = nombreNuevo !== nombreOriginal;
       var dorsalEsManual = dorsal !== null && dorsal !== web.dorsal;
+      // El apodo no lo da nunca la web (ver aplicar_plantilla_manual en el backend), así que
+      // aquí es manual en cuanto se escribe algo, sin comparar contra ningún valor de la web.
+      var apodoEsManual = apodo !== null;
       var fechaEsManual = fechaNac !== null && fechaNac !== web.fecha_nacimiento;
       // La foto y la baja ("eliminado") se guardan aparte, en cuanto se elige un archivo o se
       // confirma la baja: aquí solo se respeta lo que ya hubiera, para no perderlo al tocar los
@@ -1359,10 +1538,11 @@
       var previo = overridesPlantilla[id] || {};
       var fotoActual = previo.foto || null;
       var eliminadoActual = !!previo.eliminado;
-      if (nombreEsManual || dorsalEsManual || fechaEsManual || fotoActual || eliminadoActual) {
+      if (nombreEsManual || dorsalEsManual || apodoEsManual || fechaEsManual || fotoActual || eliminadoActual) {
         overridesPlantilla[id] = {
           nombre: nombreEsManual ? nombreNuevo : null,
           dorsal: dorsalEsManual ? dorsal : null,
+          apodo: apodoEsManual ? apodo : null,
           fecha_nacimiento: fechaEsManual ? fechaNac : null,
           foto: fotoActual,
           eliminado: eliminadoActual,
@@ -1415,7 +1595,8 @@
     // igual que hacía hasta ahora.
     var lista = Object.keys(overridesPlantilla).map(function (id) {
       var o = overridesPlantilla[id];
-      var obj = { nombre_original: id, nombre: o.nombre || id, dorsal: o.dorsal, fecha_nacimiento: o.fecha_nacimiento };
+      var obj = { nombre_original: id, nombre: o.nombre || id, dorsal: o.dorsal,
+                  apodo: o.apodo, fecha_nacimiento: o.fecha_nacimiento };
       if (o.foto) obj.foto = o.foto;
       if (o.eliminado) obj.eliminado = true;
       return obj;
@@ -1667,6 +1848,7 @@
 
   cargarOverridesDeLocalStorage();
   cargarNoticiasDeLocalStorage();
+  cargarCuerpoTecnicoDeLocalStorage();
   btnActualizar.addEventListener("click", function () { cargarDatos(false); });
   cargarDatos(true);
 })();

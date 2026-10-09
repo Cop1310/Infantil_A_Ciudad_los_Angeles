@@ -806,12 +806,13 @@ def obtener_plantilla_con_navegador(url):
 
 def aplicar_plantilla_manual(jugadores, ruta):
     """Aplica sobre la plantilla leída de la web los datos metidos a mano desde el panel de
-    administrador: dorsal, fecha de nacimiento, foto, nombre corregido y bajas (jugadores que
-    han salido del equipo), de los niños que falten o se quieran corregir. Lo escrito a mano
-    tiene SIEMPRE prioridad sobre lo leído de la web, así no se pierde nunca aunque la web
-    cambie o deje de publicar algún dato. Un jugador que solo exista en el fichero manual
-    también se añade. Al final, la lista queda ordenada por dorsal (los que aún no tienen, al
-    final, por nombre).
+    administrador: dorsal, apodo (el nombre por el que se le conoce en el equipo, si es
+    distinto del que figura en su DNI -la web nunca lo da, es siempre un dato a mano), fecha
+    de nacimiento, foto, nombre corregido y bajas (jugadores que han salido del equipo), de
+    los niños que falten o se quieran corregir. Lo escrito a mano tiene SIEMPRE prioridad
+    sobre lo leído de la web, así no se pierde nunca aunque la web cambie o deje de publicar
+    algún dato. Un jugador que solo exista en el fichero manual también se añade. Al final, la
+    lista queda ordenada por dorsal (los que aún no tienen, al final, por nombre).
 
     Cada entrada de plantilla_manual.json se identifica por "nombre_original": el nombre tal
     como lo trae (o traía) la web, o el que se escribió al dar de alta a mano a un jugador que
@@ -825,6 +826,8 @@ def aplicar_plantilla_manual(jugadores, ruta):
             manuales = json.load(f)
     except (OSError, ValueError):
         manuales = []
+    for j in jugadores:
+        j.setdefault("apodo", None)   # la web nunca da apodo: solo se rellena a mano
     por_nombre = {j["nombre"]: j for j in jugadores}
     for m in manuales:
         nombre_original = (m.get("nombre_original") or m.get("nombre") or "").strip()
@@ -840,7 +843,8 @@ def aplicar_plantilla_manual(jugadores, ruta):
                 del por_nombre[nombre_original]
             continue
         if j is None:
-            j = {"dorsal": None, "nombre": nombre_original, "fecha_nacimiento": None, "foto": None}
+            j = {"dorsal": None, "nombre": nombre_original, "apodo": None,
+                 "fecha_nacimiento": None, "foto": None}
             jugadores.append(j)
             por_nombre[nombre_original] = j
         nombre_nuevo = (m.get("nombre") or "").strip()
@@ -848,6 +852,8 @@ def aplicar_plantilla_manual(jugadores, ruta):
             j["nombre"] = nombre_nuevo
         if m.get("dorsal") is not None:
             j["dorsal"] = m["dorsal"]
+        if m.get("apodo"):
+            j["apodo"] = m["apodo"]
         if m.get("fecha_nacimiento"):
             j["fecha_nacimiento"] = m["fecha_nacimiento"]
         if m.get("foto"):
@@ -872,7 +878,11 @@ def cumpleanos_de_hoy(plantilla, hoy):
     """Noticias de cumpleaños: un jugador de la plantilla fusionada por cada uno cuyo día y mes
     de nacimiento coincidan con `hoy`. Como la fecha de nacimiento en esta app es casi siempre
     un dato metido a mano (la web no la publica), esto solo funciona para los jugadores a los
-    que se les haya rellenado ese campo desde el panel de administrador."""
+    que se les haya rellenado ese campo desde el panel de administrador. Se anuncia por su
+    apodo (el nombre por el que se le conoce en el equipo) si lo tiene puesto, y si no, por su
+    nombre y apellidos; "rol": "jugador" lo distingue del cuerpo técnico (ver
+    cumpleanos_cuerpo_tecnico) para que la web pueda componer el aviso ("nuestro jugador...",
+    "nuestro entrenador...", etc.)."""
     noticias = []
     for j in plantilla:
         m = _RE_FECHA_NAC_DIA_MES.match(j.get("fecha_nacimiento") or "")
@@ -880,7 +890,42 @@ def cumpleanos_de_hoy(plantilla, hoy):
             continue
         dia, mes = int(m.group(1)), int(m.group(2))
         if dia == hoy.day and mes == hoy.month:
-            noticias.append({"tipo": "cumpleanos", "texto": j["nombre"], "foto": j.get("foto")})
+            noticias.append({"tipo": "cumpleanos", "rol": "jugador",
+                              "texto": j.get("apodo") or j["nombre"], "foto": j.get("foto")})
+    return noticias
+
+
+def leer_cuerpo_tecnico(ruta):
+    """Cuerpo técnico, metido siempre a mano desde el panel de administrador: a diferencia de
+    la plantilla de jugadores, la web no publica nada de esto. Puede haber varias personas en
+    el mismo puesto (dos ayudantes, por ejemplo) o ninguna en otro; cada una se da de alta con
+    su puesto (entrenador, ayudante de entrenador, preparador físico, delegado...), nombre,
+    fecha de nacimiento opcional y foto opcional. Devuelve [] si el fichero no existe todavía
+    o no es válido."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            personas = json.load(f)
+    except (OSError, ValueError):
+        personas = []
+    return [{"nombre": (p.get("nombre") or "").strip(), "puesto": (p.get("puesto") or "").strip(),
+             "fecha_nacimiento": p.get("fecha_nacimiento"), "foto": p.get("foto")}
+            for p in personas if (p.get("nombre") or "").strip()]
+
+
+def cumpleanos_cuerpo_tecnico(cuerpo_tecnico, hoy):
+    """Como cumpleanos_de_hoy, pero para el cuerpo técnico: "rol" lleva aquí el puesto de la
+    persona (ya tal cual se quiere leer en el aviso: "entrenador", "preparador físico"...), no
+    el valor fijo "jugador". No son menores, pero por sencillez tampoco se calcula ni se
+    publica la edad, igual que con los jugadores."""
+    noticias = []
+    for p in cuerpo_tecnico:
+        m = _RE_FECHA_NAC_DIA_MES.match(p.get("fecha_nacimiento") or "")
+        if not m:
+            continue
+        dia, mes = int(m.group(1)), int(m.group(2))
+        if dia == hoy.day and mes == hoy.month:
+            noticias.append({"tipo": "cumpleanos", "rol": p["puesto"] or "miembro del cuerpo técnico",
+                              "texto": p["nombre"], "foto": p.get("foto")})
     return noticias
 
 
@@ -1720,6 +1765,8 @@ def main():
                     help="fichero con dorsales/fechas de nacimiento metidos a mano desde el panel de administrador")
     ap.add_argument("--noticias-manual", default="noticias_manual.json",
                     help="fichero con noticias/avisos metidos a mano desde el panel de administrador")
+    ap.add_argument("--cuerpo-tecnico-manual", default="cuerpo_tecnico_manual.json",
+                    help="fichero con el cuerpo técnico (entrenador, ayudantes...) metido a mano desde el panel de administrador")
     ap.add_argument("--navegador", action="store_true",
                     help="recorrer todas las jornadas con un navegador automático (necesita Playwright)")
     ap.add_argument("--sin-navegador-pendientes", action="store_true",
@@ -1855,11 +1902,14 @@ def main():
         errores.append("Plantilla")
         print(f"Aviso: no se pudo leer la plantilla del equipo: {e}", file=sys.stderr)
     plantilla = aplicar_plantilla_manual(plantilla, args.plantilla_manual)
+    cuerpo_tecnico = leer_cuerpo_tecnico(args.cuerpo_tecnico_manual)
 
-    # Noticias: cumpleaños de hoy (sin edad, ver aviso de privacidad junto a cumpleanos_de_hoy)
-    # más lo que el entrenador haya metido a mano desde el panel. Los cumpleaños van primero.
+    # Noticias: cumpleaños de hoy, de jugadores (sin edad, ver aviso de privacidad junto a
+    # cumpleanos_de_hoy) y del cuerpo técnico, más lo que se haya metido a mano desde el panel.
+    # Los cumpleaños van primero.
     hoy = ahora().date()
-    noticias = cumpleanos_de_hoy(plantilla, hoy) + aplicar_noticias_manuales(args.noticias_manual, hoy)
+    noticias = (cumpleanos_de_hoy(plantilla, hoy) + cumpleanos_cuerpo_tecnico(cuerpo_tecnico, hoy)
+                + aplicar_noticias_manuales(args.noticias_manual, hoy))
 
     if args.json:
         with open(args.json, "w", encoding="utf-8") as f:
@@ -1877,6 +1927,7 @@ def main():
                                    for c in pendientes],
                 "errores": errores,
                 "plantilla": plantilla,
+                "cuerpo_tecnico": cuerpo_tecnico,
                 "noticias": noticias,
                 "semanas": [
                     {"sabado": sab.isoformat(),
