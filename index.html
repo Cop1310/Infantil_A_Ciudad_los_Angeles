@@ -1635,13 +1635,27 @@
   }
 
   function leerCamposPlantilla() {
-    // Solo se guarda como "manual" lo que sea DISTINTO de lo que ya da la web: así, si el
-    // campo venía relleno porque la web ya lo publicaba, no se congela innecesariamente (y
-    // si la web llega a publicar más adelante lo que antes solo estaba a mano, el dato de la
-    // web vuelve a tomar el relevo en cuanto coincida). El nombre editable es la excepción: se
-    // guarda por `id` (el nombre ORIGINAL, de la web o con el que se dio de alta a mano), que
-    // nunca cambia aunque se corrija el nombre mostrado -así el resto de los datos manuales de
-    // ese jugador no se pierden al renombrarlo.
+    // Solo el nombre se guarda como "manual" exclusivamente cuando es DISTINTO del original:
+    // así, si se corrige el nombre, el resto de los datos manuales de ese jugador no se
+    // pierden al renombrarlo (se identifica por `id`, el nombre ORIGINAL, de la web o con el
+    // que se dio de alta a mano, que nunca cambia).
+    //
+    // Dorsal y fecha de nacimiento, en cambio, se guardan SIEMPRE como manuales en cuanto el
+    // campo tiene algo escrito, sin comparar contra "lo que ya da la web" -iba así antes, pero
+    // era un error serio: `datos.plantilla` no es la web en bruto, es la SALIDA del script, que
+    // ya lleva fusionados los datos manuales de la vez anterior. En cuanto el script se
+    // ejecutaba una vez con un dorsal o una fecha metidos a mano, esa fusión pasaba a verse
+    // igual que si la diera la propia web, así que la próxima vez que se guardaba CUALQUIER
+    // cosa desde el panel (aunque fuera la foto de otro jugador), el sistema creía que ese
+    // dato "ya lo daba la web" y dejaba de incluirlo en plantilla_manual.json -que sustituye
+    // al fichero entero- borrándolo para siempre en la siguiente ejecución automática. Esto es
+    // justo lo que le pasó a César: perdió las fechas de nacimiento de toda la plantilla (y los
+    // dorsales de los jugadores añadidos a mano) en la segunda vez que guardó, después de que
+    // el script ya hubiera incorporado la primera subida. Guardarlos siempre como manuales
+    // evita por completo ese borrado silencioso; el único coste es que si la web llegara a
+    // publicar ella misma un dorsal que ya se metió a mano, el dato manual seguiría mandando
+    // hasta que se borre el campo a propósito -aceptable en un equipo donde los dorsales casi
+    // no cambian, frente al riesgo de perder fechas de nacimiento de niños ya introducidas.
     var webPorId = {};
     ((datos && datos.plantilla) || []).forEach(function (j) { webPorId[j.nombre] = j; });
     var filas = elMensaje.querySelectorAll(".jugador");
@@ -1659,11 +1673,11 @@
       var apodo = (inApodo.value || "").trim() || null;
       var fechaNac = inFecha.value.trim() || null;
       var nombreEsManual = nombreNuevo !== nombreOriginal;
-      var dorsalEsManual = dorsal !== null && dorsal !== web.dorsal;
-      // El apodo no lo da nunca la web (ver aplicar_plantilla_manual en el backend), así que
-      // aquí es manual en cuanto se escribe algo, sin comparar contra ningún valor de la web.
+      var dorsalEsManual = dorsal !== null;
+      // El apodo tampoco lo da nunca la web (ver aplicar_plantilla_manual en el backend), así
+      // que aquí es manual en cuanto se escribe algo, igual que dorsal y fecha de nacimiento.
       var apodoEsManual = apodo !== null;
-      var fechaEsManual = fechaNac !== null && fechaNac !== web.fecha_nacimiento;
+      var fechaEsManual = fechaNac !== null;
       // La foto y la baja ("eliminado") se guardan aparte, en cuanto se elige un archivo o se
       // confirma la baja: aquí solo se respeta lo que ya hubiera, para no perderlo al tocar los
       // otros campos.
