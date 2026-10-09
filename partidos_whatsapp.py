@@ -1663,25 +1663,73 @@ def _emoji_resultado(e):
     return "🟢" if propios > ajenos else ("🟡" if propios == ajenos else "🔴")
 
 
+def _equipo_resultado(par, goles_equipo):
+    """Nombre del equipo SIN la posición de clasificación (en el mensaje de resultado ya
+    importa el marcador, no dónde está cada uno en la tabla) seguido de su cantidad de goles."""
+    nombre = _equipo(par)  # sin pasar `pos`: _equipo no añade el prefijo de clasificación
+    palabra = "gol" if goles_equipo == 1 else "goles"
+    return f"{nombre} — *{goles_equipo}* {palabra}"
+
+
+def _emoji_para_lado(e, lado):
+    """El emoji de resultado (🟢/🟡/🔴) solo tiene sentido en la línea de NUESTRO equipo -indica
+    cómo nos ha ido a nosotros-, así que en la línea del rival se deja el balón neutro de siempre."""
+    nuestro_lado = "local" if _es_nuestro(e["local"]) else "visitante"
+    return _emoji_resultado(e) if lado == nuestro_lado else "⚽"
+
+
+_ICONO_TARJETA = {"amarilla": "🟨", "roja": "🟥"}
+
+
+def _lineas_goleadores(goles, lado):
+    """Una línea por goleador de ese lado ('local'/'visitante'), ordenadas por minuto, con
+    aviso si fue de penalti o en propia puerta (el gol en propia ya viene contado del lado que
+    lo recibe, ver goles_y_tarjetas_de_acta, así que aquí solo se avisa, no se recoloca)."""
+    lineas = []
+    for g in sorted((g for g in goles if g["lado"] == lado), key=lambda g: g["minuto"]):
+        extra = " (de penalti)" if g.get("penalti") else (" (en propia puerta)" if g.get("propia") else "")
+        lineas.append(f"⚽ {g['minuto']}' {g['jugador']}{extra}")
+    return lineas
+
+
+def _lineas_tarjetas(tarjetas, lado):
+    """Una línea por tarjeta de ese lado, ordenadas por minuto."""
+    lineas = []
+    for t in sorted((t for t in tarjetas if t["lado"] == lado), key=lambda t: t["minuto"]):
+        icono = _ICONO_TARJETA.get(t["tipo"], "🟨")
+        lineas.append(f"{icono} {t['minuto']}' {t['jugador']}")
+    return lineas
+
+
 def bloque(e, con_resultado=False):
-    """Un partido: hora y categoría, jornada, campo y enfrentamiento."""
+    """Un partido. Antes de jugarse: hora y categoría, jornada, campo y enfrentamiento (con la
+    posición de clasificación de cada equipo). Con resultado ya conocido: hora y categoría,
+    jornada y campo en su propia línea, y luego cada equipo (sin la posición de clasificación,
+    aquí ya no interesa) con su cantidad de goles, sus goleadores debajo con el minuto y, si
+    las hay, sus tarjetas debajo también con el minuto -local primero, visitante después-."""
     hora = e.get("hora")
     if hora:
         cabecera = f"⏰ *{hora}h* - {e['grupo']}"
     else:
         cabecera = f"🏆 {e['grupo']}"
     campo = limpiar_campo(e.get("campo")) or "por confirmar"
-    pos = e.get("pos") or [None, None]
-    local, visitante = _equipo(e["local"], pos[0]), _equipo(e["visitante"], pos[1])
-    if con_resultado and e.get("resultado"):
-        gl, gv = e["resultado"]
-        linea = f"{_emoji_resultado(e)} {local} {gl} - {gv} {visitante}"
-    else:
-        linea = f"⚽ {local} - {visitante}"
     lineas = [cabecera]
     if e.get("jornada"):
         lineas.append(f"📌 _Jornada {e['jornada']}_")
-    lineas += [f"📍 Campo: {campo}", linea]
+    lineas.append(f"📍 Campo: {campo}")
+    if con_resultado and e.get("resultado"):
+        gl, gv = e["resultado"]
+        goles, tarjetas = e.get("goles") or [], e.get("tarjetas") or []
+        lineas.append(f"{_emoji_para_lado(e, 'local')} {_equipo_resultado(e['local'], gl)}")
+        lineas += _lineas_goleadores(goles, "local")
+        lineas += _lineas_tarjetas(tarjetas, "local")
+        lineas.append(f"{_emoji_para_lado(e, 'visitante')} {_equipo_resultado(e['visitante'], gv)}")
+        lineas += _lineas_goleadores(goles, "visitante")
+        lineas += _lineas_tarjetas(tarjetas, "visitante")
+    else:
+        pos = e.get("pos") or [None, None]
+        local, visitante = _equipo(e["local"], pos[0]), _equipo(e["visitante"], pos[1])
+        lineas.append(f"⚽ {local} - {visitante}")
     return "\n".join(lineas)
 
 
