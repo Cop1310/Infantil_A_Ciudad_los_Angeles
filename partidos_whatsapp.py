@@ -1653,29 +1653,24 @@ def _equipo(par, pos=None):
     return f"*({pos}º)* {limpio}" if pos else limpio  # posición en negrita
 
 
-def _emoji_resultado(e):
-    """🟢 victoria, 🟡 empate, 🔴 derrota de nuestro equipo."""
+def _emoji_resultado_lado(e, lado):
+    """🟢 victoria, 🟡 empate, 🔴 derrota -del equipo de ese lado ('local' o 'visitante'), no
+    solo del nuestro: en el mensaje de resultado cada equipo lleva el emoji de cómo le ha ido A
+    ÉL (si nosotros ganamos, al rival le toca el 🔴, no un balón neutro)."""
     gl, gv = e["resultado"]
-    local, visitante = _es_nuestro(e["local"]), _es_nuestro(e["visitante"])
-    if local == visitante:
-        return "⚽"
-    propios, ajenos = (gl, gv) if local else (gv, gl)
+    propios, ajenos = (gl, gv) if lado == "local" else (gv, gl)
     return "🟢" if propios > ajenos else ("🟡" if propios == ajenos else "🔴")
 
 
 def _equipo_resultado(par, goles_equipo):
-    """Nombre del equipo SIN la posición de clasificación (en el mensaje de resultado ya
-    importa el marcador, no dónde está cada uno en la tabla) seguido de su cantidad de goles."""
-    nombre = _equipo(par)  # sin pasar `pos`: _equipo no añade el prefijo de clasificación
-    palabra = "gol" if goles_equipo == 1 else "goles"
-    return f"{nombre} — *{goles_equipo}* {palabra}"
-
-
-def _emoji_para_lado(e, lado):
-    """El emoji de resultado (🟢/🟡/🔴) solo tiene sentido en la línea de NUESTRO equipo -indica
-    cómo nos ha ido a nosotros-, así que en la línea del rival se deja el balón neutro de siempre."""
-    nuestro_lado = "local" if _es_nuestro(e["local"]) else "visitante"
-    return _emoji_resultado(e) if lado == nuestro_lado else "⚽"
+    """Nombre del equipo en negrita y cursiva -los DOS equipos, no solo el nuestro: en el
+    mensaje de resultado ningún jugador lleva negrita, así que la negrita identifica a los
+    equipos- SIN la posición de clasificación (aquí ya importa el marcador, no dónde está cada
+    uno en la tabla), seguido de su cantidad de goles."""
+    nombre = f"*_{limpiar_equipo(par[1])}_*"
+    if _es_nuestro(par) and ESCUDO:
+        nombre = f"{ESCUDO} {nombre}"
+    return f"{nombre} — *{goles_equipo}*"
 
 
 _ICONO_TARJETA = {"amarilla": "🟨", "roja": "🟥"}
@@ -1720,10 +1715,10 @@ def bloque(e, con_resultado=False):
     if con_resultado and e.get("resultado"):
         gl, gv = e["resultado"]
         goles, tarjetas = e.get("goles") or [], e.get("tarjetas") or []
-        lineas.append(f"{_emoji_para_lado(e, 'local')} {_equipo_resultado(e['local'], gl)}")
+        lineas.append(f"{_emoji_resultado_lado(e, 'local')} {_equipo_resultado(e['local'], gl)}")
         lineas += _lineas_goleadores(goles, "local")
         lineas += _lineas_tarjetas(tarjetas, "local")
-        lineas.append(f"{_emoji_para_lado(e, 'visitante')} {_equipo_resultado(e['visitante'], gv)}")
+        lineas.append(f"{_emoji_resultado_lado(e, 'visitante')} {_equipo_resultado(e['visitante'], gv)}")
         lineas += _lineas_goleadores(goles, "visitante")
         lineas += _lineas_tarjetas(tarjetas, "visitante")
     else:
