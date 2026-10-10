@@ -3,6 +3,36 @@
   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
    "filas": [
     {
+     "dg": 13,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
+     "g": 3,
+     "gc": 2,
+     "gf": 15,
+     "id": "1692",
+     "nombre": "Adepo Palomeras A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 3,
+     "pos": 1,
+     "pts": 9
+    },
+    {
+     "dg": 11,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg",
+     "g": 3,
+     "gc": 1,
+     "gf": 12,
+     "id": "17202267",
+     "nombre": "Velilla A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 3,
+     "pos": 2,
+     "pts": 9
+    },
+    {
      "dg": 8,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
@@ -14,23 +44,8 @@
      "nuestro": false,
      "p": 0,
      "pj": 3,
-     "pos": 1,
+     "pos": 3,
      "pts": 7
-    },
-    {
-     "dg": 10,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
-     "g": 2,
-     "gc": 1,
-     "gf": 11,
-     "id": "1692",
-     "nombre": "Adepo Palomeras A",
-     "nuestro": false,
-     "p": 0,
-     "pj": 2,
-     "pos": 2,
-     "pts": 6
     },
     {
      "dg": 7,
@@ -44,7 +59,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 3,
-     "pos": 3,
+     "pos": 4,
      "pts": 6
     },
     {
@@ -59,7 +74,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
-     "pos": 4,
+     "pos": 5,
      "pts": 6
     },
     {
@@ -74,21 +89,6 @@
      "nuestro": false,
      "p": 1,
      "pj": 3,
-     "pos": 5,
-     "pts": 6
-    },
-    {
-     "dg": 4,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg",
-     "g": 2,
-     "gc": 1,
-     "gf": 5,
-     "id": "17202267",
-     "nombre": "Velilla A",
-     "nuestro": false,
-     "p": 0,
-     "pj": 2,
      "pos": 6,
      "pts": 6
     },
@@ -108,21 +108,6 @@
      "pts": 6
     },
     {
-     "dg": 5,
-     "e": 1,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014266013_cd_santiago_apostol.jpg",
-     "g": 1,
-     "gc": 2,
-     "gf": 7,
-     "id": "1031681",
-     "nombre": "Santiago Apóstol Villaverde A",
-     "nuestro": false,
-     "p": 0,
-     "pj": 2,
-     "pos": 8,
-     "pts": 4
-    },
-    {
      "dg": 3,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
@@ -134,6 +119,21 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
+     "pos": 8,
+     "pts": 4
+    },
+    {
+     "dg": 2,
+     "e": 1,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014266013_cd_santiago_apostol.jpg",
+     "g": 1,
+     "gc": 6,
+     "gf": 8,
+     "id": "1031681",
+     "nombre": "Santiago Apóstol Villaverde A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 3,
      "pos": 9,
      "pts": 4
     },
@@ -183,21 +183,6 @@
      "pts": 1
     },
     {
-     "dg": -5,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
-     "g": 0,
-     "gc": 7,
-     "gf": 2,
-     "id": "1094",
-     "nombre": "Ad A.Toledo Olivos A",
-     "nuestro": false,
-     "p": 2,
-     "pj": 2,
-     "pos": 13,
-     "pts": 0
-    },
-    {
      "dg": -8,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
@@ -209,6 +194,21 @@
      "nuestro": false,
      "p": 2,
      "pj": 2,
+     "pos": 13,
+     "pts": 0
+    },
+    {
+     "dg": -12,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
+     "g": 0,
+     "gc": 14,
+     "gf": 2,
+     "id": "1094",
+     "nombre": "Ad A.Toledo Olivos A",
+     "nuestro": false,
+     "p": 3,
+     "pj": 3,
      "pos": 14,
      "pts": 0
     },
