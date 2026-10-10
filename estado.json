@@ -35,6 +35,21 @@
     {
      "dg": 7,
      "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
+     "g": 2,
+     "gc": 4,
+     "gf": 11,
+     "id": "886326",
+     "nombre": "Racing de Villaverde A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 3,
+     "pos": 3,
+     "pts": 6
+    },
+    {
+     "dg": 7,
+     "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
      "g": 2,
      "gc": 3,
@@ -44,22 +59,22 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
-     "pos": 3,
+     "pos": 4,
      "pts": 6
     },
     {
-     "dg": 7,
+     "dg": 6,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010913564_logo_poveda.jpg",
      "g": 2,
-     "gc": 1,
+     "gc": 2,
      "gf": 8,
      "id": "2730",
      "nombre": "Union Deportiva la Poveda A",
      "nuestro": false,
-     "p": 0,
-     "pj": 2,
-     "pos": 4,
+     "p": 1,
+     "pj": 3,
+     "pos": 5,
      "pts": 6
     },
     {
@@ -74,7 +89,22 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
-     "pos": 5,
+     "pos": 6,
+     "pts": 6
+    },
+    {
+     "dg": 1,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
+     "g": 2,
+     "gc": 1,
+     "gf": 2,
+     "id": "526135",
+     "nombre": "Esc. Mun. Fut. Villarejo A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 3,
+     "pos": 7,
      "pts": 6
     },
     {
@@ -89,7 +119,7 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
-     "pos": 6,
+     "pos": 8,
      "pts": 4
     },
     {
@@ -104,22 +134,22 @@
      "nuestro": false,
      "p": 0,
      "pj": 2,
-     "pos": 7,
+     "pos": 9,
      "pts": 4
     },
     {
-     "dg": 1,
+     "dg": 4,
      "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
      "g": 1,
-     "gc": 3,
-     "gf": 4,
-     "id": "886326",
-     "nombre": "Racing de Villaverde A",
+     "gc": 5,
+     "gf": 9,
+     "id": "2739614",
+     "nombre": "Rivas Futbol Club B",
      "nuestro": false,
-     "p": 1,
-     "pj": 2,
-     "pos": 8,
+     "p": 2,
+     "pj": 3,
+     "pos": 10,
      "pts": 3
     },
     {
@@ -134,38 +164,8 @@
      "nuestro": false,
      "p": 1,
      "pj": 2,
-     "pos": 9,
-     "pts": 3
-    },
-    {
-     "dg": 0,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
-     "g": 1,
-     "gc": 1,
-     "gf": 1,
-     "id": "526135",
-     "nombre": "Esc. Mun. Fut. Villarejo A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 2,
-     "pos": 10,
-     "pts": 3
-    },
-    {
-     "dg": -4,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
-     "g": 0,
-     "gc": 5,
-     "gf": 1,
-     "id": "2739614",
-     "nombre": "Rivas Futbol Club B",
-     "nuestro": false,
-     "p": 2,
-     "pj": 2,
      "pos": 11,
-     "pts": 0
+     "pts": 3
     },
     {
      "dg": -5,
@@ -213,37 +213,37 @@
      "pts": 0
     },
     {
-     "dg": -10,
+     "dg": -16,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011208343_Escudo_SMLG.png",
      "g": 0,
-     "gc": 12,
-     "gf": 2,
+     "gc": 19,
+     "gf": 3,
      "id": "15704127",
      "nombre": "Stella Maris la Gavia A",
      "nuestro": false,
-     "p": 2,
-     "pj": 2,
+     "p": 3,
+     "pj": 3,
      "pos": 15,
      "pts": 0
     },
     {
-     "dg": -13,
+     "dg": -21,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
      "g": 0,
-     "gc": 15,
+     "gc": 23,
      "gf": 2,
      "id": "13538235",
      "nombre": "Ciudad de los Ángeles A",
      "nuestro": true,
-     "p": 2,
-     "pj": 2,
+     "p": 3,
+     "pj": 3,
      "pos": 16,
      "pts": 0
     }
    ],
-   "jornada": 2,
+   "jornada": 3,
    "titulo": "Preferente Infantil Grupo 5"
   }
  },
@@ -493,6 +493,72 @@
    "escudo_local": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
    "escudo_visitante": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010888615_4427.-CD_CIUDAD_LOS_ANGELES.png",
    "fecha": "2026-10-10",
+   "goles": [
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "AIRAM SANTOS ORTIZ",
+     "lado": "local",
+     "minuto": 1,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "MATEO LOPEZ CAMPOS",
+     "lado": "local",
+     "minuto": 17,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "JAVIER AYLAGAS NIETO",
+     "lado": "local",
+     "minuto": 23,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "ÁLVARO GIL FERNÁNDEZ",
+     "lado": "local",
+     "minuto": 47,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "SAUL ROSARIO ARDILA",
+     "lado": "local",
+     "minuto": 49,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "MARTIN BASTANTE SANCHEZ",
+     "lado": "local",
+     "minuto": 56,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "LUCAS INCHAUSTI GRANDA",
+     "lado": "local",
+     "minuto": 62,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "RIVAS FUTBOL CLUB 'B'",
+     "jugador": "MARCOS ARCE LORENZO",
+     "lado": "local",
+     "minuto": 63,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "11:45",
    "jornada": 3,
@@ -504,7 +570,11 @@
     11,
     16
    ],
-   "resultado": null,
+   "resultado": [
+    8,
+    0
+   ],
+   "tarjetas": [],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
     "13538235",
