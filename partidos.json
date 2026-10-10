@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-10 14:13",
+  "generado": "2026-10-10 17:03",
   "desde": "2026-10-10",
   "hasta": "2026-10-11",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n⚽ *(11º)* Rivas Futbol Club B - *(16º)* *_Ciudad de los Ángeles A_*",
@@ -1193,6 +1193,21 @@
       "filas": [
         {
           "pos": 1,
+          "id": "846631",
+          "nombre": "Club Seccion Deportiva del Pozo A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
+          "pj": 3,
+          "g": 2,
+          "e": 1,
+          "p": 0,
+          "gf": 11,
+          "gc": 3,
+          "dg": 8,
+          "pts": 7
+        },
+        {
+          "pos": 2,
           "id": "1692",
           "nombre": "Adepo Palomeras A",
           "nuestro": false,
@@ -1204,21 +1219,6 @@
           "gf": 11,
           "gc": 1,
           "dg": 10,
-          "pts": 6
-        },
-        {
-          "pos": 2,
-          "id": "846631",
-          "nombre": "Club Seccion Deportiva del Pozo A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
-          "pj": 2,
-          "g": 2,
-          "e": 0,
-          "p": 0,
-          "gf": 10,
-          "gc": 2,
-          "dg": 8,
           "pts": 6
         },
         {
@@ -1358,6 +1358,21 @@
         },
         {
           "pos": 12,
+          "id": "2786",
+          "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012219483_navbarApp.png",
+          "pj": 3,
+          "g": 0,
+          "e": 1,
+          "p": 2,
+          "gf": 1,
+          "gc": 6,
+          "dg": -5,
+          "pts": 1
+        },
+        {
+          "pos": 13,
           "id": "1094",
           "nombre": "Ad A.Toledo Olivos A",
           "nuestro": false,
@@ -1368,21 +1383,6 @@
           "p": 2,
           "gf": 2,
           "gc": 7,
-          "dg": -5,
-          "pts": 0
-        },
-        {
-          "pos": 13,
-          "id": "2786",
-          "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012219483_navbarApp.png",
-          "pj": 2,
-          "g": 0,
-          "e": 0,
-          "p": 2,
-          "gf": 0,
-          "gc": 5,
           "dg": -5,
           "pts": 0
         },
