@@ -681,11 +681,24 @@
       '<div class="nombre-mc">' + nombre + '</div>' + golNum + '</div>';
   }
 
+  // Línea de equipo del nuevo formato de "resultados" (goleadores y tarjetas ya en líneas
+  // propias, ver bloque() en el backend): "{🟢|🟡|🔴} {equipo con formato} — *{goles}*". Ya no
+  // lleva balón neutro para el rival (ambos equipos llevan su propio emoji de resultado), así
+  // que "⚽" al principio de línea identifica sin ambigüedad a un goleador, no a un equipo.
+  // OJO: estos emojis son caracteres "astrales" (fuera del BMP, par subrogado en UTF-16); puestos
+  // dentro de una clase [...] sin el flag /u, el motor de JS los trocea en sus dos mitades y la
+  // clase deja de significar lo que parece -por eso aquí van como alternancia (a|b|c), no [abc].
+  var RE_LINEA_EQUIPO = /^(🟢|🟡|🔴)\s+(.+?)\s+—\s+\*(\d+)\*\s*$/;
+  var RE_LINEA_GOL = /^⚽\s+\d+'\s/;
+  var RE_LINEA_TARJETA = /^(?:🟨|🟥)\s+\d+'\s/;
+
   // Analiza un bloque de texto de un partido (el mismo formato de "texto"/"resultados" que ya
   // se usa para pintar Partidos/Resultados) y saca hora, título de la competición, jornada,
   // campo y los dos equipos. Se usa tanto para pintar esas dos pestañas como para el generador
   // de convocatoria de la pestaña Entrenador, así no hay dos sitios leyendo el mismo texto con
-  // patrones distintos que se puedan desincronizar.
+  // patrones distintos que se puedan desincronizar. Los goleadores y tarjetas (si los hay) se
+  // ignoran aquí -ya llegan aparte, estructurados, en detalle_resultados/golesHtml-; esta
+  // función solo necesita identificar las líneas de cada equipo.
   function analizarBloquePartido(bloque) {
     var l = bloque.split("\n"), hora = null, titulo, jor = null, campo = null, eq = null;
     var cab = /^⏰\s*\*(\d{2}:\d{2})h\*\s*-\s*(.+)$/.exec(l[0]);
@@ -695,12 +708,20 @@
       if (!t) return null;
       titulo = t[1];
     }
+    var equipos = []; // 2 líneas si ya hay resultado (formato nuevo); si no, 0 (formato antiguo de 1 línea)
     for (var i = 1; i < l.length; i++) {
       var j = /^📌\s*_Jornada (\d+)_$/.exec(l[i]);
       var c = /^📍\s*(?:Campo|Pabellón):\s*(.+)$/.exec(l[i]);
+      var eqL = RE_LINEA_EQUIPO.exec(l[i]);
       if (j) jor = j[1];
       else if (c) campo = c[1];
-      else eq = partirEquipos(l[i]);
+      else if (eqL) equipos.push({ icono: eqL[1], nombre: eqL[2], goles: eqL[3] });
+      else if (RE_LINEA_GOL.test(l[i]) || RE_LINEA_TARJETA.test(l[i])) { /* goleador/tarjeta: no hace falta aquí */ }
+      else if (!equipos.length) eq = partirEquipos(l[i]); // formato antiguo de una sola línea (sin resultado aún)
+    }
+    if (equipos.length === 2) {
+      eq = { icono: equipos[0].icono, local: equipos[0].nombre, visitante: equipos[1].nombre,
+             marcador: [equipos[0].goles, equipos[1].goles] };
     }
     if (!eq) return null;
     return { hora: hora, titulo: titulo, jor: jor, campo: campo, eq: eq };
@@ -1679,10 +1700,16 @@
       var apodoEsManual = apodo !== null;
       var fechaEsManual = fechaNac !== null;
       // La foto y la baja ("eliminado") se guardan aparte, en cuanto se elige un archivo o se
-      // confirma la baja: aquí solo se respeta lo que ya hubiera, para no perderlo al tocar los
-      // otros campos.
+      // confirma la baja: aquí solo se respeta lo que ya hubiera. OJO: "lo que ya hubiera" no es
+      // solo overridesPlantilla[id].foto (el borrador de ESTE navegador) -también hay que mirar
+      // la foto ya fusionada en datos.plantilla (web.foto), que es la que de verdad se ve en la
+      // fila, porque pudo haberla guardado una sesión anterior ya incorporada por el script. Si
+      // solo se mirara el override de este navegador, cualquier sesión nueva (otro día, otro
+      // dispositivo, o simplemente después de que el script ya la hubiera aplicado una vez) la
+      // exportaría como null y la foto se perdería al guardar -el mismo fallo que tenían el
+      // dorsal y la fecha de nacimiento, pero con las fotos.
       var previo = overridesPlantilla[id] || {};
-      var fotoActual = previo.foto || null;
+      var fotoActual = previo.foto || web.foto || null;
       var eliminadoActual = !!previo.eliminado;
       if (nombreEsManual || dorsalEsManual || apodoEsManual || fechaEsManual || fotoActual || eliminadoActual) {
         overridesPlantilla[id] = {
