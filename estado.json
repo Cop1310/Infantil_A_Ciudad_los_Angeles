@@ -254,9 +254,9 @@
   "hechas": {},
   "proximas": {
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
-    "actual": 3,
+    "actual": 4,
     "cursor": null,
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-12",
     "total": 30
    }
   },
@@ -586,15 +586,18 @@
    "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png",
-   "fecha": "2026-10-17",
+   "fecha": "2026-10-18",
    "grupo": "Preferente Infantil Grupo 5",
-   "hora": null,
+   "hora": "09:00",
    "jornada": 4,
    "local": [
     "13538235",
     "C.D. CIUDAD LOS ANGELES 'A'"
    ],
-   "pos": null,
+   "pos": [
+    16,
+    15
+   ],
    "resultado": null,
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
@@ -837,7 +840,7 @@
    "acta": "https://www.elbalondemadrid.es/acta/5606468?temporada=22&competicion=26737819&grupo=26737824",
    "campo": "PVO. OROQUIETA - FELIX RUBIO (HA)",
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
-   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg",
+   "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014266013_cd_santiago_apostol.jpg",
    "fecha": "2027-02-06",
    "grupo": "Preferente Infantil Grupo 5",
    "hora": null,

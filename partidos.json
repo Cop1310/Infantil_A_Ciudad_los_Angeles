@@ -1,8 +1,8 @@
 {
-  "generado": "2026-10-12 01:08",
+  "generado": "2026-10-12 17:00",
   "desde": "2026-10-17",
   "hasta": "2026-10-18",
-  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Stella Maris la Gavia A",
+  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Stella Maris la Gavia A",
   "resultados_desde": "2026-10-10",
   "resultados_hasta": "2026-10-11",
   "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 10/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:45h* - Preferente Infantil Grupo 5\n📌 _Jornada 3_\n📍 Campo: Rivas. Polígono Santa Ana\n🟢 *_Rivas Futbol Club B_* — *8*\n⚽ 1' AIRAM SANTOS ORTIZ\n⚽ 17' MATEO LOPEZ CAMPOS\n⚽ 23' JAVIER AYLAGAS NIETO\n⚽ 47' ÁLVARO GIL FERNÁNDEZ\n⚽ 49' SAUL ROSARIO ARDILA\n⚽ 56' MARTIN BASTANTE SANCHEZ\n⚽ 62' LUCAS INCHAUSTI GRANDA\n⚽ 63' MARCOS ARCE LORENZO\n🔴 *_Ciudad de los Ángeles A_* — *0*",
@@ -211,7 +211,7 @@
     },
     {
       "sabado": "2026-10-17",
-      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *PENDIENTE DE CONFIRMAR DÍA Y HORA*\n━━━━━━━━━━━━━━━━\n\n🏆 Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Stella Maris la Gavia A",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Stella Maris la Gavia A",
       "resultados": ""
     },
     {
@@ -569,68 +569,68 @@
           ],
           "goles": [
             {
-              "minuto": 1,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "AIRAM SANTOS ORTIZ",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 1,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 17,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "MATEO LOPEZ CAMPOS",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 17,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 23,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "JAVIER AYLAGAS NIETO",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 23,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 47,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "ÁLVARO GIL FERNÁNDEZ",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 47,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 49,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "SAUL ROSARIO ARDILA",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 49,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 56,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "MARTIN BASTANTE SANCHEZ",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 56,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 62,
+              "equipo": "RIVAS FUTBOL CLUB 'B'",
               "jugador": "LUCAS INCHAUSTI GRANDA",
-              "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "lado": "local",
+              "minuto": 62,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 63,
-              "jugador": "MARCOS ARCE LORENZO",
               "equipo": "RIVAS FUTBOL CLUB 'B'",
+              "jugador": "MARCOS ARCE LORENZO",
+              "lado": "local",
+              "minuto": 63,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             }
           ],
           "tarjetas": []
@@ -793,7 +793,7 @@
       "sabado": "2026-10-17",
       "partidos": [
         {
-          "fecha": "2026-10-17",
+          "fecha": "2026-10-18",
           "grupo": "Preferente Infantil Grupo 5",
           "jornada": 4,
           "local": "Ciudad de los Ángeles A",
@@ -967,7 +967,7 @@
           "local": "Ciudad de los Ángeles A",
           "visitante": "Santiago Apóstol Villaverde A",
           "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
-          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0010864450_escudo_nuevo.jpg"
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014266013_cd_santiago_apostol.jpg"
         }
       ]
     },
