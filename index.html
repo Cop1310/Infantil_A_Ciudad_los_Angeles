@@ -337,6 +337,12 @@
     max-height: 2.4em; overflow: hidden;
   }
   .ficha-puesto { font-size: 0.72rem; font-weight: 600; color: rgba(255, 255, 255, 0.78); margin-top: 1px; }
+  /* Insignia de goles sobre la ficha "cromo" (vista pública): esquina superior derecha, para
+     no tapar la cara ni el dorsal/nombre de abajo. Solo aparece si el jugador ha marcado. */
+  .ficha-goles {
+    position: absolute; top: 6px; right: 6px; background: rgba(8, 6, 26, 0.72); color: #fff;
+    font-size: 0.78rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; line-height: 1.3;
+  }
 
   .admin-barra { display: flex; justify-content: center; margin: 0 0 12px; }
   .subtitulo-admin { font-size: 1rem; font-weight: 800; margin: 18px 0 8px; }
@@ -1549,7 +1555,12 @@
         var fotoHtml = j.foto
           ? '<img class="avatar-foto" src="' + j.foto + '" alt="">'
           : '<div class="ficha-sin-foto">' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "?") + "</div>";
-        return '<div class="ficha-jugador">' + fotoHtml +
+        // Insignia de goles (ver golesPorJugador): se reutiliza el mismo recuento que ya se
+        // usaba en la vista de administrador -antes de la rejilla de "fichas tipo cromo" esto
+        // se mostraba junto al nombre en la lista pública, y al cambiar a fichas se perdió-.
+        var nGoles = goles[normNombre(j.nombre)] || 0;
+        var golesHtmlFicha = nGoles ? '<div class="ficha-goles">⚽ ' + nGoles + "</div>" : "";
+        return '<div class="ficha-jugador">' + fotoHtml + golesHtmlFicha +
           '<div class="ficha-pie">' +
           '<div class="ficha-dorsal">' + (j.dorsal !== null && j.dorsal !== undefined ? j.dorsal : "") + '</div>' +
           '<div class="ficha-nombre">' + escapar(j.apodo || j.nombre) + "</div>" +
