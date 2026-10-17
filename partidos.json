@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-17 14:59",
+  "generado": "2026-10-17 17:56",
   "desde": "2026-10-17",
   "hasta": "2026-10-18",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Stella Maris la Gavia A",
@@ -1205,6 +1205,21 @@
         },
         {
           "pos": 3,
+          "id": "886326",
+          "nombre": "Racing de Villaverde A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
+          "pj": 4,
+          "g": 3,
+          "e": 0,
+          "p": 1,
+          "gf": 16,
+          "gc": 6,
+          "dg": 10,
+          "pts": 9
+        },
+        {
+          "pos": 4,
           "id": "2730",
           "nombre": "Union Deportiva la Poveda A",
           "nuestro": false,
@@ -1219,7 +1234,22 @@
           "pts": 9
         },
         {
-          "pos": 4,
+          "pos": 5,
+          "id": "1549",
+          "nombre": "Escuela de Futbol Arganda A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
+          "pj": 4,
+          "g": 3,
+          "e": 0,
+          "p": 1,
+          "gf": 12,
+          "gc": 6,
+          "dg": 6,
+          "pts": 9
+        },
+        {
+          "pos": 6,
           "id": "1031993",
           "nombre": "Fundacion Rayo Vallecano C",
           "nuestro": false,
@@ -1234,7 +1264,7 @@
           "pts": 9
         },
         {
-          "pos": 5,
+          "pos": 7,
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
@@ -1249,7 +1279,7 @@
           "pts": 7
         },
         {
-          "pos": 6,
+          "pos": 8,
           "id": "13613759",
           "nombre": "Fundacion Leganes C",
           "nuestro": false,
@@ -1262,36 +1292,6 @@
           "gc": 2,
           "dg": 4,
           "pts": 7
-        },
-        {
-          "pos": 7,
-          "id": "886326",
-          "nombre": "Racing de Villaverde A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
-          "pj": 3,
-          "g": 2,
-          "e": 0,
-          "p": 1,
-          "gf": 11,
-          "gc": 4,
-          "dg": 7,
-          "pts": 6
-        },
-        {
-          "pos": 8,
-          "id": "1549",
-          "nombre": "Escuela de Futbol Arganda A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
-          "pj": 3,
-          "g": 2,
-          "e": 0,
-          "p": 1,
-          "gf": 10,
-          "gc": 5,
-          "dg": 5,
-          "pts": 6
         },
         {
           "pos": 9,
@@ -1329,13 +1329,13 @@
           "nombre": "Santiago Apóstol Villaverde A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014266013_cd_santiago_apostol.jpg",
-          "pj": 3,
+          "pj": 4,
           "g": 1,
           "e": 1,
-          "p": 1,
-          "gf": 8,
-          "gc": 6,
-          "dg": 2,
+          "p": 2,
+          "gf": 9,
+          "gc": 8,
+          "dg": 1,
           "pts": 4
         },
         {
@@ -1344,13 +1344,13 @@
           "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012219483_navbarApp.png",
-          "pj": 3,
+          "pj": 4,
           "g": 0,
           "e": 1,
-          "p": 2,
-          "gf": 1,
-          "gc": 6,
-          "dg": -5,
+          "p": 3,
+          "gf": 3,
+          "gc": 11,
+          "dg": -8,
           "pts": 1
         },
         {
