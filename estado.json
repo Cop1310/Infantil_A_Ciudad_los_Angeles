@@ -93,18 +93,33 @@
      "pts": 9
     },
     {
-     "dg": 8,
+     "dg": 2,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
+     "g": 3,
+     "gc": 4,
+     "gf": 6,
+     "id": "526135",
+     "nombre": "Esc. Mun. Fut. Villarejo A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 4,
+     "pos": 7,
+     "pts": 9
+    },
+    {
+     "dg": 7,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
      "g": 2,
-     "gc": 3,
-     "gf": 11,
+     "gc": 7,
+     "gf": 14,
      "id": "846631",
      "nombre": "Club Seccion Deportiva del Pozo A",
      "nuestro": false,
-     "p": 0,
-     "pj": 3,
-     "pos": 7,
+     "p": 1,
+     "pj": 4,
+     "pos": 8,
      "pts": 7
     },
     {
@@ -119,23 +134,8 @@
      "nuestro": false,
      "p": 1,
      "pj": 4,
-     "pos": 8,
-     "pts": 7
-    },
-    {
-     "dg": 1,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
-     "g": 2,
-     "gc": 1,
-     "gf": 2,
-     "id": "526135",
-     "nombre": "Esc. Mun. Fut. Villarejo A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 3,
      "pos": 9,
-     "pts": 6
+     "pts": 7
     },
     {
      "dg": 4,
