@@ -587,6 +587,48 @@
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png",
    "fecha": "2026-10-18",
+   "goles": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "DAVID PEINADO PASTOR",
+     "lado": "local",
+     "minuto": 30,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "GONZALO TORRES ARGENTA",
+     "lado": "local",
+     "minuto": 52,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "S.A.D. STELLA MARIS LA GAVIA 'A'",
+     "jugador": "ALEJANDRO JIMÉNEZ SANTANA",
+     "lado": "visitante",
+     "minuto": 6,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "S.A.D. STELLA MARIS LA GAVIA 'A'",
+     "jugador": "ANGEL JIMENEZ SANTANA",
+     "lado": "visitante",
+     "minuto": 54,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "S.A.D. STELLA MARIS LA GAVIA 'A'",
+     "jugador": "ANGEL JIMENEZ SANTANA",
+     "lado": "visitante",
+     "minuto": 69,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "09:00",
    "jornada": 4,
@@ -601,6 +643,22 @@
    "resultado": [
     2,
     3
+   ],
+   "tarjetas": [
+    {
+     "equipo": "S.A.D. STELLA MARIS LA GAVIA 'A'",
+     "jugador": "MATEO DELGADO CERROLAZA",
+     "lado": "visitante",
+     "minuto": 20,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "S.A.D. STELLA MARIS LA GAVIA 'A'",
+     "jugador": "IZAN PARRONDO MARTÍN",
+     "lado": "visitante",
+     "minuto": 60,
+     "tipo": "amarilla"
+    }
    ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
