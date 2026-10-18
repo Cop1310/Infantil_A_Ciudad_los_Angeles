@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-18 02:15",
+  "generado": "2026-10-18 11:25",
   "desde": "2026-10-17",
   "hasta": "2026-10-18",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Stella Maris la Gavia A",
   "resultados_desde": "2026-10-17",
   "resultados_hasta": "2026-10-18",
-  "resultados": "",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n🟢 *_Stella Maris la Gavia A_* — *3*",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -212,7 +212,7 @@
     {
       "sabado": "2026-10-17",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Stella Maris la Gavia A",
-      "resultados": ""
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n🟢 *_Stella Maris la Gavia A_* — *3*"
     },
     {
       "sabado": "2026-10-24",
@@ -639,7 +639,23 @@
     },
     {
       "sabado": "2026-10-17",
-      "partidos": []
+      "partidos": [
+        {
+          "fecha": "2026-10-18",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 4,
+          "local": "Ciudad de los Ángeles A",
+          "visitante": "Stella Maris la Gavia A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011208343_Escudo_SMLG.png",
+          "resultado": [
+            2,
+            3
+          ],
+          "goles": [],
+          "tarjetas": []
+        }
+      ]
     },
     {
       "sabado": "2026-10-24",
@@ -1340,6 +1356,21 @@
         },
         {
           "pos": 12,
+          "id": "15704127",
+          "nombre": "Stella Maris la Gavia A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
+          "pj": 4,
+          "g": 1,
+          "e": 0,
+          "p": 3,
+          "gf": 6,
+          "gc": 21,
+          "dg": -15,
+          "pts": 3
+        },
+        {
+          "pos": 13,
           "id": "2786",
           "nombre": "Udmelidaolimpia - Madrid City Vallecas A",
           "nuestro": false,
@@ -1354,7 +1385,7 @@
           "pts": 1
         },
         {
-          "pos": 13,
+          "pos": 14,
           "id": "6238195",
           "nombre": "Inter Promesas B",
           "nuestro": false,
@@ -1366,21 +1397,6 @@
           "gf": 7,
           "gc": 17,
           "dg": -10,
-          "pts": 0
-        },
-        {
-          "pos": 14,
-          "id": "15704127",
-          "nombre": "Stella Maris la Gavia A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
-          "pj": 3,
-          "g": 0,
-          "e": 0,
-          "p": 3,
-          "gf": 3,
-          "gc": 19,
-          "dg": -16,
           "pts": 0
         },
         {
@@ -1404,13 +1420,13 @@
           "nombre": "Ciudad de los Ángeles A",
           "nuestro": true,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
-          "pj": 3,
+          "pj": 4,
           "g": 0,
           "e": 0,
-          "p": 3,
-          "gf": 2,
-          "gc": 23,
-          "dg": -21,
+          "p": 4,
+          "gf": 4,
+          "gc": 26,
+          "dg": -22,
           "pts": 0
         }
       ],
