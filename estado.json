@@ -254,9 +254,9 @@
   "hechas": {},
   "proximas": {
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
-    "actual": 4,
+    "actual": 5,
     "cursor": null,
-    "fecha": "2026-10-18",
+    "fecha": "2026-10-19",
     "total": 30
    }
   },
@@ -673,13 +673,16 @@
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "fecha": "2026-10-24",
    "grupo": "Preferente Infantil Grupo 5",
-   "hora": "13:30",
+   "hora": "12:15",
    "jornada": 5,
    "local": [
     "2786",
     "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'"
    ],
-   "pos": null,
+   "pos": [
+    13,
+    16
+   ],
    "resultado": null,
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
