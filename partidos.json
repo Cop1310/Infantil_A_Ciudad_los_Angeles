@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-23 23:42",
+  "generado": "2026-10-24 02:03",
   "desde": "2026-10-24",
   "hasta": "2026-10-25",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
-  "resultados_desde": "2026-10-17",
-  "resultados_hasta": "2026-10-18",
-  "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 18/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 4_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n⚽ 30' DAVID PEINADO PASTOR\n⚽ 52' GONZALO TORRES ARGENTA\n🟢 *_Stella Maris la Gavia A_* — *3*\n⚽ 6' ALEJANDRO JIMÉNEZ SANTANA\n⚽ 54' ANGEL JIMENEZ SANTANA\n⚽ 69' ANGEL JIMENEZ SANTANA\n🟨 20' MATEO DELGADO CERROLAZA\n🟨 60' IZAN PARRONDO MARTÍN",
+  "resultados_desde": "2026-10-24",
+  "resultados_hasta": "2026-10-25",
+  "resultados": "",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -196,7 +196,7 @@
     {
       "tipo": "cumpleanos",
       "rol": "jugador",
-      "texto": "Joni",
+      "texto": "Lucho",
       "foto": null
     }
   ],
