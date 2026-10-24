@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-24 02:03",
+  "generado": "2026-10-24 11:22",
   "desde": "2026-10-24",
   "hasta": "2026-10-25",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
@@ -1254,6 +1254,21 @@
       "filas": [
         {
           "pos": 1,
+          "id": "1692",
+          "nombre": "Adepo Palomeras A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
+          "pj": 5,
+          "g": 4,
+          "e": 1,
+          "p": 0,
+          "gf": 24,
+          "gc": 3,
+          "dg": 21,
+          "pts": 13
+        },
+        {
+          "pos": 2,
           "id": "17202267",
           "nombre": "Velilla A",
           "nuestro": false,
@@ -1266,21 +1281,6 @@
           "gc": 2,
           "dg": 12,
           "pts": 12
-        },
-        {
-          "pos": 2,
-          "id": "1692",
-          "nombre": "Adepo Palomeras A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
-          "pj": 4,
-          "g": 3,
-          "e": 1,
-          "p": 0,
-          "gf": 16,
-          "gc": 3,
-          "dg": 13,
-          "pts": 10
         },
         {
           "pos": 3,
@@ -1423,13 +1423,13 @@
           "nombre": "Stella Maris la Gavia A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
-          "pj": 4,
+          "pj": 5,
           "g": 1,
           "e": 0,
-          "p": 3,
+          "p": 4,
           "gf": 6,
-          "gc": 21,
-          "dg": -15,
+          "gc": 29,
+          "dg": -23,
           "pts": 3
         },
         {

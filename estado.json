@@ -3,6 +3,21 @@
   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
    "filas": [
     {
+     "dg": 21,
+     "e": 1,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
+     "g": 4,
+     "gc": 3,
+     "gf": 24,
+     "id": "1692",
+     "nombre": "Adepo Palomeras A",
+     "nuestro": false,
+     "p": 0,
+     "pj": 5,
+     "pos": 1,
+     "pts": 13
+    },
+    {
      "dg": 12,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg",
@@ -14,23 +29,8 @@
      "nuestro": false,
      "p": 0,
      "pj": 4,
-     "pos": 1,
-     "pts": 12
-    },
-    {
-     "dg": 13,
-     "e": 1,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
-     "g": 3,
-     "gc": 3,
-     "gf": 16,
-     "id": "1692",
-     "nombre": "Adepo Palomeras A",
-     "nuestro": false,
-     "p": 0,
-     "pj": 4,
      "pos": 2,
-     "pts": 10
+     "pts": 12
     },
     {
      "dg": 10,
@@ -168,17 +168,17 @@
      "pts": 4
     },
     {
-     "dg": -15,
+     "dg": -23,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
      "g": 1,
-     "gc": 21,
+     "gc": 29,
      "gf": 6,
      "id": "15704127",
      "nombre": "Stella Maris la Gavia A",
      "nuestro": false,
-     "p": 3,
-     "pj": 4,
+     "p": 4,
+     "pj": 5,
      "pos": 12,
      "pts": 3
     },
