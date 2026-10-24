@@ -672,6 +672,48 @@
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012219483_navbarApp.png",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "fecha": "2026-10-24",
+   "goles": [
+    {
+     "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+     "jugador": "ELIAS ALBERTO ROJAS",
+     "lado": "local",
+     "minuto": 36,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+     "jugador": "LUCAS CALVO GRANDA",
+     "lado": "local",
+     "minuto": 41,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+     "jugador": "LEO ANDES PULIDO",
+     "lado": "local",
+     "minuto": 54,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+     "jugador": "ANDRES SANCHEZ VALVERDE",
+     "lado": "local",
+     "minuto": 64,
+     "penalti": true,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "DERECK FELIPE JANEIRO VALDIVIA",
+     "lado": "visitante",
+     "minuto": 32,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "12:15",
    "jornada": 5,
@@ -686,6 +728,36 @@
    "resultado": [
     4,
     1
+   ],
+   "tarjetas": [
+    {
+     "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+     "jugador": "ANDRES SANCHEZ VALVERDE",
+     "lado": "local",
+     "minuto": 31,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "DANIEL FERNÁNDEZ MARTÍNEZ",
+     "lado": "visitante",
+     "minuto": 26,
+     "tipo": "roja"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "visitante",
+     "minuto": 63,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "visitante",
+     "minuto": 73,
+     "tipo": "roja"
+    }
    ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [

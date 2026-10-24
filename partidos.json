@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-24 18:33",
+  "generado": "2026-10-24 18:51",
   "desde": "2026-10-24",
   "hasta": "2026-10-25",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
   "resultados_desde": "2026-10-24",
   "resultados_hasta": "2026-10-25",
-  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n🟢 *_Udmelidaolimpia - Madrid City Vallecas A_* — *4*\n🔴 *_Ciudad de los Ángeles A_* — *1*",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n🟢 *_Udmelidaolimpia - Madrid City Vallecas A_* — *4*\n⚽ 36' ELIAS ALBERTO ROJAS\n⚽ 41' LUCAS CALVO GRANDA\n⚽ 54' LEO ANDES PULIDO\n⚽ 64' ANDRES SANCHEZ VALVERDE (de penalti)\n🟨 31' ANDRES SANCHEZ VALVERDE\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 32' DERECK FELIPE JANEIRO VALDIVIA\n🟥 26' DANIEL FERNÁNDEZ MARTÍNEZ\n🟨 63' MARIO CARRETERO DE CIEN\n🟥 73' MARIO CARRETERO DE CIEN",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -224,7 +224,7 @@
     {
       "sabado": "2026-10-24",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
-      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n🟢 *_Udmelidaolimpia - Madrid City Vallecas A_* — *4*\n🔴 *_Ciudad de los Ángeles A_* — *1*"
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n🟢 *_Udmelidaolimpia - Madrid City Vallecas A_* — *4*\n⚽ 36' ELIAS ALBERTO ROJAS\n⚽ 41' LUCAS CALVO GRANDA\n⚽ 54' LEO ANDES PULIDO\n⚽ 64' ANDRES SANCHEZ VALVERDE (de penalti)\n🟨 31' ANDRES SANCHEZ VALVERDE\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 32' DERECK FELIPE JANEIRO VALDIVIA\n🟥 26' DANIEL FERNÁNDEZ MARTÍNEZ\n🟨 63' MARIO CARRETERO DE CIEN\n🟥 73' MARIO CARRETERO DE CIEN"
     },
     {
       "sabado": "2026-10-31",
@@ -735,8 +735,78 @@
             4,
             1
           ],
-          "goles": [],
-          "tarjetas": []
+          "goles": [
+            {
+              "minuto": 36,
+              "jugador": "ELIAS ALBERTO ROJAS",
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 41,
+              "jugador": "LUCAS CALVO GRANDA",
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 54,
+              "jugador": "LEO ANDES PULIDO",
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 64,
+              "jugador": "ANDRES SANCHEZ VALVERDE",
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "penalti": true,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 32,
+              "jugador": "DERECK FELIPE JANEIRO VALDIVIA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 31,
+              "jugador": "ANDRES SANCHEZ VALVERDE",
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "tipo": "amarilla",
+              "lado": "local"
+            },
+            {
+              "minuto": 26,
+              "jugador": "DANIEL FERNÁNDEZ MARTÍNEZ",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "roja",
+              "lado": "visitante"
+            },
+            {
+              "minuto": 63,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            },
+            {
+              "minuto": 73,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "roja",
+              "lado": "visitante"
+            }
+          ]
         }
       ]
     },
