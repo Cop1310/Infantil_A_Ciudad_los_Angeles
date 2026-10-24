@@ -33,19 +33,19 @@
      "pts": 12
     },
     {
-     "dg": 10,
+     "dg": 11,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
-     "g": 3,
-     "gc": 6,
-     "gf": 16,
+     "g": 4,
+     "gc": 7,
+     "gf": 18,
      "id": "886326",
      "nombre": "Racing de Villaverde A",
      "nuestro": false,
      "p": 1,
-     "pj": 4,
+     "pj": 5,
      "pos": 3,
-     "pts": 9
+     "pts": 12
     },
     {
      "dg": 7,
@@ -93,17 +93,17 @@
      "pts": 9
     },
     {
-     "dg": 2,
+     "dg": 1,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
      "g": 3,
-     "gc": 4,
-     "gf": 6,
+     "gc": 6,
+     "gf": 7,
      "id": "526135",
      "nombre": "Esc. Mun. Fut. Villarejo A",
      "nuestro": false,
-     "p": 1,
-     "pj": 4,
+     "p": 2,
+     "pj": 5,
      "pos": 7,
      "pts": 9
     },
@@ -243,7 +243,7 @@
      "pts": 0
     }
    ],
-   "jornada": 4,
+   "jornada": 5,
    "titulo": "Preferente Infantil Grupo 5"
   }
  },
