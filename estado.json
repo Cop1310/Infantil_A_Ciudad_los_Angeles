@@ -256,7 +256,7 @@
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
     "actual": 5,
     "cursor": null,
-    "fecha": "2026-10-19",
+    "fecha": "2026-10-25",
     "total": 30
    }
   },
@@ -772,7 +772,7 @@
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg",
    "fecha": "2026-10-31",
    "grupo": "Preferente Infantil Grupo 5",
-   "hora": null,
+   "hora": "11:00",
    "jornada": 6,
    "local": [
     "13538235",
