@@ -48,19 +48,19 @@
      "pts": 12
     },
     {
-     "dg": 7,
+     "dg": 10,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010913564_logo_poveda.jpg",
-     "g": 3,
-     "gc": 5,
-     "gf": 12,
+     "g": 4,
+     "gc": 6,
+     "gf": 16,
      "id": "2730",
      "nombre": "Union Deportiva la Poveda A",
      "nuestro": false,
      "p": 1,
-     "pj": 4,
+     "pj": 5,
      "pos": 4,
-     "pts": 9
+     "pts": 12
     },
     {
      "dg": 5,
@@ -213,17 +213,17 @@
      "pts": 0
     },
     {
-     "dg": -16,
+     "dg": -19,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
      "g": 0,
-     "gc": 19,
-     "gf": 3,
+     "gc": 23,
+     "gf": 4,
      "id": "1094",
      "nombre": "Ad A.Toledo Olivos A",
      "nuestro": false,
-     "p": 4,
-     "pj": 4,
+     "p": 5,
+     "pj": 5,
      "pos": 15,
      "pts": 0
     },

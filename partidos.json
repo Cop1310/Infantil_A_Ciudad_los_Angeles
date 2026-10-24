@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-24 18:51",
+  "generado": "2026-10-24 20:58",
   "desde": "2026-10-24",
   "hasta": "2026-10-25",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
@@ -1389,14 +1389,14 @@
           "nombre": "Union Deportiva la Poveda A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0010913564_logo_poveda.jpg",
-          "pj": 4,
-          "g": 3,
+          "pj": 5,
+          "g": 4,
           "e": 0,
           "p": 1,
-          "gf": 12,
-          "gc": 5,
-          "dg": 7,
-          "pts": 9
+          "gf": 16,
+          "gc": 6,
+          "dg": 10,
+          "pts": 12
         },
         {
           "pos": 5,
@@ -1554,13 +1554,13 @@
           "nombre": "Ad A.Toledo Olivos A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
-          "pj": 4,
+          "pj": 5,
           "g": 0,
           "e": 0,
-          "p": 4,
-          "gf": 3,
-          "gc": 19,
-          "dg": -16,
+          "p": 5,
+          "gf": 4,
+          "gc": 23,
+          "dg": -19,
           "pts": 0
         },
         {
