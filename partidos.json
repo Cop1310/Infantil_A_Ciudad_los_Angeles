@@ -1,8 +1,8 @@
 {
-  "generado": "2026-10-25 23:24",
-  "desde": "2026-10-24",
-  "hasta": "2026-10-25",
-  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n⚽ *(13º)* Udmelidaolimpia - Madrid City Vallecas A - *(16º)* *_Ciudad de los Ángeles A_*",
+  "generado": "2026-10-26 01:03",
+  "desde": "2026-10-31",
+  "hasta": "2026-11-01",
+  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(8º)* Esc. Mun. Fut. Villarejo A",
   "resultados_desde": "2026-10-24",
   "resultados_hasta": "2026-10-25",
   "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 24/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *12:15h* - Preferente Infantil Grupo 5\n📌 _Jornada 5_\n📍 Campo: La Union - Vallecas Villa\n🟢 *_Udmelidaolimpia - Madrid City Vallecas A_* — *4*\n⚽ 36' ELIAS ALBERTO ROJAS\n⚽ 41' LUCAS CALVO GRANDA\n⚽ 54' LEO ANDES PULIDO\n⚽ 64' ANDRES SANCHEZ VALVERDE (de penalti)\n🟨 31' ANDRES SANCHEZ VALVERDE\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 32' DERECK FELIPE JANEIRO VALDIVIA\n🟥 26' DANIEL FERNÁNDEZ MARTÍNEZ\n🟨 63' MARIO CARRETERO DE CIEN\n🟥 73' MARIO CARRETERO DE CIEN",
@@ -221,7 +221,7 @@
     },
     {
       "sabado": "2026-10-31",
-      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Esc. Mun. Fut. Villarejo A",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(8º)* Esc. Mun. Fut. Villarejo A",
       "resultados": ""
     },
     {
@@ -730,74 +730,74 @@
           ],
           "goles": [
             {
-              "minuto": 36,
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
               "jugador": "ELIAS ALBERTO ROJAS",
-              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "lado": "local",
+              "minuto": 36,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 41,
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
               "jugador": "LUCAS CALVO GRANDA",
-              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "lado": "local",
+              "minuto": 41,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 54,
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
               "jugador": "LEO ANDES PULIDO",
-              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "lado": "local",
+              "minuto": 54,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 64,
+              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
               "jugador": "ANDRES SANCHEZ VALVERDE",
-              "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
+              "lado": "local",
+              "minuto": 64,
               "penalti": true,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 32,
-              "jugador": "DERECK FELIPE JANEIRO VALDIVIA",
               "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "jugador": "DERECK FELIPE JANEIRO VALDIVIA",
+              "lado": "visitante",
+              "minuto": 32,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             }
           ],
           "tarjetas": [
             {
-              "minuto": 31,
-              "jugador": "ANDRES SANCHEZ VALVERDE",
               "equipo": "UDMELIDAOLIMPIA - MADRID CITY VALLECAS 'A'",
-              "tipo": "amarilla",
-              "lado": "local"
+              "jugador": "ANDRES SANCHEZ VALVERDE",
+              "lado": "local",
+              "minuto": 31,
+              "tipo": "amarilla"
             },
             {
-              "minuto": 26,
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
               "jugador": "DANIEL FERNÁNDEZ MARTÍNEZ",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "roja",
-              "lado": "visitante"
+              "lado": "visitante",
+              "minuto": 26,
+              "tipo": "roja"
             },
             {
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "lado": "visitante",
               "minuto": 63,
-              "jugador": "MARIO CARRETERO DE CIEN",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "amarilla",
-              "lado": "visitante"
+              "tipo": "amarilla"
             },
             {
-              "minuto": 73,
-              "jugador": "MARIO CARRETERO DE CIEN",
               "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "roja",
-              "lado": "visitante"
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "lado": "visitante",
+              "minuto": 73,
+              "tipo": "roja"
             }
           ]
         }

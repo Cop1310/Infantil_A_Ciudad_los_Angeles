@@ -254,9 +254,9 @@
   "hechas": {},
   "proximas": {
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
-    "actual": 5,
+    "actual": 6,
     "cursor": null,
-    "fecha": "2026-10-25",
+    "fecha": "2026-10-26",
     "total": 30
    }
   },
@@ -778,7 +778,10 @@
     "13538235",
     "C.D. CIUDAD LOS ANGELES 'A'"
    ],
-   "pos": null,
+   "pos": [
+    16,
+    8
+   ],
    "resultado": null,
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
