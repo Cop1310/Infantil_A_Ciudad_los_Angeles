@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-31 16:02",
+  "generado": "2026-10-31 16:53",
   "desde": "2026-10-31",
   "hasta": "2026-11-01",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(8º)* Esc. Mun. Fut. Villarejo A",
   "resultados_desde": "2026-10-31",
   "resultados_hasta": "2026-11-01",
-  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n🟢 *_Esc. Mun. Fut. Villarejo A_* — *8*",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n⚽ 19' GONZALO TORRES ARGENTA\n⚽ 67' HUGO MADRUGA PARDO\n🟨 52' MARIO CARRETERO DE CIEN\n🟢 *_Esc. Mun. Fut. Villarejo A_* — *8*\n⚽ 3' PABLO RUIZ HARO\n⚽ 12' MARCOS CESPEDES DIAZ\n⚽ 15' CARLOS CARRION GARCIA\n⚽ 22' CARLOS CARRION GARCIA\n⚽ 23' PABLO RUIZ HARO\n⚽ 27' CARLOS CARRION GARCIA\n⚽ 47' JAIME GALAN VECINO\n⚽ 69' DIEGO MARTINEZ SANCHEZ\n🟨 51' EMMANUEL GALLEGO ORTIZ",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -222,7 +222,7 @@
     {
       "sabado": "2026-10-31",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(8º)* Esc. Mun. Fut. Villarejo A",
-      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n🟢 *_Esc. Mun. Fut. Villarejo A_* — *8*"
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *2*\n⚽ 19' GONZALO TORRES ARGENTA\n⚽ 67' HUGO MADRUGA PARDO\n🟨 52' MARIO CARRETERO DE CIEN\n🟢 *_Esc. Mun. Fut. Villarejo A_* — *8*\n⚽ 3' PABLO RUIZ HARO\n⚽ 12' MARCOS CESPEDES DIAZ\n⚽ 15' CARLOS CARRION GARCIA\n⚽ 22' CARLOS CARRION GARCIA\n⚽ 23' PABLO RUIZ HARO\n⚽ 27' CARLOS CARRION GARCIA\n⚽ 47' JAIME GALAN VECINO\n⚽ 69' DIEGO MARTINEZ SANCHEZ\n🟨 51' EMMANUEL GALLEGO ORTIZ"
     },
     {
       "sabado": "2026-11-07",
@@ -818,8 +818,104 @@
             2,
             8
           ],
-          "goles": [],
-          "tarjetas": []
+          "goles": [
+            {
+              "minuto": 19,
+              "jugador": "GONZALO TORRES ARGENTA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 67,
+              "jugador": "HUGO MADRUGA PARDO",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 3,
+              "jugador": "PABLO RUIZ HARO",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 12,
+              "jugador": "MARCOS CESPEDES DIAZ",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 15,
+              "jugador": "CARLOS CARRION GARCIA",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 22,
+              "jugador": "CARLOS CARRION GARCIA",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 23,
+              "jugador": "PABLO RUIZ HARO",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 27,
+              "jugador": "CARLOS CARRION GARCIA",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 47,
+              "jugador": "JAIME GALAN VECINO",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 69,
+              "jugador": "DIEGO MARTINEZ SANCHEZ",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 52,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "local"
+            },
+            {
+              "minuto": 51,
+              "jugador": "EMMANUEL GALLEGO ORTIZ",
+              "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            }
+          ]
         }
       ]
     },

@@ -771,6 +771,88 @@
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000038321_GetAttachment.jpg",
    "fecha": "2026-10-31",
+   "goles": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "GONZALO TORRES ARGENTA",
+     "lado": "local",
+     "minuto": 19,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "HUGO MADRUGA PARDO",
+     "lado": "local",
+     "minuto": 67,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "PABLO RUIZ HARO",
+     "lado": "visitante",
+     "minuto": 3,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "MARCOS CESPEDES DIAZ",
+     "lado": "visitante",
+     "minuto": 12,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "CARLOS CARRION GARCIA",
+     "lado": "visitante",
+     "minuto": 15,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "CARLOS CARRION GARCIA",
+     "lado": "visitante",
+     "minuto": 22,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "PABLO RUIZ HARO",
+     "lado": "visitante",
+     "minuto": 23,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "CARLOS CARRION GARCIA",
+     "lado": "visitante",
+     "minuto": 27,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "JAIME GALAN VECINO",
+     "lado": "visitante",
+     "minuto": 47,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "DIEGO MARTINEZ SANCHEZ",
+     "lado": "visitante",
+     "minuto": 69,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "11:00",
    "jornada": 6,
@@ -785,6 +867,22 @@
    "resultado": [
     2,
     8
+   ],
+   "tarjetas": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "local",
+     "minuto": 52,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "ESC. MUN. FUT. VILLAREJO 'A'",
+     "jugador": "EMMANUEL GALLEGO ORTIZ",
+     "lado": "visitante",
+     "minuto": 51,
+     "tipo": "amarilla"
+    }
    ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
