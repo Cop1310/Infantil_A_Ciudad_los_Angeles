@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-31 16:53",
+  "generado": "2026-10-31 20:13",
   "desde": "2026-10-31",
   "hasta": "2026-11-01",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 31/10/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *11:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 6_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(8º)* Esc. Mun. Fut. Villarejo A",
@@ -1490,6 +1490,21 @@
         },
         {
           "pos": 4,
+          "id": "1031993",
+          "nombre": "Fundacion Rayo Vallecano C",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011206462_fundacion_esc.jpg",
+          "pj": 6,
+          "g": 5,
+          "e": 0,
+          "p": 1,
+          "gf": 11,
+          "gc": 4,
+          "dg": 7,
+          "pts": 15
+        },
+        {
+          "pos": 5,
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
@@ -1504,7 +1519,7 @@
           "pts": 13
         },
         {
-          "pos": 5,
+          "pos": 6,
           "id": "2730",
           "nombre": "Union Deportiva la Poveda A",
           "nuestro": false,
@@ -1519,7 +1534,7 @@
           "pts": 13
         },
         {
-          "pos": 6,
+          "pos": 7,
           "id": "526135",
           "nombre": "Esc. Mun. Fut. Villarejo A",
           "nuestro": false,
@@ -1531,21 +1546,6 @@
           "gf": 15,
           "gc": 8,
           "dg": 7,
-          "pts": 12
-        },
-        {
-          "pos": 7,
-          "id": "1031993",
-          "nombre": "Fundacion Rayo Vallecano C",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011206462_fundacion_esc.jpg",
-          "pj": 5,
-          "g": 4,
-          "e": 0,
-          "p": 1,
-          "gf": 10,
-          "gc": 4,
-          "dg": 6,
           "pts": 12
         },
         {
@@ -1569,13 +1569,13 @@
           "nombre": "Escuela de Futbol Arganda A",
           "nuestro": false,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
-          "pj": 5,
+          "pj": 6,
           "g": 3,
           "e": 0,
-          "p": 2,
+          "p": 3,
           "gf": 12,
-          "gc": 8,
-          "dg": 4,
+          "gc": 9,
+          "dg": 3,
           "pts": 9
         },
         {

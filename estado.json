@@ -48,6 +48,21 @@
      "pts": 15
     },
     {
+     "dg": 7,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011206462_fundacion_esc.jpg",
+     "g": 5,
+     "gc": 4,
+     "gf": 11,
+     "id": "1031993",
+     "nombre": "Fundacion Rayo Vallecano C",
+     "nuestro": false,
+     "p": 1,
+     "pj": 6,
+     "pos": 4,
+     "pts": 15
+    },
+    {
      "dg": 11,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
@@ -59,7 +74,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 6,
-     "pos": 4,
+     "pos": 5,
      "pts": 13
     },
     {
@@ -74,7 +89,7 @@
      "nuestro": false,
      "p": 1,
      "pj": 6,
-     "pos": 5,
+     "pos": 6,
      "pts": 13
     },
     {
@@ -89,21 +104,6 @@
      "nuestro": false,
      "p": 2,
      "pj": 6,
-     "pos": 6,
-     "pts": 12
-    },
-    {
-     "dg": 6,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011206462_fundacion_esc.jpg",
-     "g": 4,
-     "gc": 4,
-     "gf": 10,
-     "id": "1031993",
-     "nombre": "Fundacion Rayo Vallecano C",
-     "nuestro": false,
-     "p": 1,
-     "pj": 5,
      "pos": 7,
      "pts": 12
     },
@@ -123,17 +123,17 @@
      "pts": 10
     },
     {
-     "dg": 4,
+     "dg": 3,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
      "g": 3,
-     "gc": 8,
+     "gc": 9,
      "gf": 12,
      "id": "1549",
      "nombre": "Escuela de Futbol Arganda A",
      "nuestro": false,
-     "p": 2,
-     "pj": 5,
+     "p": 3,
+     "pj": 6,
      "pos": 9,
      "pts": 9
     },
