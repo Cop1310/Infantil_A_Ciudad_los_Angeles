@@ -153,19 +153,19 @@
      "pts": 8
     },
     {
-     "dg": -7,
+     "dg": -5,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014266013_cd_santiago_apostol.jpg",
-     "g": 1,
-     "gc": 16,
-     "gf": 9,
+     "g": 2,
+     "gc": 18,
+     "gf": 13,
      "id": "1031681",
      "nombre": "Santiago Apóstol Villaverde A",
      "nuestro": false,
      "p": 4,
-     "pj": 6,
+     "pj": 7,
      "pos": 11,
-     "pts": 4
+     "pts": 7
     },
     {
      "dg": -13,
@@ -183,17 +183,17 @@
      "pts": 4
     },
     {
-     "dg": -26,
+     "dg": -28,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
      "g": 1,
-     "gc": 34,
-     "gf": 8,
+     "gc": 38,
+     "gf": 10,
      "id": "15704127",
      "nombre": "Stella Maris la Gavia A",
      "nuestro": false,
-     "p": 5,
-     "pj": 6,
+     "p": 6,
+     "pj": 7,
      "pos": 13,
      "pts": 3
     },
@@ -243,7 +243,7 @@
      "pts": 0
     }
    ],
-   "jornada": 6,
+   "jornada": 7,
    "titulo": "Preferente Infantil Grupo 5"
   }
  },
