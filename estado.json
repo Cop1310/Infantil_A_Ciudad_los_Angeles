@@ -18,6 +18,21 @@
      "pts": 21
     },
     {
+     "dg": 15,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
+     "g": 6,
+     "gc": 11,
+     "gf": 26,
+     "id": "886326",
+     "nombre": "Racing de Villaverde A",
+     "nuestro": false,
+     "p": 1,
+     "pj": 7,
+     "pos": 2,
+     "pts": 18
+    },
+    {
      "dg": 27,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258054_adepo.png",
@@ -29,23 +44,8 @@
      "nuestro": false,
      "p": 1,
      "pj": 7,
-     "pos": 2,
-     "pts": 16
-    },
-    {
-     "dg": 12,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
-     "g": 5,
-     "gc": 9,
-     "gf": 21,
-     "id": "886326",
-     "nombre": "Racing de Villaverde A",
-     "nuestro": false,
-     "p": 1,
-     "pj": 6,
      "pos": 3,
-     "pts": 15
+     "pts": 16
     },
     {
      "dg": 9,
@@ -213,17 +213,17 @@
      "pts": 0
     },
     {
-     "dg": -20,
+     "dg": -23,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
      "g": 0,
-     "gc": 24,
-     "gf": 4,
+     "gc": 29,
+     "gf": 6,
      "id": "1094",
      "nombre": "Ad A.Toledo Olivos A",
      "nuestro": false,
-     "p": 6,
-     "pj": 6,
+     "p": 7,
+     "pj": 7,
      "pos": 15,
      "pts": 0
     },
