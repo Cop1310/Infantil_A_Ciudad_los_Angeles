@@ -896,6 +896,96 @@
    "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012187655_ESCUDO_modified.png",
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
    "fecha": "2026-11-08",
+   "goles": [
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "DANIEL WOLAK",
+     "lado": "local",
+     "minuto": 2,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "FELIPE MALDONADO BORJA",
+     "lado": "local",
+     "minuto": 8,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "DANIEL WOLAK",
+     "lado": "local",
+     "minuto": 13,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "JUAN JOSE BARRIOS CAICEDO",
+     "lado": "local",
+     "minuto": 15,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "DANIEL WOLAK",
+     "lado": "local",
+     "minuto": 30,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "DANIEL WOLAK",
+     "lado": "local",
+     "minuto": 36,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "RUBEN ALONSO FERNANDEZ",
+     "lado": "local",
+     "minuto": 47,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "CDE INTER PROMESAS 'B'",
+     "jugador": "UNAI DE LA ORDEN RODRÍGUEZ",
+     "lado": "local",
+     "minuto": 55,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "visitante",
+     "minuto": 38,
+     "penalti": false,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "ASIER COSTA SIQUEIRA",
+     "lado": "visitante",
+     "minuto": 57,
+     "penalti": true,
+     "propia": false
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+     "lado": "visitante",
+     "minuto": 62,
+     "penalti": false,
+     "propia": false
+    }
+   ],
    "grupo": "Preferente Infantil Grupo 5",
    "hora": "17:35",
    "jornada": 7,
@@ -907,7 +997,26 @@
     14,
     16
    ],
-   "resultado": null,
+   "resultado": [
+    8,
+    3
+   ],
+   "tarjetas": [
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "LUKA GONZALEZ CASO",
+     "lado": "visitante",
+     "minuto": 5,
+     "tipo": "amarilla"
+    },
+    {
+     "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+     "jugador": "MARIO CARRETERO DE CIEN",
+     "lado": "visitante",
+     "minuto": 58,
+     "tipo": "amarilla"
+    }
+   ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
     "13538235",

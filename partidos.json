@@ -1,11 +1,11 @@
 {
-  "generado": "2026-11-08 21:00",
+  "generado": "2026-11-08 22:13",
   "desde": "2026-11-07",
   "hasta": "2026-11-08",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 08/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *17:35h* - Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n⚽ *(14º)* Inter Promesas B - *(16º)* *_Ciudad de los Ángeles A_*",
   "resultados_desde": "2026-11-07",
   "resultados_hasta": "2026-11-08",
-  "resultados": "",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 08/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *17:35h* - Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n🟢 *_Inter Promesas B_* — *8*\n⚽ 2' DANIEL WOLAK\n⚽ 8' FELIPE MALDONADO BORJA\n⚽ 13' DANIEL WOLAK\n⚽ 15' JUAN JOSE BARRIOS CAICEDO\n⚽ 30' DANIEL WOLAK\n⚽ 36' DANIEL WOLAK\n⚽ 47' RUBEN ALONSO FERNANDEZ\n⚽ 55' UNAI DE LA ORDEN RODRÍGUEZ\n🔴 *_Ciudad de los Ángeles A_* — *3*\n⚽ 38' MARIO CARRETERO DE CIEN\n⚽ 57' ASIER COSTA SIQUEIRA (de penalti)\n⚽ 62' MOISES HENRIQUE ROJAS BLANCO\n🟨 5' LUKA GONZALEZ CASO\n🟨 58' MARIO CARRETERO DE CIEN",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -227,7 +227,7 @@
     {
       "sabado": "2026-11-07",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 08/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *17:35h* - Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n⚽ *(14º)* Inter Promesas B - *(16º)* *_Ciudad de los Ángeles A_*",
-      "resultados": ""
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 08/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *17:35h* - Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n🟢 *_Inter Promesas B_* — *8*\n⚽ 2' DANIEL WOLAK\n⚽ 8' FELIPE MALDONADO BORJA\n⚽ 13' DANIEL WOLAK\n⚽ 15' JUAN JOSE BARRIOS CAICEDO\n⚽ 30' DANIEL WOLAK\n⚽ 36' DANIEL WOLAK\n⚽ 47' RUBEN ALONSO FERNANDEZ\n⚽ 55' UNAI DE LA ORDEN RODRÍGUEZ\n🔴 *_Ciudad de los Ángeles A_* — *3*\n⚽ 38' MARIO CARRETERO DE CIEN\n⚽ 57' ASIER COSTA SIQUEIRA (de penalti)\n⚽ 62' MOISES HENRIQUE ROJAS BLANCO\n🟨 5' LUKA GONZALEZ CASO\n🟨 58' MARIO CARRETERO DE CIEN"
     },
     {
       "sabado": "2026-11-14",
@@ -921,7 +921,127 @@
     },
     {
       "sabado": "2026-11-07",
-      "partidos": []
+      "partidos": [
+        {
+          "fecha": "2026-11-08",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 7,
+          "local": "Inter Promesas B",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0012187655_ESCUDO_modified.png",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
+          "resultado": [
+            8,
+            3
+          ],
+          "goles": [
+            {
+              "minuto": 2,
+              "jugador": "DANIEL WOLAK",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 8,
+              "jugador": "FELIPE MALDONADO BORJA",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 13,
+              "jugador": "DANIEL WOLAK",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 15,
+              "jugador": "JUAN JOSE BARRIOS CAICEDO",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 30,
+              "jugador": "DANIEL WOLAK",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 36,
+              "jugador": "DANIEL WOLAK",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 47,
+              "jugador": "RUBEN ALONSO FERNANDEZ",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 55,
+              "jugador": "UNAI DE LA ORDEN RODRÍGUEZ",
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 38,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 57,
+              "jugador": "ASIER COSTA SIQUEIRA",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": true,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 62,
+              "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 5,
+              "jugador": "LUKA GONZALEZ CASO",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            },
+            {
+              "minuto": 58,
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "tipo": "amarilla",
+              "lado": "visitante"
+            }
+          ]
+        }
+      ]
     },
     {
       "sabado": "2026-11-14",
