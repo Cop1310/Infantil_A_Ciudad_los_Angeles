@@ -108,19 +108,34 @@
      "pts": 13
     },
     {
-     "dg": 11,
+     "dg": 10,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011685159_IMG_20190913_WA0008.jpg",
      "g": 4,
-     "gc": 9,
-     "gf": 20,
+     "gc": 12,
+     "gf": 22,
      "id": "846631",
      "nombre": "Club Seccion Deportiva del Pozo A",
      "nuestro": false,
-     "p": 1,
-     "pj": 6,
+     "p": 2,
+     "pj": 7,
      "pos": 8,
      "pts": 13
+    },
+    {
+     "dg": 4,
+     "e": 2,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
+     "g": 3,
+     "gc": 8,
+     "gf": 12,
+     "id": "13613759",
+     "nombre": "Fundacion Leganes C",
+     "nuestro": false,
+     "p": 2,
+     "pj": 7,
+     "pos": 9,
+     "pts": 11
     },
     {
      "dg": 3,
@@ -134,23 +149,8 @@
      "nuestro": false,
      "p": 3,
      "pj": 7,
-     "pos": 9,
-     "pts": 10
-    },
-    {
-     "dg": 3,
-     "e": 2,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
-     "g": 2,
-     "gc": 6,
-     "gf": 9,
-     "id": "13613759",
-     "nombre": "Fundacion Leganes C",
-     "nuestro": false,
-     "p": 2,
-     "pj": 6,
      "pos": 10,
-     "pts": 8
+     "pts": 10
     },
     {
      "dg": -5,
