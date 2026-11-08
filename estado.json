@@ -183,6 +183,21 @@
      "pts": 4
     },
     {
+     "dg": -9,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
+     "g": 1,
+     "gc": 28,
+     "gf": 19,
+     "id": "6238195",
+     "nombre": "Inter Promesas B",
+     "nuestro": false,
+     "p": 6,
+     "pj": 7,
+     "pos": 13,
+     "pts": 3
+    },
+    {
      "dg": -28,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
@@ -194,23 +209,8 @@
      "nuestro": false,
      "p": 6,
      "pj": 7,
-     "pos": 13,
-     "pts": 3
-    },
-    {
-     "dg": -14,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
-     "g": 0,
-     "gc": 25,
-     "gf": 11,
-     "id": "6238195",
-     "nombre": "Inter Promesas B",
-     "nuestro": false,
-     "p": 6,
-     "pj": 6,
      "pos": 14,
-     "pts": 0
+     "pts": 3
     },
     {
      "dg": -23,
@@ -228,17 +228,17 @@
      "pts": 0
     },
     {
-     "dg": -31,
+     "dg": -36,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
      "g": 0,
-     "gc": 38,
-     "gf": 7,
+     "gc": 46,
+     "gf": 10,
      "id": "13538235",
      "nombre": "Ciudad de los Ángeles A",
      "nuestro": true,
-     "p": 6,
-     "pj": 6,
+     "p": 7,
+     "pj": 7,
      "pos": 16,
      "pts": 0
     }
