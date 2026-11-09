@@ -1,8 +1,8 @@
 {
-  "generado": "2026-11-09 00:28",
+  "generado": "2026-11-09 01:56",
   "desde": "2026-11-14",
   "hasta": "2026-11-15",
-  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Ad A.Toledo Olivos A",
+  "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Ad A.Toledo Olivos A",
   "resultados_desde": "2026-11-07",
   "resultados_hasta": "2026-11-08",
   "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 08/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *17:35h* - Preferente Infantil Grupo 5\n📌 _Jornada 7_\n📍 Campo: La Perla\n🟢 *_Inter Promesas B_* — *8*\n⚽ 2' DANIEL WOLAK\n⚽ 8' FELIPE MALDONADO BORJA\n⚽ 13' DANIEL WOLAK\n⚽ 15' JUAN JOSE BARRIOS CAICEDO\n⚽ 30' DANIEL WOLAK\n⚽ 36' DANIEL WOLAK\n⚽ 47' RUBEN ALONSO FERNANDEZ\n⚽ 55' UNAI DE LA ORDEN RODRÍGUEZ\n🔴 *_Ciudad de los Ángeles A_* — *3*\n⚽ 38' MARIO CARRETERO DE CIEN\n⚽ 57' ASIER COSTA SIQUEIRA (de penalti)\n⚽ 62' MOISES HENRIQUE ROJAS BLANCO\n🟨 5' LUKA GONZALEZ CASO\n🟨 58' MARIO CARRETERO DE CIEN",
@@ -231,7 +231,7 @@
     },
     {
       "sabado": "2026-11-14",
-      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *_Ciudad de los Ángeles A_* - Ad A.Toledo Olivos A",
+      "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Ad A.Toledo Olivos A",
       "resultados": ""
     },
     {
@@ -936,108 +936,108 @@
           ],
           "goles": [
             {
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "jugador": "DANIEL WOLAK",
+              "lado": "local",
               "minuto": 2,
-              "jugador": "DANIEL WOLAK",
-              "equipo": "CDE INTER PROMESAS 'B'",
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 8,
+              "equipo": "CDE INTER PROMESAS 'B'",
               "jugador": "FELIPE MALDONADO BORJA",
-              "equipo": "CDE INTER PROMESAS 'B'",
+              "lado": "local",
+              "minuto": 8,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "jugador": "DANIEL WOLAK",
+              "lado": "local",
               "minuto": 13,
-              "jugador": "DANIEL WOLAK",
-              "equipo": "CDE INTER PROMESAS 'B'",
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 15,
+              "equipo": "CDE INTER PROMESAS 'B'",
               "jugador": "JUAN JOSE BARRIOS CAICEDO",
-              "equipo": "CDE INTER PROMESAS 'B'",
+              "lado": "local",
+              "minuto": 15,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "jugador": "DANIEL WOLAK",
+              "lado": "local",
               "minuto": 30,
-              "jugador": "DANIEL WOLAK",
-              "equipo": "CDE INTER PROMESAS 'B'",
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
+              "equipo": "CDE INTER PROMESAS 'B'",
+              "jugador": "DANIEL WOLAK",
+              "lado": "local",
               "minuto": 36,
-              "jugador": "DANIEL WOLAK",
-              "equipo": "CDE INTER PROMESAS 'B'",
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 47,
+              "equipo": "CDE INTER PROMESAS 'B'",
               "jugador": "RUBEN ALONSO FERNANDEZ",
-              "equipo": "CDE INTER PROMESAS 'B'",
+              "lado": "local",
+              "minuto": 47,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 55,
+              "equipo": "CDE INTER PROMESAS 'B'",
               "jugador": "UNAI DE LA ORDEN RODRÍGUEZ",
-              "equipo": "CDE INTER PROMESAS 'B'",
+              "lado": "local",
+              "minuto": 55,
               "penalti": false,
-              "propia": false,
-              "lado": "local"
+              "propia": false
             },
             {
-              "minuto": 38,
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
               "jugador": "MARIO CARRETERO DE CIEN",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "lado": "visitante",
+              "minuto": 38,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 57,
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
               "jugador": "ASIER COSTA SIQUEIRA",
-              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "lado": "visitante",
+              "minuto": 57,
               "penalti": true,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             },
             {
-              "minuto": 62,
-              "jugador": "MOISES HENRIQUE ROJAS BLANCO",
               "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+              "lado": "visitante",
+              "minuto": 62,
               "penalti": false,
-              "propia": false,
-              "lado": "visitante"
+              "propia": false
             }
           ],
           "tarjetas": [
             {
-              "minuto": 5,
-              "jugador": "LUKA GONZALEZ CASO",
               "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "amarilla",
-              "lado": "visitante"
+              "jugador": "LUKA GONZALEZ CASO",
+              "lado": "visitante",
+              "minuto": 5,
+              "tipo": "amarilla"
             },
             {
-              "minuto": 58,
-              "jugador": "MARIO CARRETERO DE CIEN",
               "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
-              "tipo": "amarilla",
-              "lado": "visitante"
+              "jugador": "MARIO CARRETERO DE CIEN",
+              "lado": "visitante",
+              "minuto": 58,
+              "tipo": "amarilla"
             }
           ]
         }
