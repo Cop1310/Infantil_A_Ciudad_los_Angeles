@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-14 01:59",
+  "generado": "2026-11-14 13:00",
   "desde": "2026-11-14",
   "hasta": "2026-11-15",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Ad A.Toledo Olivos A",
@@ -1561,7 +1561,7 @@
   "clasificaciones": [
     {
       "titulo": "Preferente Infantil Grupo 5",
-      "jornada": 7,
+      "jornada": 8,
       "filas": [
         {
           "pos": 1,
@@ -1595,6 +1595,21 @@
         },
         {
           "pos": 3,
+          "id": "526135",
+          "nombre": "Esc. Mun. Fut. Villarejo A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
+          "pj": 8,
+          "g": 6,
+          "e": 0,
+          "p": 2,
+          "gf": 20,
+          "gc": 9,
+          "dg": 11,
+          "pts": 18
+        },
+        {
+          "pos": 4,
           "id": "1692",
           "nombre": "Adepo Palomeras A",
           "nuestro": false,
@@ -1607,21 +1622,6 @@
           "gc": 6,
           "dg": 27,
           "pts": 16
-        },
-        {
-          "pos": 4,
-          "id": "526135",
-          "nombre": "Esc. Mun. Fut. Villarejo A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000038321_GetAttachment.jpg",
-          "pj": 7,
-          "g": 5,
-          "e": 0,
-          "p": 2,
-          "gf": 18,
-          "gc": 9,
-          "dg": 9,
-          "pts": 15
         },
         {
           "pos": 5,
@@ -1655,21 +1655,6 @@
         },
         {
           "pos": 7,
-          "id": "2739614",
-          "nombre": "Rivas Futbol Club B",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
-          "pj": 7,
-          "g": 4,
-          "e": 1,
-          "p": 2,
-          "gf": 21,
-          "gc": 9,
-          "dg": 12,
-          "pts": 13
-        },
-        {
-          "pos": 8,
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
@@ -1680,6 +1665,21 @@
           "p": 2,
           "gf": 22,
           "gc": 12,
+          "dg": 10,
+          "pts": 13
+        },
+        {
+          "pos": 8,
+          "id": "2739614",
+          "nombre": "Rivas Futbol Club B",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
+          "pj": 8,
+          "g": 4,
+          "e": 1,
+          "p": 3,
+          "gf": 21,
+          "gc": 11,
           "dg": 10,
           "pts": 13
         },
@@ -1760,6 +1760,21 @@
         },
         {
           "pos": 14,
+          "id": "1094",
+          "nombre": "Ad A.Toledo Olivos A",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
+          "pj": 8,
+          "g": 1,
+          "e": 0,
+          "p": 7,
+          "gf": 9,
+          "gc": 30,
+          "dg": -21,
+          "pts": 3
+        },
+        {
+          "pos": 15,
           "id": "15704127",
           "nombre": "Stella Maris la Gavia A",
           "nuestro": false,
@@ -1774,33 +1789,18 @@
           "pts": 3
         },
         {
-          "pos": 15,
-          "id": "1094",
-          "nombre": "Ad A.Toledo Olivos A",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
-          "pj": 7,
-          "g": 0,
-          "e": 0,
-          "p": 7,
-          "gf": 6,
-          "gc": 29,
-          "dg": -23,
-          "pts": 0
-        },
-        {
           "pos": 16,
           "id": "13538235",
           "nombre": "Ciudad de los Ángeles A",
           "nuestro": true,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
-          "pj": 7,
+          "pj": 8,
           "g": 0,
           "e": 0,
-          "p": 7,
-          "gf": 10,
-          "gc": 46,
-          "dg": -36,
+          "p": 8,
+          "gf": 11,
+          "gc": 49,
+          "dg": -38,
           "pts": 0
         }
       ],
