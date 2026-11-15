@@ -1,11 +1,11 @@
 {
-  "generado": "2026-11-15 00:51",
+  "generado": "2026-11-15 02:20",
   "desde": "2026-11-14",
   "hasta": "2026-11-15",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Ad A.Toledo Olivos A",
   "resultados_desde": "2026-11-14",
   "resultados_hasta": "2026-11-15",
-  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *1*\n🟢 *_Ad A.Toledo Olivos A_* — *3*",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 37' MOISES HENRIQUE ROJAS BLANCO\n🟢 *_Ad A.Toledo Olivos A_* — *3*\n⚽ 25' ARIAN PEÑA VILLA\n⚽ 39' BILAL BOUNWALA HAFFOUT\n⚽ 49' ARIAN PEÑA VILLA (de penalti)",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -232,7 +232,7 @@
     {
       "sabado": "2026-11-14",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n⚽ *(16º)* *_Ciudad de los Ángeles A_* - *(15º)* Ad A.Toledo Olivos A",
-      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *1*\n🟢 *_Ad A.Toledo Olivos A_* — *3*"
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *SÁBADO 14/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *09:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 8_\n📍 Campo: PVO. Oroquieta - Felix Rubio\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 37' MOISES HENRIQUE ROJAS BLANCO\n🟢 *_Ad A.Toledo Olivos A_* — *3*\n⚽ 25' ARIAN PEÑA VILLA\n⚽ 39' BILAL BOUNWALA HAFFOUT\n⚽ 49' ARIAN PEÑA VILLA (de penalti)"
     },
     {
       "sabado": "2026-11-21",
@@ -1058,7 +1058,40 @@
             1,
             3
           ],
-          "goles": [],
+          "goles": [
+            {
+              "minuto": 37,
+              "jugador": "MOISES HENRIQUE ROJAS BLANCO",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 25,
+              "jugador": "ARIAN PEÑA VILLA",
+              "equipo": "AD A.TOLEDO OLIVOS C.F. 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 39,
+              "jugador": "BILAL BOUNWALA HAFFOUT",
+              "equipo": "AD A.TOLEDO OLIVOS C.F. 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            },
+            {
+              "minuto": 49,
+              "jugador": "ARIAN PEÑA VILLA",
+              "equipo": "AD A.TOLEDO OLIVOS C.F. 'A'",
+              "penalti": true,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
           "tarjetas": []
         }
       ]
