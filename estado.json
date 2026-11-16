@@ -254,9 +254,9 @@
   "hechas": {},
   "proximas": {
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
-    "actual": 8,
+    "actual": 9,
     "cursor": null,
-    "fecha": "2026-11-15",
+    "fecha": "2026-11-16",
     "total": 30
    }
   },
@@ -1098,7 +1098,10 @@
     "13613759",
     "S.A.D. FUNDACION C.D. LEGANES 'C'"
    ],
-   "pos": null,
+   "pos": [
+    8,
+    16
+   ],
    "resultado": null,
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
