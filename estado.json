@@ -123,17 +123,17 @@
      "pts": 14
     },
     {
-     "dg": 11,
+     "dg": 6,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
      "g": 4,
-     "gc": 12,
+     "gc": 17,
      "gf": 23,
      "id": "2739614",
      "nombre": "Rivas Futbol Club B",
      "nuestro": false,
-     "p": 3,
-     "pj": 8,
+     "p": 4,
+     "pj": 9,
      "pos": 9,
      "pts": 13
     },
@@ -168,6 +168,21 @@
      "pts": 10
     },
     {
+     "dg": -1,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
+     "g": 3,
+     "gc": 30,
+     "gf": 29,
+     "id": "6238195",
+     "nombre": "Inter Promesas B",
+     "nuestro": false,
+     "p": 6,
+     "pj": 9,
+     "pos": 12,
+     "pts": 9
+    },
+    {
      "dg": -17,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012219483_navbarApp.png",
@@ -179,23 +194,8 @@
      "nuestro": false,
      "p": 6,
      "pj": 9,
-     "pos": 12,
-     "pts": 7
-    },
-    {
-     "dg": -6,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
-     "g": 2,
-     "gc": 30,
-     "gf": 24,
-     "id": "6238195",
-     "nombre": "Inter Promesas B",
-     "nuestro": false,
-     "p": 6,
-     "pj": 8,
      "pos": 13,
-     "pts": 6
+     "pts": 7
     },
     {
      "dg": -23,
