@@ -256,7 +256,7 @@
    "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
     "actual": 9,
     "cursor": null,
-    "fecha": "2026-11-16",
+    "fecha": "2026-11-22",
     "total": 30
    }
   },
@@ -1116,7 +1116,7 @@
    "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
    "fecha": "2026-11-28",
    "grupo": "Preferente Infantil Grupo 5",
-   "hora": null,
+   "hora": "10:30",
    "jornada": 10,
    "local": [
     "13538235",
