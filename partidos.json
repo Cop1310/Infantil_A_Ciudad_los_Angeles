@@ -1,11 +1,11 @@
 {
-  "generado": "2026-11-22 14:11",
+  "generado": "2026-11-22 17:54",
   "desde": "2026-11-21",
   "hasta": "2026-11-22",
   "texto": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 22/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *13:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 9_\n📍 Campo: Leganes - PVO. la Cantera 2\n⚽ *(8º)* Fundacion Leganes C - *(16º)* *_Ciudad de los Ángeles A_*",
   "resultados_desde": "2026-11-21",
   "resultados_hasta": "2026-11-22",
-  "resultados": "",
+  "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 22/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *13:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 9_\n📍 Campo: Leganes - PVO. la Cantera 2\n🟢 *_Fundacion Leganes C_* — *5*\n⚽ 23' NATHAN JOEL SEGURA SANCHEZ\n⚽ 30' LUIS HERNANDEZ GOMEZ\n⚽ 35' OLIVER DEL OLMO CASAS\n⚽ 53' LUIS HERNANDEZ GOMEZ\n⚽ 57' LUIS HERNANDEZ GOMEZ\n🟨 16' MARTIN OVIASUYI DONAIRE\n🟨 59' DIEGO ESCOLAR ARENAS\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 15' MIGUEL MARTÍN JIMÉNEZ",
   "sin_partido": [],
   "sin_calendario": [],
   "errores": [],
@@ -237,7 +237,7 @@
     {
       "sabado": "2026-11-21",
       "partidos": "Información sacada de la web El Balón de Madrid\n\n━━━━━━━━━━━━━━━━\n📅 *DOMINGO 22/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *13:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 9_\n📍 Campo: Leganes - PVO. la Cantera 2\n⚽ *(8º)* Fundacion Leganes C - *(16º)* *_Ciudad de los Ángeles A_*",
-      "resultados": ""
+      "resultados": "━━━━━━━━━━━━━━━━\n📅 *DOMINGO 22/11/2026*\n━━━━━━━━━━━━━━━━\n\n⏰ *13:00h* - Preferente Infantil Grupo 5\n📌 _Jornada 9_\n📍 Campo: Leganes - PVO. la Cantera 2\n🟢 *_Fundacion Leganes C_* — *5*\n⚽ 23' NATHAN JOEL SEGURA SANCHEZ\n⚽ 30' LUIS HERNANDEZ GOMEZ\n⚽ 35' OLIVER DEL OLMO CASAS\n⚽ 53' LUIS HERNANDEZ GOMEZ\n⚽ 57' LUIS HERNANDEZ GOMEZ\n🟨 16' MARTIN OVIASUYI DONAIRE\n🟨 59' DIEGO ESCOLAR ARENAS\n🔴 *_Ciudad de los Ángeles A_* — *1*\n⚽ 15' MIGUEL MARTÍN JIMÉNEZ"
     },
     {
       "sabado": "2026-11-28",
@@ -1098,7 +1098,87 @@
     },
     {
       "sabado": "2026-11-21",
-      "partidos": []
+      "partidos": [
+        {
+          "fecha": "2026-11-22",
+          "grupo": "Preferente Infantil Grupo 5",
+          "jornada": 9,
+          "local": "Fundacion Leganes C",
+          "visitante": "Ciudad de los Ángeles A",
+          "escudo_local": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
+          "escudo_visitante": "https://appweb.rffm.es/pnfg/pimg/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
+          "resultado": [
+            5,
+            1
+          ],
+          "goles": [
+            {
+              "minuto": 23,
+              "jugador": "NATHAN JOEL SEGURA SANCHEZ",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 30,
+              "jugador": "LUIS HERNANDEZ GOMEZ",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 35,
+              "jugador": "OLIVER DEL OLMO CASAS",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 53,
+              "jugador": "LUIS HERNANDEZ GOMEZ",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 57,
+              "jugador": "LUIS HERNANDEZ GOMEZ",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "penalti": false,
+              "propia": false,
+              "lado": "local"
+            },
+            {
+              "minuto": 15,
+              "jugador": "MIGUEL MARTÍN JIMÉNEZ",
+              "equipo": "C.D. CIUDAD LOS ANGELES 'A'",
+              "penalti": false,
+              "propia": false,
+              "lado": "visitante"
+            }
+          ],
+          "tarjetas": [
+            {
+              "minuto": 16,
+              "jugador": "MARTIN OVIASUYI DONAIRE",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "tipo": "amarilla",
+              "lado": "local"
+            },
+            {
+              "minuto": 59,
+              "jugador": "DIEGO ESCOLAR ARENAS",
+              "equipo": "S.A.D. FUNDACION C.D. LEGANES 'C'",
+              "tipo": "amarilla",
+              "lado": "local"
+            }
+          ]
+        }
+      ]
     },
     {
       "sabado": "2026-11-28",
@@ -1689,6 +1769,21 @@
         },
         {
           "pos": 6,
+          "id": "13613759",
+          "nombre": "Fundacion Leganes C",
+          "nuestro": false,
+          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
+          "pj": 9,
+          "g": 5,
+          "e": 2,
+          "p": 2,
+          "gf": 19,
+          "gc": 10,
+          "dg": 9,
+          "pts": 17
+        },
+        {
+          "pos": 7,
           "id": "846631",
           "nombre": "Club Seccion Deportiva del Pozo A",
           "nuestro": false,
@@ -1703,7 +1798,7 @@
           "pts": 16
         },
         {
-          "pos": 7,
+          "pos": 8,
           "id": "2730",
           "nombre": "Union Deportiva la Poveda A",
           "nuestro": false,
@@ -1715,21 +1810,6 @@
           "gf": 23,
           "gc": 17,
           "dg": 6,
-          "pts": 14
-        },
-        {
-          "pos": 8,
-          "id": "13613759",
-          "nombre": "Fundacion Leganes C",
-          "nuestro": false,
-          "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011114701_00100_0011100932_Fundaci_n_1.png",
-          "pj": 8,
-          "g": 4,
-          "e": 2,
-          "p": 2,
-          "gf": 14,
-          "gc": 9,
-          "dg": 5,
           "pts": 14
         },
         {
@@ -1843,13 +1923,13 @@
           "nombre": "Ciudad de los Ángeles A",
           "nuestro": true,
           "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
-          "pj": 8,
+          "pj": 9,
           "g": 0,
           "e": 0,
-          "p": 8,
-          "gf": 11,
-          "gc": 49,
-          "dg": -38,
+          "p": 9,
+          "gf": 12,
+          "gc": 54,
+          "dg": -42,
           "pts": 0
         }
       ],
