@@ -3,19 +3,19 @@
   "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas": {
    "filas": [
     {
-     "dg": 28,
+     "dg": 29,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0011583701_6A3C328C_DFD7_4844_9D17_14ACE9D1611A.jpeg",
-     "g": 9,
+     "g": 10,
      "gc": 4,
-     "gf": 32,
+     "gf": 33,
      "id": "17202267",
      "nombre": "Velilla A",
      "nuestro": false,
      "p": 0,
-     "pj": 9,
+     "pj": 10,
      "pos": 1,
-     "pts": 27
+     "pts": 30
     },
     {
      "dg": 13,
@@ -63,17 +63,17 @@
      "pts": 19
     },
     {
-     "dg": 14,
+     "dg": 13,
      "e": 1,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000054928_Racing_Villaverde.jpg",
      "g": 6,
-     "gc": 15,
+     "gc": 16,
      "gf": 29,
      "id": "886326",
      "nombre": "Racing de Villaverde A",
      "nuestro": false,
-     "p": 2,
-     "pj": 9,
+     "p": 3,
+     "pj": 10,
      "pos": 5,
      "pts": 19
     },
@@ -123,34 +123,49 @@
      "pts": 14
     },
     {
-     "dg": 6,
-     "e": 1,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
-     "g": 4,
-     "gc": 17,
-     "gf": 23,
-     "id": "2739614",
-     "nombre": "Rivas Futbol Club B",
-     "nuestro": false,
-     "p": 4,
-     "pj": 9,
-     "pos": 9,
-     "pts": 13
-    },
-    {
-     "dg": -1,
+     "dg": 5,
      "e": 2,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000040925_EF_Arganda_3526.jpg",
-     "g": 3,
-     "gc": 17,
-     "gf": 16,
+     "g": 4,
+     "gc": 18,
+     "gf": 23,
      "id": "1549",
      "nombre": "Escuela de Futbol Arganda A",
      "nuestro": false,
      "p": 4,
-     "pj": 9,
+     "pj": 10,
+     "pos": 9,
+     "pts": 14
+    },
+    {
+     "dg": 5,
+     "e": 1,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0000098133_escudo-rivas-fc.png",
+     "g": 4,
+     "gc": 20,
+     "gf": 25,
+     "id": "2739614",
+     "nombre": "Rivas Futbol Club B",
+     "nuestro": false,
+     "p": 5,
+     "pj": 10,
      "pos": 10,
-     "pts": 11
+     "pts": 13
+    },
+    {
+     "dg": 2,
+     "e": 0,
+     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
+     "g": 4,
+     "gc": 30,
+     "gf": 32,
+     "id": "6238195",
+     "nombre": "Inter Promesas B",
+     "nuestro": false,
+     "p": 6,
+     "pj": 10,
+     "pos": 11,
+     "pts": 12
     },
     {
      "dg": -6,
@@ -164,23 +179,8 @@
      "nuestro": false,
      "p": 5,
      "pj": 9,
-     "pos": 11,
-     "pts": 10
-    },
-    {
-     "dg": -1,
-     "e": 0,
-     "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012187655_ESCUDO_modified.png",
-     "g": 3,
-     "gc": 30,
-     "gf": 29,
-     "id": "6238195",
-     "nombre": "Inter Promesas B",
-     "nuestro": false,
-     "p": 6,
-     "pj": 9,
      "pos": 12,
-     "pts": 9
+     "pts": 10
     },
     {
      "dg": -17,
@@ -198,52 +198,52 @@
      "pts": 7
     },
     {
-     "dg": -23,
+     "dg": -22,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0012153463_ESCUDO_ADA_TOLEDO__2_.jpg",
-     "g": 1,
-     "gc": 33,
-     "gf": 10,
+     "g": 2,
+     "gc": 35,
+     "gf": 13,
      "id": "1094",
      "nombre": "Ad A.Toledo Olivos A",
      "nuestro": false,
      "p": 8,
-     "pj": 9,
+     "pj": 10,
      "pos": 14,
-     "pts": 3
+     "pts": 6
     },
     {
-     "dg": -33,
+     "dg": -36,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014277134_LOGO_SMLG___OK__1_.png",
      "g": 1,
-     "gc": 43,
+     "gc": 46,
      "gf": 10,
      "id": "15704127",
      "nombre": "Stella Maris la Gavia A",
      "nuestro": false,
-     "p": 8,
-     "pj": 9,
+     "p": 9,
+     "pj": 10,
      "pos": 15,
      "pts": 3
     },
     {
-     "dg": -42,
+     "dg": -48,
      "e": 0,
      "escudo": "https://www.elbalondemadrid.es/escudo/Clubes/00100_0014258269_ESC_C.D._CIUDAD_DE_LOS__NGELES.png",
      "g": 0,
-     "gc": 54,
-     "gf": 12,
+     "gc": 61,
+     "gf": 13,
      "id": "13538235",
      "nombre": "Ciudad de los Ángeles A",
      "nuestro": true,
-     "p": 9,
-     "pj": 9,
+     "p": 10,
+     "pj": 10,
      "pos": 16,
      "pts": 0
     }
    ],
-   "jornada": 9,
+   "jornada": 10,
    "titulo": "Preferente Infantil Grupo 5"
   }
  },
@@ -1195,7 +1195,10 @@
     16,
     10
    ],
-   "resultado": null,
+   "resultado": [
+    1,
+    7
+   ],
    "url_grupo": "https://www.elbalondemadrid.es/competicion/26737819/grupo/26737824/jornadas",
    "visitante": [
     "1549",
